@@ -42,7 +42,10 @@
     <section class="intro">
       <h2>Fichas de la guía</h2>
       <p>Cada juego tiene lo que dice la caja, lo que opinan los profesionales y sus <strong>votos</strong>: en cada ficha puedes votar con qué diagnósticos y habilidades funciona. Con 3 votos, la etiqueta queda validada y las familias la ven como tal.</p>
-      <p class="aviso-pagina"><a href="#juego-nuevo">¿Falta un juego? Propón uno nuevo</a> · <a href="#cuenta">Cuenta tu experiencia con uno de la lista</a></p>
+      <div class="botones-ventana">
+        <a class="boton-ventana bv-nuevo" href="#juego-nuevo" data-ventana="juego-nuevo"><strong>¿Falta un juego?</strong><span>Propón uno nuevo</span></a>
+        <a class="boton-ventana bv-cuenta" href="#cuenta" data-ventana="cuenta"><strong>Cuenta tu experiencia</strong><span>Con uno de la lista</span></a>
+      </div>
     </section>
 
     <ul class="grid" id="grid"></ul>
@@ -285,7 +288,7 @@
 
   grid.addEventListener('click', function (e) {
     var a = e.target.closest('a[data-juego]');
-    if (a) { document.getElementById('juego').value = a.getAttribute('data-juego'); return; }
+    if (a) { e.preventDefault(); document.getElementById('juego').value = a.getAttribute('data-juego'); abrirVentana('cuenta'); return; }
     var b = e.target.closest('.enviar-voto');
     if (!b) return;
     var det = b.closest('details.votar'), i = Number(det.getAttribute('data-i')), j = JUEGOS[i];
@@ -396,6 +399,33 @@
     return { web: d.web, canal: d.canal, nombre: d.nombre, perfil: d.perfil, juego: d.juegoNuevo,
              comentario: partes.join('\n'), citar: d.citar, origen: 'propuesta-juego' };
   }, 'Gracias. Hemos recibido tu propuesta y la revisaremos.');
+
+  // Ventanas emergentes: «Cuéntanos tu experiencia» y «Propón un juego nuevo» se abren encima de la página.
+  var ventanaAbierta = null;
+  var fondoVentana = document.createElement('div'); fondoVentana.className = 'fondo-ventana'; fondoVentana.hidden = true; document.body.appendChild(fondoVentana);
+  ['cuenta', 'juego-nuevo'].forEach(function (id) {
+    var sec = document.getElementById(id); if (!sec) return;
+    sec.classList.add('ventana'); sec.setAttribute('role', 'dialog'); sec.setAttribute('aria-modal', 'true');
+    var x = document.createElement('button'); x.type = 'button'; x.className = 'cerrar-ventana'; x.textContent = '✕ Cerrar';
+    x.addEventListener('click', cerrarVentana); sec.insertBefore(x, sec.firstChild);
+  });
+  function abrirVentana(id) {
+    var sec = document.getElementById(id); if (!sec) return;
+    cerrarVentana(); sec.classList.add('abierta'); fondoVentana.hidden = false; document.body.classList.add('con-ventana');
+    sec.scrollTop = 0; ventanaAbierta = sec;
+    var primero = sec.querySelector('select, textarea, input[type="text"]:not([tabindex])'); if (primero) { try { primero.focus({ preventScroll: true }); } catch (err) {} }
+  }
+  function cerrarVentana() {
+    if (!ventanaAbierta) return;
+    ventanaAbierta.classList.remove('abierta'); ventanaAbierta = null; fondoVentana.hidden = true; document.body.classList.remove('con-ventana');
+  }
+  fondoVentana.addEventListener('click', cerrarVentana);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') cerrarVentana(); });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('a[data-ventana]'); if (!b) return;
+    e.preventDefault(); abrirVentana(b.getAttribute('data-ventana'));
+  });
+  if (location.hash === '#cuenta' || location.hash === '#juego-nuevo') abrirVentana(location.hash.slice(1));
 </script>
 </body>
 </html>

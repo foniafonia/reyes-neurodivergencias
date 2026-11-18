@@ -315,3 +315,27 @@ details.votar .v-estado { margin: 8px 0 0; font-weight: 700; font-size: 14px; mi
 .boton-inicio:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--tinta); }
 .boton-inicio:focus-visible { outline: 4px solid var(--oro); outline-offset: 3px; }
 @media print { .fila-inicio { display: none; } }
+
+/* ---- Botones grandes que abren ventana (profesionales) ---- */
+.botones-ventana { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 22px 0 0; }
+.boton-ventana { display: grid; gap: 4px; align-content: center; text-decoration: none; color: #fff; padding: 20px 22px 22px; border: 3px solid var(--tinta); border-radius: 22px; box-shadow: 0 7px 0 var(--tinta); position: relative; }
+.boton-ventana::after { content: "+"; position: absolute; right: 18px; top: 12px; font-size: 32px; font-weight: 900; line-height: 1; }
+.boton-ventana strong { font-size: clamp(20px, 4.8vw, 26px); font-weight: 900; line-height: 1.1; padding-right: 34px; }
+.boton-ventana span { font-size: 16px; font-weight: 600; opacity: .95; }
+.boton-ventana:active { transform: translateY(4px); box-shadow: 0 3px 0 var(--tinta); }
+.boton-ventana:focus-visible { outline: 4px solid var(--oro); outline-offset: 3px; }
+.bv-nuevo { background: var(--naranja); }
+.bv-cuenta { background: var(--verde); }
+@media (max-width: 600px) { .botones-ventana { grid-template-columns: 1fr; } }
+
+/* Ventana emergente (el buzón se muestra encima de la página) */
+.fondo-ventana { position: fixed; inset: 0; background: rgba(42, 20, 30, .6); z-index: 90; }
+.fondo-ventana[hidden] { display: none; }
+body.con-ventana { overflow: hidden; }
+.buzon.ventana { display: none; }
+.buzon.ventana.abierta {
+  display: block; position: fixed; z-index: 100; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: min(680px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); overflow-y: auto; margin: 0; -webkit-overflow-scrolling: touch;
+}
+.cerrar-ventana { position: sticky; top: 0; float: right; z-index: 2; margin: -8px -8px 8px 8px; font: inherit; font-weight: 900; font-size: 16px; background: #fff; color: var(--rojo-os); border: 3px solid var(--tinta); border-radius: 999px; padding: 8px 16px; box-shadow: 0 4px 0 var(--tinta); cursor: pointer; }
+@media print { .fondo-ventana, .cerrar-ventana, .botones-ventana { display: none !important; } }
