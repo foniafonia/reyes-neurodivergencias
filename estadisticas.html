@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Reyes Neurodivergencias · cuánta gente entra</title>
+<style>
+  body{font:17px/1.5 system-ui,-apple-system,sans-serif;max-width:680px;margin:0 auto;padding:22px 16px 60px;background:#fff8ec;color:#26202a}
+  h1{font-size:26px;margin:0 0 4px;color:#7d1f33}h2{font-size:19px;margin:26px 0 8px;color:#7d1f33}
+  .sub{color:#6b5d63;margin:0 0 18px}
+  .cajas{display:flex;flex-wrap:wrap;margin:0 -5px}
+  .caja{flex:1 1 140px;margin:5px;background:#fff;border:2px solid #26202a;border-radius:16px;padding:12px 14px;box-shadow:0 4px 0 #26202a}
+  .caja b{display:block;font-size:34px;line-height:1.1}
+  .caja span{font-size:14px;color:#6b5d63}
+  .caja.gorda{background:#b3263f;color:#fff}.caja.gorda span{color:#ffd9de}
+  table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #26202a;border-radius:12px;overflow:hidden}
+  th,td{padding:8px 10px;text-align:right;border-bottom:1px solid #eee3d6;font-variant-numeric:tabular-nums}
+  th:first-child,td:first-child{text-align:left}th{font-size:13px;color:#6b5d63;font-weight:600}
+  .nota{font-size:14px;color:#6b5d63}
+  button{font:inherit;font-weight:700;padding:10px 16px;border-radius:12px;border:2px solid #26202a;background:#e6a21a;color:#26202a;cursor:pointer}
+</style>
+</head>
+<body>
+<h1>Reyes Neurodivergencias</h1>
+<p class="sub">Cuánta gente entra y qué hace. <span id="estado">Cargando… los números llegan poco a poco.</span></p>
+
+<div class="cajas">
+  <div class="caja gorda"><b id="v-reyes_personas">…</b><span>aparatos distintos que han entrado</span></div>
+  <div class="caja"><b id="v-reyes_aperturas">…</b><span>veces abierto</span></div>
+</div>
+
+<h2>¿Qué página abren?</h2>
+<table><thead><tr><th>Página</th><th>Aperturas</th><th>Aparatos distintos</th></tr></thead><tbody>
+  <tr><td>Inicio</td><td id="v-reyes_pag_inicio">…</td><td id="v-reyes_pag_inicio_personas">…</td></tr>
+  <tr><td>Familias</td><td id="v-reyes_pag_familias">…</td><td id="v-reyes_pag_familias_personas">…</td></tr>
+  <tr><td>Profesionales</td><td id="v-reyes_pag_profesionales">…</td><td id="v-reyes_pag_profesionales_personas">…</td></tr>
+  <tr><td>Catálogo</td><td id="v-reyes_pag_catalogo">…</td><td id="v-reyes_pag_catalogo_personas">…</td></tr>
+</tbody></table>
+
+<h2>¿Qué hacen?</h2>
+<div class="cajas">
+  <div class="caja"><b id="v-reyes_acc_envio_voto">…</b><span>votos enviados</span></div>
+  <div class="caja"><b id="v-reyes_acc_envio_comentario">…</b><span>comentarios enviados</span></div>
+  <div class="caja"><b id="v-reyes_acc_envio_propuesta">…</b><span>juegos propuestos</span></div>
+  <div class="caja"><b id="v-reyes_acc_abrir_proponer">…</b><span>abren «Propón un juego»</span></div>
+  <div class="caja"><b id="v-reyes_acc_abrir_experiencia">…</b><span>abren «Cuenta tu experiencia»</span></div>
+  <div class="caja"><b id="v-reyes_acc_carta_juguete">…</b><span>juguetes añadidos a una carta</span></div>
+  <div class="caja"><b id="v-reyes_acc_carta_imprimir">…</b><span>cartas impresas</span></div>
+  <div class="caja"><b id="v-reyes_acc_carta_whatsapp">…</b><span>cartas enviadas por WhatsApp</span></div>
+  <div class="caja"><b id="v-reyes_acc_carta_copiar">…</b><span>cartas copiadas</span></div>
+  <div class="caja"><b id="v-reyes_acc_catalogo_imprimir">…</b><span>catálogos impresos</span></div>
+  <div class="caja"><b id="v-reyes_acc_skool">…</b><span>pulsan «Entrar a la comunidad»</span></div>
+</div>
+
+<h2>Desde el inicio, a dónde van</h2>
+<div class="cajas">
+  <div class="caja"><b id="v-reyes_acc_inicio_familias">…</b><span>«Soy familia»</span></div>
+  <div class="caja"><b id="v-reyes_acc_inicio_profesionales">…</b><span>«Soy profesional»</span></div>
+  <div class="caja"><b id="v-reyes_acc_inicio_catalogo">…</b><span>«Hojear el catálogo»</span></div>
+</div>
+
+<h2>¿De dónde llegan?</h2>
+<p class="nota">Solo cuenta quien entra con un enlace de canal (?c=wa, tg, fb, ig, sk, ln, th). Los que entran sin canal salen en «sin canal».</p>
+<table><thead><tr><th>Canal</th><th>Aperturas</th><th>Aparatos distintos</th></tr></thead><tbody>
+  <tr><td>WhatsApp (wa)</td><td id="v-reyes_canal_wa_aperturas">…</td><td id="v-reyes_canal_wa_personas">…</td></tr>
+  <tr><td>Telegram (tg)</td><td id="v-reyes_canal_tg_aperturas">…</td><td id="v-reyes_canal_tg_personas">…</td></tr>
+  <tr><td>Facebook (fb)</td><td id="v-reyes_canal_fb_aperturas">…</td><td id="v-reyes_canal_fb_personas">…</td></tr>
+  <tr><td>Instagram (ig)</td><td id="v-reyes_canal_ig_aperturas">…</td><td id="v-reyes_canal_ig_personas">…</td></tr>
+  <tr><td>Skool (sk)</td><td id="v-reyes_canal_sk_aperturas">…</td><td id="v-reyes_canal_sk_personas">…</td></tr>
+  <tr><td>LinkedIn (ln)</td><td id="v-reyes_canal_ln_aperturas">…</td><td id="v-reyes_canal_ln_personas">…</td></tr>
+  <tr><td>Threads (th)</td><td id="v-reyes_canal_th_aperturas">…</td><td id="v-reyes_canal_th_personas">…</td></tr>
+  <tr><td>Sin canal</td><td id="v-reyes_canal_sin_aperturas">…</td><td id="v-reyes_canal_sin_personas">…</td></tr>
+</tbody></table>
+
+<h2>Por días</h2>
+<div style="overflow-x:auto"><table><thead><tr><th>Día</th><th>Nuevos</th><th>Aperturas</th></tr></thead><tbody id="dias"></tbody></table></div>
+
+<p style="margin-top:18px"><button type="button" onclick="location.reload()">↻ Actualizar</button></p>
+
+<h2>Cómo leer esto</h2>
+<p class="nota"><b>Aparatos distintos</b> es lo más parecido a «personas»: cada móvil, tableta u ordenador cuenta una vez. Quien entre desde el móvil y desde el ordenador cuenta dos, y quien borre los datos del navegador vuelve a contar.</p>
+<p class="nota">Todo se cuenta desde que se puso el contador, el <b>18 de noviembre de 2026</b>. Las visitas de antes no están.</p>
+<p class="nota">Para que tus propias visitas no cuenten, abre una vez en cada aparato el enlace con <b>?yo=1</b> al final (por ejemplo, inicio.html?yo=1).</p>
+<p class="nota">No guarda nombres, correos ni nada personal: solo cuántas veces pasa cada cosa.</p>
+
+<script>
+  var BASE = 'https://abacus.jasoncameron.dev/get/foniafonia-reyes/';
+  var claves = [].slice.call(document.querySelectorAll('[id^="v-"]')).map(function (e) { return e.id.slice(2); });
+  var hoy = new Date(), inicio = new Date(2026, 10, 18), dias = [];
+  for (var d = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate()); d >= inicio && dias.length < 21; d.setDate(d.getDate() - 1)) {
+    var k = d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2);
+    dias.push({ k: k, txt: d.getDate() + '/' + (d.getMonth() + 1) });
+    claves.push('reyes_dia_' + k + '_personas', 'reyes_dia_' + k + '_aperturas');
+  }
+  var tbody = document.getElementById('dias');
+  dias.forEach(function (x) {
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + x.txt + '</td><td id="d-' + x.k + '_personas">…</td><td id="d-' + x.k + '_aperturas">…</td>';
+    tbody.appendChild(tr);
+  });
+  function poner(k, v) {
+    var el = document.getElementById('v-' + k) || document.getElementById('d-' + k.replace('reyes_dia_', ''));
+    if (el) el.textContent = v;
+  }
+  var i = 0, fallos = 0;
+  function siguiente() {
+    if (i >= claves.length) { document.getElementById('estado').textContent = fallos ? 'Listo (algunos números no se pudieron leer).' : 'Al día.'; return; }
+    var k = claves[i++];
+    fetch(BASE + k).then(function (r) { return r.ok ? r.json() : { value: 0 }; })
+      .then(function (j) { poner(k, (j && j.value) || 0); })
+      .catch(function () { fallos++; poner(k, '?'); })
+      .then(function () { setTimeout(siguiente, 120); });
+  }
+  siguiente();
+</script>
+</body>
+</html>
