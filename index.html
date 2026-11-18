@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Guía de juguetes para profesionales: Neurodivergencias</title>
+<meta name="description" content="Página para profesionales: vota para qué diagnóstico y habilidad funciona cada juguete, cuenta tu experiencia y propón juegos nuevos para la guía de los Reyes.">
+<!-- BORRADOR LOCAL. No publicado.
+     Página de PROFESIONALES. La de familias es familias.html. Comparten estilos.css, juegos.js y filtros.js. -->
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="portada">
+  <div class="wrap">
+    <div class="fila-inicio"><a class="boton-inicio" href="inicio.html">&#8962; Volver al inicio</a></div>
+    <span class="sello">Carta a los Reyes · Guía de juguetes</span>
+    <div class="grupo">
+      <div class="logo-grupo">
+        <img src="assets/grupo-neurodivergencias.png" alt="Logo del grupo Neurodivergencias">
+        <svg class="e1" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.9 7.1L22 9l-5.5 4.8L18.2 21 12 17.2 5.8 21l1.7-7.2L2 9l7.1-.9z"/></svg>
+        <svg class="e2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.9 7.1L22 9l-5.5 4.8L18.2 21 12 17.2 5.8 21l1.7-7.2L2 9l7.1-.9z"/></svg>
+        <svg class="e3" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.9 7.1L22 9l-5.5 4.8L18.2 21 12 17.2 5.8 21l1.7-7.2L2 9l7.1-.9z"/></svg>
+      </div>
+      <div class="grupo-nombre">
+        <strong>Neurodivergencias</strong>
+        <span>Grupo para compartir recursos, investigaciones, ayuda y opiniones</span>
+      </div>
+    </div>
+    <h1>Juguetes para hablar, pensar y jugar en familia</h1>
+    <p class="sub">Página para profesionales: vota, completa las fichas y propón juegos. Con lo que cuentes, las familias tendrán su guía.</p>
+    <span class="cuenta" id="cuentaAtras" hidden></span>
+    <div><a class="enlace-pagina" href="familias.html">Ver cómo la verán las familias</a> &nbsp;·&nbsp; <a class="enlace-pagina" href="catalogo.html">Hojear el catálogo en revista</a></div>
+  </div>
+  <svg class="onda" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24 C 180 52, 360 0, 540 24 S 900 52, 1080 24 S 1320 4, 1440 24 V48 H0Z" fill="#fff8ec"/></svg>
+</header>
+
+<main>
+<div class="layout">
+  <div class="principal">
+    <section class="intro">
+      <h2>Fichas de la guía</h2>
+      <p>Cada juego tiene lo que dice la caja, lo que opinan los profesionales y sus <strong>votos</strong>: en cada ficha puedes votar con qué diagnósticos y habilidades funciona. Con 3 votos, la etiqueta queda validada y las familias la ven como tal.</p>
+      <p class="aviso-pagina"><a href="#juego-nuevo">¿Falta un juego? Propón uno nuevo</a> · <a href="#cuenta">Cuenta tu experiencia con uno de la lista</a></p>
+    </section>
+
+    <ul class="grid" id="grid"></ul>
+    <p class="sin-resultados" id="sinResultados" hidden></p>
+    <noscript><p>Activa JavaScript para ver la lista de juguetes.</p></noscript>
+    <p class="nota">Edad y jugadores son orientativos, tomados de tiendas. Los precios son rangos orientativos vistos en Amazon.es el 18 de noviembre de 2026 y cambian con las ofertas. Compruébalos en la caja de tu edición. Los votos no verifican la identidad de quien vota; sirven de orientación.</p>
+  </div>
+  <aside class="lateral" id="lateral" aria-label="Buscar y filtrar juguetes"></aside>
+</div>
+
+<div class="wrap">
+  <section class="buzon" id="cuenta">
+    <h2>Cuéntanos tu experiencia</h2>
+    <p>¿Has usado alguno de estos juegos? Cuéntalo en unas líneas y di con qué dificultad o habilidad te funciona. Si eliges un juego de la lista y eres profesional, tu comentario cuenta también como voto.</p>
+    <form id="buzon">
+      <input type="text" name="web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="hidden" name="canal" class="canal">
+      <input type="hidden" name="origen" value="guia-navidad">
+
+      <label for="nombre">Nombre <span class="opt">(opcional)</span></label>
+      <input type="text" id="nombre" name="nombre" autocomplete="given-name">
+
+      <label for="perfil">Eres…</label>
+      <select id="perfil" name="perfil" required>
+        <option value="">Elige una opción</option>
+        <option>Logopeda</option>
+        <option>Maestra o maestro</option>
+        <option>Psicóloga o psicólogo</option>
+        <option>Terapeuta ocupacional</option>
+        <option>Familia</option>
+        <option>Otro perfil</option>
+      </select>
+
+      <label for="juego">¿De qué juego hablas? <span class="opt">(opcional)</span></label>
+      <input type="text" id="juego" name="juego" list="lista-juegos" autocomplete="off">
+      <datalist id="lista-juegos"></datalist>
+
+      <p class="pista"><span class="requerido">*</span> Marca al menos una dificultad o una habilidad con la que funciona.</p>
+      <fieldset class="marcas" data-lista="perfiles"><legend>¿Con qué dificultades o diagnósticos funciona?</legend></fieldset>
+      <fieldset class="marcas" data-lista="habilidades"><legend>¿Qué habilidades trabaja?</legend></fieldset>
+
+      <label for="comentario">Tu comentario</label>
+      <textarea id="comentario" name="comentario" required></textarea>
+
+      <div class="check">
+        <input type="checkbox" id="citar" name="citar">
+        <label for="citar">Autorizo a citar mi comentario en la guía, sin nombre ni datos personales.</label>
+      </div>
+
+      <button type="submit" class="enviar">Enviar comentario</button>
+      <div class="status" role="status" aria-live="polite"></div>
+    </form>
+  </section>
+
+  <section class="buzon" id="juego-nuevo">
+    <h2>Propón un juego nuevo</h2>
+    <p>¿Usas un juego que no está en la lista? Descríbelo como se lo contarías a una familia y di con qué dificultad o habilidad funciona. Lo revisamos antes de añadirlo a la guía.</p>
+    <form id="propuesta">
+      <input type="text" name="web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="hidden" name="canal" class="canal">
+
+      <label for="p-nombre">Tu nombre <span class="opt">(opcional)</span></label>
+      <input type="text" id="p-nombre" name="nombre" autocomplete="given-name">
+
+      <label for="p-perfil">Eres…</label>
+      <select id="p-perfil" name="perfil" required>
+        <option value="">Elige una opción</option>
+        <option>Logopeda</option>
+        <option>Maestra o maestro</option>
+        <option>Psicóloga o psicólogo</option>
+        <option>Terapeuta ocupacional</option>
+        <option>Familia</option>
+        <option>Otro perfil</option>
+      </select>
+
+      <label for="p-juego">Nombre del juego</label>
+      <input type="text" id="p-juego" name="juegoNuevo" required>
+
+      <label for="p-enlace">Dónde se compra <span class="opt">(enlace, opcional)</span></label>
+      <input type="text" id="p-enlace" name="enlace" inputmode="url" placeholder="https://…">
+      <p class="pista">Si no tienes el enlace, no pasa nada: lo buscamos nosotros.</p>
+
+      <label for="p-edad">Edad recomendada <span class="opt">(opcional)</span></label>
+      <input type="text" id="p-edad" name="edad" placeholder="Por ejemplo: desde 6 años">
+
+      <p class="pista"><span class="requerido">*</span> Marca al menos una dificultad o una habilidad con la que funciona.</p>
+      <fieldset class="marcas" data-lista="perfiles"><legend>¿Con qué dificultades o diagnósticos funciona?</legend></fieldset>
+      <fieldset class="marcas" data-lista="habilidades"><legend>¿Qué habilidades trabaja?</legend></fieldset>
+
+      <label for="p-area">Otra habilidad o matiz <span class="opt">(opcional)</span></label>
+      <input type="text" id="p-area" name="area" placeholder="Por ejemplo: esperar turnos, tolerar perder…">
+
+      <label for="p-desc">Descripción como terapeuta o profesional</label>
+      <textarea id="p-desc" name="descripcion" maxlength="1200" required placeholder="De qué va, con quién lo usas, cómo lo adaptas y qué has notado."></textarea>
+
+      <div class="check">
+        <input type="checkbox" id="p-citar" name="citar">
+        <label for="p-citar">Autorizo a citar mi descripción en la guía, sin nombre ni datos personales.</label>
+      </div>
+
+      <button type="submit" class="enviar">Enviar propuesta</button>
+      <div class="status" role="status" aria-live="polite"></div>
+    </form>
+  </section>
+
+  <section class="comunidad">
+    <p>Si quieres seguir aprendiendo y compartiendo con más profesionales, entra en la comunidad de logopedia e IA.</p>
+    <a class="btn-grande" href="https://www.skool.com/logopedia-7339">Entrar a la comunidad</a>
+  </section>
+</div>
+</main>
+
+<footer>
+  <img src="assets/colmenia-logo.webp" alt="ColmenIA">
+  <p>ColmenIA · Lo pensamos y lo mejoramos entre todos.</p>
+</footer>
+
+<script src="juegos.js"></script>
+<script src="filtros.js"></script>
+<script>
+  var canalParam = new URLSearchParams(location.search).get('c') || '';
+  document.querySelectorAll('.canal').forEach(function (c) { c.value = canalParam; });
+
+  // ---- Mis votos (se recuerdan en este navegador) -------------------------
+  var propio = {};   // { 'Juego': { rol, perfiles: [], habilidades: [] } }
+  try { propio = JSON.parse(localStorage.getItem('guia-reyes-voto') || '{}'); } catch (e) { propio = {}; }
+  function guardarPropio() { try { localStorage.setItem('guia-reyes-voto', JSON.stringify(propio)); } catch (e) {} }
+  function nuevoId() {
+    return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'v' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+  }
+  var idSesion = nuevoId();
+  function votante() {
+    try {
+      var v = localStorage.getItem('guia-reyes-votante');
+      if (!v) { v = nuevoId(); localStorage.setItem('guia-reyes-votante', v); }
+      return v;
+    } catch (e) { return idSesion; }
+  }
+
+  // ---- Fichas (versión profesionales) ------------------------------------
+  function votarHtml(j, i) {
+    var p = propio[j.n] || { rol: '', perfiles: [], habilidades: [] };
+    var roles = '<option value="">Elige una opción</option>' + ROLES_VOTO.map(function (r) {
+      return '<option' + (r === p.rol ? ' selected' : '') + '>' + r + '</option>';
+    }).join('');
+    function casillas(tipo, nombre, marcadas) {
+      return '<div class="opciones">' + listaDe(tipo).map(function (o) {
+        return '<label><input type="checkbox" name="' + nombre + '" value="' + o.k + '"' + (marcadas.indexOf(o.k) !== -1 ? ' checked' : '') + '>' + o.n + '</label>';
+      }).join('') + '</div>';
+    }
+    return '<details class="votar" data-i="' + i + '"><summary>' + (p.rol ? 'Ya has votado: cambia tu voto' : 'Vota: ¿para qué funciona?') + '</summary>' +
+      '<div class="votar-cuerpo">' +
+        '<label class="v-lab" for="rol-' + i + '">Eres…</label><select id="rol-' + i + '" class="v-rol">' + roles + '</select>' +
+        '<fieldset class="marcas"><legend>Diagnósticos con los que funciona</legend>' + casillas('perfil', 'perfiles', p.perfiles) + '</fieldset>' +
+        '<fieldset class="marcas"><legend>Habilidades que trabaja</legend>' + casillas('habilidad', 'habilidades', p.habilidades) + '</fieldset>' +
+        '<button type="button" class="enviar-voto">Enviar mi voto</button><p class="v-estado" role="status" aria-live="polite"></p>' +
+      '</div></details>';
+  }
+
+  function tarjeta(j, i) {
+    var li = document.createElement('li');
+    li.className = 'juego';
+    li.setAttribute('data-i', i);
+    var edad = j.edad ? '<div class="edad">' + j.edad + '+<small>años</small></div>' : '<div class="edad">?<small>edad</small></div>';
+    var dentro = j.foto ? '<img class="foto" src="' + j.foto + '" alt="' + j.n + '">' : ilustracion(j.motivo, j.color);
+    var tienda = j.url
+      ? '<a class="comprar" href="' + j.url + '" rel="noopener">Ver en Amazon</a>'
+      : '<span class="comprar sin">Aún no tenemos enlace</span>';
+    var datos = '<p class="datos">' +
+      (j.jug ? '<span>' + j.jug + '</span>' : '') +
+      (j.edad ? '<span>desde ' + j.edad + ' años</span>' : '') + precioHtml(j) + '</p>' +
+      '<p class="datos">' + pastillas(j) + '</p>';
+    var juego = (j.area ? '<p><strong>Trabaja:</strong> ' + j.area + '.</p>' : '') +
+      (j.desc ? '<p>' + j.desc + '</p>' : '<p class="pend">Ficha en preparación.</p>') + porqueHtml(j);
+    var prof = j.opiniones.length
+      ? j.opiniones.map(function (t) { return '<p>' + t + '</p>'; }).join('')
+      : '<p class="vacio">Aún no hay opiniones. ¿Lo has probado?</p>';
+    li.innerHTML =
+      '<div class="caja" style="background:' + (j.foto ? '#fff' : j.color) + '">' + dentro +
+        '<span class="cinta">' + j.etiqueta + '</span>' + edad + '</div>' + tienda +
+      '<div class="cuerpo"><h3>' + j.n + '</h3>' + datos +
+        '<div class="bloque b-juego"><h4>El juego</h4>' + juego + '</div>' +
+        '<div class="bloque b-prof"><h4>Opinan profesionales y familias</h4>' + prof +
+          '<a href="#cuenta" data-juego="' + j.n + '">Cuenta tu experiencia</a></div>' +
+        '<div class="bloque b-votos"><h4>Lo que votan los profesionales</h4>' + votosHtml(j) + votarHtml(j, i) + '</div></div>';
+    return li;
+  }
+
+  var grid = document.getElementById('grid');
+  function pintarGrid() {
+    var abiertos = [];
+    grid.querySelectorAll('details.votar[open]').forEach(function (d) { abiertos.push(d.getAttribute('data-i')); });
+    grid.innerHTML = '';
+    JUEGOS.forEach(function (j, i) { grid.appendChild(tarjeta(j, i)); });
+    abiertos.forEach(function (i) { var d = grid.querySelector('details.votar[data-i="' + i + '"]'); if (d) d.open = true; });
+  }
+  // Vuelve a pintar una sola ficha (tras votar) y la deja abierta con un mensaje.
+  function repintarFicha(i, mensaje) {
+    var vieja = grid.querySelector('.juego[data-i="' + i + '"]');
+    if (!vieja) return;
+    var nueva = tarjeta(JUEGOS[i], i);
+    grid.replaceChild(nueva, vieja);
+    if (mensaje) {
+      var d = nueva.querySelector('details.votar'); d.open = true;
+      d.querySelector('.v-estado').textContent = mensaje;
+    }
+  }
+
+  pintarGrid();
+  Filtros.montar(document.getElementById('lateral'));
+  cargarVotos(function () { pintarGrid(); Filtros.refrescar(); });
+
+  document.getElementById('lista-juegos').innerHTML = JUEGOS.map(function (j) { return '<option value="' + j.n + '">'; }).join('');
+
+  // ---- Votar ---------------------------------------------------------------
+  function enviarVoto(juego, rol, perfiles, habilidades) {
+    return fetch(BUZON_URL, {
+      method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ tipo: 'voto', juego: juego, votante: votante(), rol: rol, perfiles: perfiles, habilidades: habilidades, canal: canalParam })
+    }).then(function (r) { return r.json(); });
+  }
+  // Refleja mi voto en los recuentos que veo (el voto anterior mío se sustituye).
+  function aplicarVotoLocal(j, rol, perfiles, habilidades) {
+    var v = VOTOS[j.n] || (VOTOS[j.n] = { perfil: {}, habilidad: {}, votantes: 0 });
+    var antes = propio[j.n];
+    function resta(tipo, lista) { (lista || []).forEach(function (k) { v[tipo][k] = Math.max(0, (v[tipo][k] || 0) - 1); if (!v[tipo][k]) delete v[tipo][k]; }); }
+    if (antes) {
+      if ((antes.perfiles || []).length + (antes.habilidades || []).length) v.votantes = Math.max(0, v.votantes - 1);
+      resta('perfil', antes.perfiles); resta('habilidad', antes.habilidades);
+    }
+    perfiles.forEach(function (k) { v.perfil[k] = (v.perfil[k] || 0) + 1; });
+    habilidades.forEach(function (k) { v.habilidad[k] = (v.habilidad[k] || 0) + 1; });
+    if (perfiles.length + habilidades.length) { v.votantes += 1; propio[j.n] = { rol: rol, perfiles: perfiles, habilidades: habilidades }; }
+    else delete propio[j.n];
+    guardarPropio();
+  }
+  function marcados(cont, nombre) {
+    return [].slice.call(cont.querySelectorAll('input[name="' + nombre + '"]:checked')).map(function (c) { return c.value; });
+  }
+
+  grid.addEventListener('click', function (e) {
+    var a = e.target.closest('a[data-juego]');
+    if (a) { document.getElementById('juego').value = a.getAttribute('data-juego'); return; }
+    var b = e.target.closest('.enviar-voto');
+    if (!b) return;
+    var det = b.closest('details.votar'), i = Number(det.getAttribute('data-i')), j = JUEGOS[i];
+    var rol = det.querySelector('.v-rol').value, perf = marcados(det, 'perfiles'), hab = marcados(det, 'habilidades');
+    var est = det.querySelector('.v-estado');
+    if (!rol) { est.textContent = 'Dinos qué eres para que cuente tu voto.'; return; }
+    if (!perf.length && !hab.length && !propio[j.n]) { est.textContent = 'Marca al menos un diagnóstico o una habilidad.'; return; }
+    var retirar = !perf.length && !hab.length;
+    b.disabled = true; est.textContent = 'Enviando…';
+    enviarVoto(j.n, rol, perf, hab).then(function (res) {
+      if (res && res.ok) {
+        aplicarVotoLocal(j, rol, perf, hab);
+        repintarFicha(i, retirar ? 'Voto retirado.' : 'Gracias, tu voto está contado.');
+        Filtros.refrescar();
+      } else { est.textContent = 'No se pudo guardar tu voto. Inténtalo de nuevo.'; b.disabled = false; }
+    }).catch(function () { est.textContent = 'No se pudo enviar. Revisa la conexión e inténtalo de nuevo.'; b.disabled = false; });
+  });
+
+  // Cuenta atrás a los Reyes
+  (function () {
+    var hoy = new Date();
+    var hoy0 = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+    var anio = hoy.getMonth() === 0 ? hoy.getFullYear() : hoy.getFullYear() + 1;
+    var dias = Math.round((new Date(anio, 0, 6) - hoy0) / 86400000);
+    var el = document.getElementById('cuentaAtras');
+    if (dias > 0 && dias < 120) { el.textContent = 'Faltan ' + dias + ' días para los Reyes'; el.hidden = false; }
+  })();
+
+  // ---- Casillas de diagnósticos y habilidades en los formularios ----------
+  document.querySelectorAll('fieldset.marcas[data-lista]').forEach(function (f) {
+    var nombre = f.getAttribute('data-lista');
+    var lista = nombre === 'perfiles' ? PERFILES : HABILIDADES;
+    f.insertAdjacentHTML('beforeend', '<div class="opciones">' + lista.map(function (o) {
+      return '<label><input type="checkbox" name="' + nombre + '" value="' + o.k + '">' + o.n + '</label>';
+    }).join('') + '</div>');
+  });
+
+  // ---- Buzón: hoja de Google (Apps Script) -------------------------------
+  // Comentario y propuesta de juego van al mismo destino; se distinguen por el campo «origen».
+  function marcasTexto(d) {
+    var l = [];
+    if (d.perfiles.length) l.push('Perfiles: ' + d.perfiles.map(function (k) { return etiquetaDe(PERFILES, k); }).join(', '));
+    if (d.habilidades.length) l.push('Habilidades: ' + d.habilidades.map(function (k) { return etiquetaDe(HABILIDADES, k); }).join(', '));
+    return l;
+  }
+
+  // despues(d): se llama tras guardar; devuelve una promesa con un texto extra para el mensaje final (o vacío).
+  function conectar(form, armar, gracias, despues) {
+    var estado = form.querySelector('.status');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var fd = new FormData(form), d = {};
+      fd.forEach(function (valor, clave) { d[clave] = valor; });
+      d.perfiles = fd.getAll('perfiles');
+      d.habilidades = fd.getAll('habilidades');
+      d.citar = !!form.querySelector('input[name="citar"]').checked;
+      if (!d.perfiles.length && !d.habilidades.length) {
+        estado.textContent = 'Marca al menos una dificultad o una habilidad con la que funciona.';
+        var f = form.querySelector('fieldset.marcas'); if (f && f.scrollIntoView) f.scrollIntoView({ block: 'center' });
+        return;
+      }
+      if (!BUZON_URL) { estado.textContent = 'Gracias. Borrador: el envío todavía no está conectado.'; return; }
+      var boton = form.querySelector('button.enviar');
+      boton.disabled = true;
+      estado.textContent = 'Enviando…';
+      // text/plain evita la comprobación CORS previa; Apps Script lee el JSON del cuerpo.
+      fetch(BUZON_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(armar(d)) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (!(res && res.ok)) { estado.textContent = 'No se pudo guardar. Inténtalo de nuevo.'; return; }
+          return Promise.resolve(despues ? despues(d) : '').then(function (extra) {
+            estado.textContent = gracias + (extra ? ' ' + extra : '');
+            form.reset();
+          });
+        })
+        .catch(function () { estado.textContent = 'No se pudo enviar. Revisa la conexión e inténtalo de nuevo.'; })
+        .then(function () { boton.disabled = false; });
+    });
+  }
+
+  // Si el comentario es de un profesional sobre un juego de la lista, cuenta también como voto.
+  function votoDesdeComentario(d) {
+    var nombre = String(d.juego || '').trim().toLowerCase();
+    var i = -1; JUEGOS.forEach(function (j, k) { if (j.n.toLowerCase() === nombre) i = k; });
+    var rol = d.perfil === 'Otro perfil' ? 'Otro perfil profesional' : d.perfil;
+    if (i === -1 || ROLES_VOTO.indexOf(rol) === -1) return Promise.resolve('');
+    return enviarVoto(JUEGOS[i].n, rol, d.perfiles, d.habilidades).then(function (res) {
+      if (!(res && res.ok)) return '';
+      aplicarVotoLocal(JUEGOS[i], rol, d.perfiles, d.habilidades);
+      repintarFicha(i); Filtros.refrescar();
+      return 'Tu voto en ' + JUEGOS[i].n + ' también está contado.';
+    }).catch(function () { return ''; });
+  }
+
+  conectar(document.getElementById('buzon'), function (d) {
+    var extra = marcasTexto(d);
+    return { web: d.web, canal: d.canal, origen: d.origen, nombre: d.nombre, perfil: d.perfil, juego: d.juego,
+             comentario: d.comentario + (extra.length ? '\n\n' + extra.join('\n') : ''), citar: d.citar };
+  }, 'Gracias. Tu comentario está en la guía.', votoDesdeComentario);
+
+  conectar(document.getElementById('propuesta'), function (d) {
+    var partes = ['PROPUESTA DE JUEGO'];
+    if (d.enlace) partes.push('Enlace: ' + d.enlace);
+    if (d.edad) partes.push('Edad: ' + d.edad);
+    marcasTexto(d).forEach(function (l) { partes.push(l); });
+    if (d.area) partes.push('Otra habilidad o matiz: ' + d.area);
+    partes.push('Descripción: ' + d.descripcion);
+    return { web: d.web, canal: d.canal, nombre: d.nombre, perfil: d.perfil, juego: d.juegoNuevo,
+             comentario: partes.join('\n'), citar: d.citar, origen: 'propuesta-juego' };
+  }, 'Gracias. Hemos recibido tu propuesta y la revisaremos.');
+</script>
+</body>
+</html>

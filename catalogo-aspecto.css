@@ -1,0 +1,278 @@
+/* ASPECTO VISUAL del catálogo en revista (catalogo.html).
+   Mismo lenguaje que las otras dos páginas (estilos.css): papel crema, bordes oscuros gruesos con sombra dura,
+   cinta roja con puntos y onda, etiquetas doradas, bloques de color verde / naranja / azul.
+   Solo piel: la mecánica (tamaños, pasar hoja, ajuste, impresión) está en catalogo.html.
+   Dentro de .c-pag todo va en cqw (1cqw = 1 % del ancho de la página). Paleta: variables de estilos.css. */
+
+/* Sala: la cinta roja de puntos de las otras páginas */
+body { background: #8e1230; }
+.c-sala {
+  background:
+    radial-gradient(circle, rgba(255,255,255,.5) 2px, transparent 3px) 0 0 / 90px 90px,
+    radial-gradient(circle, rgba(255,255,255,.3) 2px, transparent 3px) 45px 45px / 130px 130px,
+    linear-gradient(165deg, #c91f3a 0%, #8e1230 100%);
+}
+.c-barra { color: #fff; }
+.c-barra .c-titulo { display: inline-block; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; font-size: .8rem; background: #f4b63a; color: #8e1230; padding: 6px 16px; border-radius: 999px; transform: rotate(-1.5deg); }
+.c-barra a { color: #fff; font-weight: 800; text-decoration: underline; text-underline-offset: 4px; }
+.c-barra a:focus-visible, .c-mandos button:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.c-enlaces { font-size: .9rem; }
+
+/* Controles: botones de caramelo como los chips de las otras páginas */
+.c-mandos button { font: inherit; font-weight: 800; font-size: 1rem; cursor: pointer; color: #1f2b33; background: #fff; border: 2px solid #1f2b33; border-radius: 999px; padding: 9px 22px; min-height: 46px; box-shadow: 0 3px 0 #1f2b33; }
+.c-mandos #sig { background: #1f9d93; color: #fff; }
+.c-mandos button:active { transform: translateY(2px); box-shadow: 0 1px 0 #1f2b33; }
+.c-mandos button[disabled] { opacity: .45; cursor: default; box-shadow: 0 3px 0 #1f2b33; transform: none; }
+.c-mandos .c-cuenta { color: #fff; font-weight: 900; font-variant-numeric: tabular-nums; min-width: 8ch; text-align: center; text-shadow: 0 2px 0 rgba(0,0,0,.2); }
+.c-ayuda { color: #ffe6e9; font-size: .8rem; margin: 0; text-align: center; }
+
+/* Superficie de las páginas: papel crema con borde grueso */
+.c-pagina { background: #fff8ec; border: 3px solid #1f2b33; box-sizing: border-box; box-shadow: 0 6px 0 #1f2b33; }
+.c-doble .c-lado:first-child .c-pagina { border-radius: 18px 0 0 18px; border-right-width: 1.5px; background: linear-gradient(90deg, #fff8ec 90%, #f3e4c6 100%); }
+.c-doble .c-lado:last-child .c-pagina { border-radius: 0 18px 18px 0; border-left-width: 1.5px; background: linear-gradient(270deg, #fff8ec 90%, #f3e4c6 100%); }
+.c-solo .c-pagina { border-radius: 18px; }
+.c-hoja-giro .c-pagina { box-shadow: none; }
+
+/* Contenido de las páginas */
+.c-pag { --t: 3.1cqw; font-family: "Avenir Next", "Trebuchet MS", system-ui, -apple-system, sans-serif; font-size: var(--t); line-height: 1.4; color: #1f2b33; min-height: 100%; display: flex; flex-direction: column; box-sizing: border-box; position: relative; }
+.c-pag::before { content: ''; position: absolute; inset: 2.2cqw; border: .5cqw dashed #ecdfc8; border-radius: 3cqw; pointer-events: none; }
+.c-pag h2, .c-pag h3 { margin: 0; line-height: 1.05; }
+.c-pag p { margin: 0 0 .6em; }
+.c-pag a { color: #8e1230; }
+
+/* Pie de página: nombre del grupo y número en círculo dorado */
+.c-folio { margin-top: auto; padding: 0 6.5cqw 4.2cqw; display: flex; justify-content: space-between; align-items: center; font-size: 2.3cqw; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #5d6b72; position: relative; }
+.c-folio > span:first-child { display: none; }
+.c-folio::before { content: 'Neurodivergencias · Reyes'; color: #8e1230; }
+.c-folio > span:last-child { min-width: 6.4cqw; height: 6.4cqw; border-radius: 50%; background: #f4b63a; border: .4cqw solid #1f2b33; color: #1f2b33; display: inline-flex; align-items: center; justify-content: center; font-size: 2.6cqw; letter-spacing: 0; }
+.c-folio > span:last-child:empty { display: none; }
+.c-folio img { height: 6.5cqw; width: auto; }
+
+/* Portada: cinta roja con puntos y onda crema, como la cabecera de las otras páginas */
+.c-portada, .c-final {
+  text-align: center; color: #fff;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 48' preserveAspectRatio='none'%3E%3Cpath d='M0 24 C 180 52, 360 0, 540 24 S 900 52, 1080 24 S 1320 4, 1440 24 V48 H0Z' fill='%23fff8ec'/%3E%3C/svg%3E") bottom left / 100% 12cqw no-repeat,
+    radial-gradient(circle, rgba(255,255,255,.55) .4cqw, transparent .6cqw) 0 0 / 10cqw 10cqw,
+    radial-gradient(circle, rgba(255,255,255,.35) .4cqw, transparent .6cqw) 5cqw 5cqw / 14cqw 14cqw,
+    linear-gradient(165deg, #c91f3a 0%, #8e1230 100%);
+}
+.c-portada::before, .c-final::before { display: none; }
+.c-portada::after { content: '✦'; position: absolute; top: 24cqw; left: 6cqw; color: #f4b63a; font-size: 9cqw; transform: rotate(-12deg); pointer-events: none; }
+.c-portada .c-sello { align-self: center; margin: 7cqw auto 0; display: inline-block; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; font-size: 2.7cqw; background: #f4b63a; color: #8e1230; padding: 1.4cqw 4.4cqw; border-radius: 999px; transform: rotate(-2deg); }
+.c-cabeza-grupo { display: flex; align-items: center; justify-content: center; gap: 3cqw; margin: 6cqw 5cqw 0; text-align: left; }
+.c-cabeza-grupo > div { min-width: 0; }
+.c-cabeza-grupo img { width: 29cqw; height: 29cqw; border-radius: 50%; object-fit: cover; background: #fff; border: 1.2cqw solid #fff; box-shadow: 0 0 0 1cqw #f4b63a, 0 2.4cqw 5cqw rgba(0,0,0,.35); flex: none; }
+.c-cabeza-grupo strong { display: block; font-size: 5.4cqw; line-height: 1; font-weight: 900; color: #fff; text-shadow: 0 .5cqw 0 rgba(0,0,0,.18); }
+.c-cabeza-grupo span { display: block; margin-top: 1.4cqw; font-size: 2.4cqw; color: #ffe6e9; }
+.c-portada h1 { font-size: 12.5cqw; font-weight: 900; line-height: .95; letter-spacing: -.01em; margin: 7cqw 5cqw 0; color: #fff; text-shadow: 0 .7cqw 0 rgba(0,0,0,.18); text-wrap: balance; }
+.c-portada .c-sub { margin: 3.6cqw 9cqw 0; font-size: 3.6cqw; color: #ffe6e9; text-wrap: balance; }
+.c-portada .c-reyes { align-self: center; margin: 4.6cqw auto 0; display: inline-block; background: #fff; color: #8e1230; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; font-size: 3cqw; padding: 1.6cqw 5cqw; border-radius: 999px; box-shadow: 0 1cqw 0 rgba(0,0,0,.2); }
+.c-portada .c-folio, .c-final .c-folio { justify-content: center; padding-bottom: 2.4cqw; }
+.c-portada .c-folio::before, .c-final .c-folio::before { display: none; }
+
+/* Bienvenida e índice */
+.c-texto { padding: 8cqw 7cqw 2cqw; }
+.c-texto h2 { font-size: 8cqw; font-weight: 900; color: #8e1230; margin-bottom: 3cqw; }
+.c-texto p { color: #5d6b72; }
+.c-aviso { background: #e6f5f3; border-radius: 3cqw; padding: 2.6cqw 3cqw !important; color: #0d6b63 !important; font-size: 2.8cqw; font-weight: 600; }
+.c-indice { list-style: none; margin: 0; padding: 0; }
+.c-indice a { display: grid; grid-template-columns: 1fr auto 7cqw; gap: 2cqw; align-items: center; padding: 1.5cqw 0; color: #1f2b33; text-decoration: none; border-bottom: .4cqw dashed #ecdfc8; font-size: 3cqw; }
+.c-indice .c-nom { font-weight: 800; }
+.c-indice .c-pre { color: #8e1230; font-weight: 900; font-variant-numeric: tabular-nums; }
+.c-indice .c-pg { width: 6.2cqw; height: 6.2cqw; border-radius: 50%; background: #f4b63a; border: .4cqw solid #1f2b33; display: inline-flex; align-items: center; justify-content: center; font-weight: 900; font-size: 2.6cqw; font-variant-numeric: tabular-nums; }
+
+/* Página de foto: la caja del juguete como en las fichas de las otras páginas */
+.c-foto { position: relative; flex: none; aspect-ratio: 4 / 3; min-height: 0; margin: 6.5cqw 6cqw 0; border: .9cqw solid #1f2b33; border-radius: 4cqw; box-shadow: 0 1.2cqw 0 #1f2b33; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.c-foto::before { content: ''; position: absolute; inset: 0; opacity: .22; background: radial-gradient(circle, #fff .4cqw, transparent .6cqw) 0 0 / 5cqw 5cqw; }
+.c-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #fff; }
+.c-foto svg { position: relative; width: 70%; height: 86%; }
+.c-cinta { position: absolute; top: 3cqw; left: -.9cqw; background: #f4b63a; color: #1f2b33; font-weight: 900; font-size: 2.5cqw; letter-spacing: .08em; text-transform: uppercase; padding: 1.1cqw 3.4cqw 1.1cqw 4cqw; border-radius: 0 999px 999px 0; border: .5cqw solid #1f2b33; border-left: 0; z-index: 2; }
+.c-edad { position: absolute; top: 2.6cqw; right: 2.6cqw; width: 14cqw; height: 14cqw; border-radius: 50%; background: #fff; color: #1f2b33; border: .8cqw solid #1f2b33; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 900; font-size: 5cqw; line-height: 1; transform: rotate(8deg); box-shadow: 0 .8cqw 0 #1f2b33; z-index: 2; }
+.c-edad small { font-size: 2.1cqw; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; margin-top: .5cqw; }
+.c-sello-precio { position: absolute; bottom: 2.4cqw; right: 2.4cqw; z-index: 2; background: #f4b63a; color: #8e1230; border: .8cqw solid #1f2b33; border-radius: 50%; width: 21cqw; height: 21cqw; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-weight: 900; font-size: 3.7cqw; line-height: 1.05; transform: rotate(-8deg); box-shadow: 0 .8cqw 0 #1f2b33; }
+.c-sello-precio small { display: block; font-size: 1.8cqw; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .5cqw; color: #1f2b33; }
+.c-sello-precio.c-sin { background: #fff; color: #5d6b72; font-size: 2.5cqw; font-weight: 800; border-style: dashed; }
+.c-nombre-foto { display: none; }
+
+/* Ficha rápida: cuatro cajitas de color */
+.c-ficha { display: grid; grid-template-columns: 1fr 1fr .85fr 1.55fr; gap: 1.8cqw; margin: 4cqw 6cqw 0; }
+.c-ficha > div { border: .5cqw solid #1f2b33; border-radius: 2.6cqw; padding: 1.6cqw 1cqw; text-align: center; min-width: 0; box-shadow: 0 .6cqw 0 #1f2b33; }
+.c-ficha > div:nth-child(1) { background: #fff1c9; }
+.c-ficha > div:nth-child(2) { background: #e6f5f3; }
+.c-ficha > div:nth-child(3) { background: #fff0e6; }
+.c-ficha > div:nth-child(4) { background: #e8eef9; }
+.c-ficha small { display: block; font-size: 1.9cqw; letter-spacing: .1em; text-transform: uppercase; color: #5d6b72; font-weight: 800; }
+.c-ficha b { display: block; font-size: 2.7cqw; line-height: 1.15; font-weight: 900; color: #1f2b33; margin-top: .7cqw; overflow-wrap: normal; word-break: normal; hyphens: none; }
+
+/* Ideas para jugar en casa: bloque naranja */
+.c-ideas { margin: 4.4cqw 6cqw 0; background: #fff0e6; border-radius: 3cqw; padding: 2.4cqw 3cqw 1.4cqw; }
+.c-ideas h3 { font-size: 2.5cqw; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: #e4672c; margin-bottom: 1.2cqw; }
+.c-ideas ul { list-style: none; margin: 0; padding: 0; }
+.c-ideas li { position: relative; padding-left: 4cqw; margin-bottom: 1.2cqw; font-size: 2.85cqw; line-height: 1.32; }
+.c-ideas li::before { content: '★'; position: absolute; left: 0; top: 0; color: #f4b63a; -webkit-text-stroke: .2cqw #1f2b33; }
+
+/* Página de datos */
+.c-datos { padding: 6.5cqw 6.5cqw 2cqw; }
+.c-kicker { display: inline-block; background: #f4b63a; color: #1f2b33; border: .5cqw solid #1f2b33; border-radius: 999px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; font-size: 2.3cqw; padding: .7cqw 3cqw; margin-bottom: 2cqw; }
+.c-datos h2 { font-size: 7.6cqw; font-weight: 900; color: #1f2b33; text-wrap: balance; letter-spacing: -.01em; }
+.c-hechos { display: flex; flex-wrap: wrap; gap: 1.4cqw; margin: 2.6cqw 0 0; align-items: center; }
+.c-hechos > span:not(.precio), .c-hechos .pill-area, .c-hechos .pill-perf, .c-hechos .pill-juego { font-size: 2.5cqw; font-weight: 800; background: #fff8ec; border: .4cqw solid #ecdfc8; border-radius: 999px; padding: .5cqw 2.6cqw; }
+.c-hechos .pill-area { background: #e6f5f3; border-color: #1f9d93; color: #0d6b63; }
+.c-hechos .pill-juego { background: #fff0e6; border-color: #e4672c; color: #a24310; }
+.c-hechos .pill-perf { background: #e8eef9; border-color: #2f7fd1; color: #1b4f8a; }
+.c-hechos .pill-area.sug, .c-hechos .pill-perf.sug { background: #fff; border-style: dashed; }
+.c-hechos .precio { font-size: 3.1cqw; font-weight: 900; color: #8e1230; background: #f4b63a; border: .5cqw solid #1f2b33; border-radius: 999px; padding: .6cqw 3.2cqw; box-shadow: 0 .5cqw 0 #1f2b33; }
+.c-hechos .precio.sin { background: #fff; color: #5d6b72; border-style: dashed; box-shadow: none; font-weight: 700; }
+
+/* Bloques de color como en las fichas */
+.c-seccion { margin-top: 2.6cqw; border-radius: 3cqw; padding: 2.2cqw 3cqw; }
+.c-seccion h3 { font-size: 2.4cqw; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 1cqw; }
+.c-seccion p { margin-bottom: .45em; }
+.c-seccion p:last-child { margin-bottom: 0; }
+.c-seccion .porque, .c-seccion .vacio { font-size: 2.7cqw; color: #5d6b72; }
+.c-s-juego { background: #e6f5f3; } .c-s-juego h3 { color: #1f9d93; }
+.c-s-opinan { background: #fff0e6; } .c-s-opinan h3 { color: #e4672c; }
+.c-s-votos { background: #e8eef9; } .c-s-votos h3 { color: #1d4d5e; }
+.c-votos { font-size: 2.8cqw; }
+.c-votos b { color: #1f9d93; }
+
+.c-comprar { display: inline-block; align-self: flex-start; margin-top: 3.2cqw; background: #c91f3a; color: #fff !important; font-weight: 900; text-decoration: none; padding: 1.9cqw 6cqw; border-radius: 999px; font-size: 3.3cqw; border: .5cqw solid #1f2b33; box-shadow: 0 .8cqw 0 #1f2b33; }
+.c-comprar.c-sin { background: #fff; color: #5d6b72 !important; border-style: dashed; box-shadow: none; font-weight: 700; }
+.c-parecidos { margin-top: 3cqw; }
+.c-parecidos h3 { font-size: 2.4cqw; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: #1d4d5e; margin-bottom: .8cqw; }
+.c-parecidos a { display: flex; justify-content: space-between; gap: 2cqw; padding: 1cqw 0; text-decoration: none; color: #1f2b33; border-bottom: .4cqw dashed #ecdfc8; font-size: 2.9cqw; }
+.c-parecidos a span { font-weight: 800; }
+.c-parecidos a em { font-style: normal; color: #8e1230; font-weight: 900; white-space: nowrap; }
+.c-pie-aviso { font-size: 2.3cqw; color: #5d6b72; margin-top: 2.6cqw; }
+
+/* Contraportada: otra vez la cinta roja, con la onda arriba y el botón grande */
+.c-final { justify-content: center; }
+.c-final .c-texto { padding-top: 12cqw; }
+.c-final h2 { color: #fff; font-size: 9cqw; text-shadow: 0 .7cqw 0 rgba(0,0,0,.18); text-wrap: balance; }
+.c-final p { color: #ffe6e9; }
+.c-final .c-pie-aviso { color: #ffe6e9; }
+.c-boton-skool { display: inline-block; margin-top: 3cqw; background: #f4b63a; color: #8e1230 !important; font-weight: 900; text-decoration: none; padding: 3cqw 8cqw; border-radius: 999px; font-size: 4cqw; border: .6cqw solid #1f2b33; box-shadow: 0 1cqw 0 #1f2b33; }
+
+/* Portada: escena de juego */
+.c-escena-portada { margin: 5cqw 8cqw 0; border: .9cqw solid #1f2b33; border-radius: 4cqw; box-shadow: 0 1.2cqw 0 #1f2b33; overflow: hidden; aspect-ratio: 3 / 2; background: #fff8ec; transform: rotate(-1.2deg); }
+.c-escena-portada img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* Índice por secciones */
+.c-sub-indice { font-size: 2.5cqw; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: #e4672c; margin: 2cqw 0 .6cqw; }
+.c-texto-corto { padding-bottom: 0; }
+.c-texto-corto h2 { margin-bottom: 0; }
+
+/* Páginas globales: todos juntos y por temáticas */
+.c-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 3.2cqw; margin: 3.4cqw 6cqw 0; align-content: start; }
+.c-tile { display: flex; flex-direction: column; gap: 1.1cqw; background: #fff; border: .5cqw solid #1f2b33; border-radius: 3cqw; box-shadow: 0 .8cqw 0 #1f2b33; overflow: hidden; text-decoration: none; color: #1f2b33; padding: 0 0 2cqw; min-width: 0; }
+.c-tile-foto { position: relative; aspect-ratio: 4 / 3; display: flex; align-items: center; justify-content: center; border-bottom: .5cqw solid #1f2b33; overflow: hidden; }
+.c-tile-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #fff; }
+.c-tile-foto svg { position: relative; width: 66%; height: 86%; }
+.c-tile-edad { position: absolute; top: 1.4cqw; right: 1.4cqw; font-style: normal; font-weight: 900; font-size: 2.4cqw; background: #fff; border: .4cqw solid #1f2b33; border-radius: 999px; padding: .3cqw 1.6cqw; z-index: 1; }
+.c-tile b { font-size: 2.9cqw; font-weight: 900; line-height: 1.1; padding: 0 2.2cqw; }
+.c-tile-resumen { font-size: 2.4cqw; line-height: 1.3; color: #5d6b72; padding: 0 2.2cqw; }
+.c-tile-meta { display: flex; justify-content: space-between; align-items: center; gap: 1cqw; padding: 0 2.2cqw; font-size: 2.4cqw; }
+.c-tile-meta em { font-style: normal; font-weight: 900; color: #8e1230; font-size: 2.7cqw; }
+.c-tile-meta u { text-decoration: none; font-weight: 800; color: #1f9d93; }
+.c-tiles-largos { grid-template-columns: 1fr; gap: 3cqw; }
+.c-tiles-largos .c-tile { display: grid; grid-template-columns: 38% 1fr; grid-template-rows: auto auto auto; column-gap: 2.4cqw; padding: 0 2.4cqw 0 0; align-items: center; }
+.c-tiles-largos .c-tile-foto { grid-row: 1 / 4; align-self: stretch; aspect-ratio: auto; border-bottom: 0; border-right: .5cqw solid #1f2b33; min-height: 17cqw; }
+.c-tiles-largos .c-tile b, .c-tiles-largos .c-tile-resumen, .c-tiles-largos .c-tile-meta { padding: 0; }
+.c-tiles-largos .c-tile b { font-size: 3.1cqw; padding-top: 1.6cqw; }
+.c-tiles-largos .c-tile-meta { padding-bottom: 1.6cqw; }
+
+/* Escena con su historia */
+.c-escena { margin: 6.5cqw 6cqw 0; border: .9cqw solid #1f2b33; border-radius: 4cqw; box-shadow: 0 1.2cqw 0 var(--tema, #1f2b33); overflow: hidden; aspect-ratio: 3 / 2; background: #fff; }
+.c-escena img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.c-historia { padding: 4.4cqw 7cqw 0; }
+.c-historia h2 { font-size: 6.6cqw; font-weight: 900; color: var(--tema, #8e1230); text-wrap: balance; margin: 1.4cqw 0 2cqw; }
+.c-historia p { font-size: 3.2cqw; line-height: 1.45; color: #1f2b33; }
+.c-historia .c-pie-escena { font-size: 2.3cqw; color: #5d6b72; font-style: italic; margin-top: 2cqw; }
+.c-kicker-tema { background: var(--tema, #f4b63a); color: #fff; }
+
+/* Botones grandes en lugar de enlaces de texto */
+.c-barra .c-cuenta { color: #fff; font-weight: 900; font-variant-numeric: tabular-nums; background: rgba(0,0,0,.22); border-radius: 999px; padding: 5px 16px; }
+.c-mandos button, .c-mandos a.c-mando-imprimir { min-height: 56px; font-size: 1.1rem; }
+.c-mandos .c-mando-indice { background: #f4b63a; color: #8e1230; }
+.c-mandos .c-mando-imprimir { background: #1d4d5e; color: #fff; }
+.c-boton, .c-boton-skool { display: block; text-align: center; text-decoration: none; font-weight: 900; font-size: 3.6cqw; padding: 2.6cqw 4cqw; border: .5cqw solid #1f2b33; border-radius: 999px; box-shadow: 0 .8cqw 0 #1f2b33; margin-top: 3.4cqw; color: #fff !important; }
+.c-boton-fam { background: #1f9d93; }
+.c-boton-prof { background: #1d4d5e; }
+.c-boton-skool { background: #f4b63a; color: #8e1230 !important; padding: 3cqw 4cqw; font-size: 4cqw; }
+.c-botones-tema { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4cqw; }
+.c-btn-tema, .c-boton-todos, .c-btn-juego { display: flex; justify-content: space-between; align-items: center; gap: 1.6cqw; text-decoration: none; border: .5cqw solid #1f2b33; box-shadow: 0 .7cqw 0 #1f2b33; }
+.c-btn-tema { background: var(--tema, #1f9d93); color: #fff; font-weight: 900; font-size: 3.2cqw; padding: 2.6cqw 3cqw; border-radius: 3cqw; }
+.c-boton-todos { background: #f4b63a; color: #8e1230; font-weight: 900; font-size: 3.2cqw; padding: 2.6cqw 3.4cqw; border-radius: 3cqw; margin-top: 2.8cqw; }
+.c-botones-juego { display: grid; grid-template-columns: 1fr 1fr; gap: 2.2cqw; margin-top: 1cqw; }
+.c-btn-juego { background: #fff; color: #1f2b33; font-weight: 800; font-size: 2.7cqw; line-height: 1.15; padding: 1.8cqw 2.2cqw; border-radius: 2.6cqw; box-shadow: 0 .6cqw 0 #1f2b33; border-width: .4cqw; }
+.c-btn-tema .c-pg, .c-boton-todos .c-pg, .c-btn-juego .c-pg { flex: none; width: 6.2cqw; height: 6.2cqw; border-radius: 50%; background: #fff; color: #1f2b33; border: .4cqw solid #1f2b33; display: inline-flex; align-items: center; justify-content: center; font-weight: 900; font-size: 2.6cqw; }
+.c-btn-juego .c-pg { background: #f4b63a; }
+.c-botones-parecidos { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4cqw; }
+.c-parecidos .c-btn-parecido { display: flex; flex-direction: column; gap: .6cqw; background: #e8eef9; border: .5cqw solid #1f2b33; border-radius: 2.8cqw; box-shadow: 0 .7cqw 0 #1f2b33; padding: 2cqw 2.4cqw; text-decoration: none; color: #1f2b33; font-weight: 900; font-size: 2.9cqw; line-height: 1.15; }
+.c-parecidos .c-btn-parecido em { font-style: normal; color: #8e1230; font-weight: 900; font-size: 2.7cqw; white-space: normal; }
+.c-final .c-boton { margin-top: 3cqw; }
+
+/* Imprimir: colores exactos, sin sombras fuera de la página */
+@media print {
+  body, .c-sala { background: #fff; }
+  .c-pagina { box-shadow: none; }
+  .c-pag, .c-pag * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* Móvil */
+@media screen and (max-width: 899px) {
+  .c-boton, .c-boton-skool { font-size: 4.4cqw; }
+  .c-btn-tema { font-size: 4cqw; } .c-boton-todos { font-size: 4cqw; }
+  .c-btn-juego { font-size: 3.5cqw; }
+  .c-btn-tema .c-pg, .c-boton-todos .c-pg, .c-btn-juego .c-pg { width: 7.4cqw; height: 7.4cqw; font-size: 3.2cqw; }
+  .c-parecidos .c-btn-parecido { font-size: 3.6cqw; } .c-parecidos .c-btn-parecido em { font-size: 3.4cqw; }
+  .c-mandos button { font-size: .9rem; padding: 8px 6px; }
+  .c-tile b { font-size: 3.7cqw; }
+  .c-tile-meta { font-size: 3cqw; } .c-tile-meta em { font-size: 3.4cqw; }
+  .c-tile-resumen { font-size: 3.1cqw; }
+  .c-tile-edad { font-size: 3cqw; }
+  .c-tiles-largos .c-tile b { font-size: 3.8cqw; }
+  .c-historia p { font-size: 3.9cqw; }
+  .c-historia h2 { font-size: 7.4cqw; }
+  .c-sub-indice { font-size: 3cqw; }
+  .c-barra .c-titulo { font-size: .68rem; padding: 4px 12px; }
+  .c-mandos button { padding: 8px 10px; }
+  .c-mandos .c-cuenta { min-width: 6ch; }
+  .c-doble .c-pagina, .c-solo .c-pagina { border-radius: 16px; }
+  .c-pag { --t: 4cqw; }
+  .c-pag::before { inset: 2cqw; }
+  .c-folio { font-size: 3cqw; }
+  .c-folio > span:last-child { min-width: 7.6cqw; height: 7.6cqw; font-size: 3.4cqw; }
+  .c-ficha { grid-template-columns: repeat(2, 1fr); gap: 2.4cqw; margin-top: 3.2cqw; }
+  .c-ficha > div { padding: 2.2cqw 2cqw; }
+  .c-ficha small { font-size: 2.6cqw; }
+  .c-ficha b { font-size: 3.7cqw; }
+  .c-ideas h3, .c-parecidos h3, .c-seccion h3 { font-size: 3.3cqw; }
+  .c-ideas li, .c-parecidos a { font-size: 3.9cqw; }
+  .c-seccion .porque, .c-seccion .vacio, .c-votos, .c-pie-aviso { font-size: 3.6cqw; }
+  .c-hechos > span:not(.precio), .c-hechos .pill-area, .c-hechos .pill-perf, .c-hechos .pill-juego { font-size: 3.3cqw; }
+  .c-hechos .precio { font-size: 3.9cqw; }
+  .c-kicker { font-size: 3cqw; }
+  .c-indice a { font-size: 3.9cqw; }
+  .c-indice .c-pg { width: 7.4cqw; height: 7.4cqw; font-size: 3.3cqw; }
+  .c-comprar { font-size: 4.2cqw; }
+  .c-aviso { font-size: 3.4cqw; }
+}
+
+/* Colores de los botones del índice (ganan al color de enlace de las páginas) */
+.c-pag a.c-btn-tema { color: #fff; }
+.c-pag a.c-boton-todos { color: #8e1230; }
+.c-pag a.c-btn-juego { color: #1f2b33; }
+.c-boton-todos { margin-bottom: 1cqw; }
+.c-sub-indice { margin-top: 3.2cqw; }
+
+/* El botón Imprimir de la vista previa es un enlace al PDF: mismo aspecto que los demás botones */
+.c-mandos a.c-mando-imprimir { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font: inherit; font-weight: 800; font-size: 1.1rem; cursor: pointer; background: #1d4d5e; color: #fff; border: 2px solid #1f2b33; border-radius: 999px; padding: 9px 22px; box-shadow: 0 3px 0 #1f2b33; }
+.c-mandos a.c-mando-imprimir[hidden] { display: none; }
+@media screen and (max-width: 899px) { .c-mandos a.c-mando-imprimir { flex: 1 1 0; min-width: 0; font-size: .9rem; padding: 8px 6px; white-space: nowrap; } }
+
+/* Botón grande para volver a la página principal */
+.c-barra .c-boton-inicio { display: inline-block; text-decoration: none; background: #fff; color: #8e1230; font-weight: 900; font-size: 1rem; padding: 9px 20px; border: 2px solid #1f2b33; border-radius: 999px; box-shadow: 0 3px 0 #1f2b33; }
+.c-barra .c-boton-inicio:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+@media screen and (max-width: 899px) { .c-barra { gap: 6px 8px; flex-wrap: nowrap; } .c-barra .c-boton-inicio { font-size: .85rem; padding: 7px 12px; flex: none; } .c-barra .c-titulo { font-size: .6rem; padding: 4px 8px; } .c-barra .c-cuenta { flex: none; padding: 4px 10px; font-size: .85rem; } }

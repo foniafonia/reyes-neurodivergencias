@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Catálogo de Reyes Neurodivergencias</title>
+<meta name="description" content="Catálogo en formato revista con los juguetes del grupo Neurodivergencias: precio orientativo, qué trabaja cada uno y lo que votan los profesionales. Se hojea en pantalla y se imprime.">
+<!-- BORRADOR LOCAL. No publicado.
+     Catálogo en revista: una doble página por juguete en pantalla ancha, una página por juguete en el móvil.
+     Comparte estilos.css, juegos.js con las otras dos páginas. Al imprimir sale una hoja A4 apaisada por cada doble página. -->
+<link rel="stylesheet" href="estilos.css">
+<link rel="stylesheet" href="catalogo-aspecto.css">
+<style>
+  /* MECÁNICA del catálogo: tamaños, pasar hoja e impresión. El aspecto (colores, letras, adornos) está en catalogo-aspecto.css. */
+  body { margin: 0; }
+  .c-sala { min-height: 100dvh; display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 14px 16px 18px; box-sizing: border-box; overflow-x: hidden; }
+  .c-barra { width: min(1180px, 100%); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; }
+  .c-enlaces { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+  .c-mandos { width: min(1180px, 100%); display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+  /* Libro: dos lados de proporción 3:4 (pantalla ancha) o uno solo (móvil) */
+  .c-libro { --pw: min(calc((100dvh - 150px) * .75), 585px, calc((100vw - 44px) / 2)); --alto: calc(var(--pw) / .75); --dur: .85s;
+    display: flex; justify-content: center; max-width: 100%; perspective: 2600px; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+  .c-libro-int { position: relative; display: flex; width: calc(var(--pw) * 2); height: var(--alto); transition: transform var(--dur) cubic-bezier(.45, .05, .25, 1); transform-style: preserve-3d; }
+  .c-libro.c-cerrado-der .c-libro-int { transform: translateX(calc(var(--pw) * -.5)); }
+  .c-libro.c-cerrado-izq .c-libro-int { transform: translateX(calc(var(--pw) * .5)); }
+  .c-lado { position: relative; width: var(--pw); height: var(--alto); flex: none; }
+  .c-pagina { position: relative; width: 100%; height: 100%; overflow: hidden; container-type: inline-size; }
+  .c-interior { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; }
+  .c-vacio { visibility: hidden; }
+
+  /* Zonas de los bordes: tocar el borde de una página pasa la hoja */
+  .c-borde { position: absolute; top: 0; bottom: 0; width: 13%; z-index: 4; cursor: pointer; opacity: 0; transition: opacity .2s; }
+  .c-borde.c-borde-sig { right: 0; background: linear-gradient(270deg, rgba(0,0,0,.16), transparent); }
+  .c-borde.c-borde-ant { left: 0; background: linear-gradient(90deg, rgba(0,0,0,.16), transparent); }
+  .c-borde:hover { opacity: 1; }
+
+  /* Hoja que gira alrededor del lomo */
+  .c-hoja-giro { position: absolute; top: 0; width: var(--pw); height: var(--alto); transform-style: preserve-3d; z-index: 6; transition: transform var(--dur) cubic-bezier(.45, .05, .25, 1), opacity var(--dur) ease; pointer-events: none; }
+  .c-hoja-giro.c-der { left: var(--pw); transform-origin: left center; }
+  .c-hoja-giro.c-izq { left: 0; transform-origin: right center; }
+  .c-hoja-giro.c-der.c-fin { transform: rotateY(-180deg); }
+  .c-hoja-giro.c-izq.c-fin { transform: rotateY(180deg); }
+  .c-cara { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: hidden; }
+  .c-cara.c-dorso { transform: rotateY(180deg); }
+  .c-cara::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; }
+  .c-hoja-giro.c-der .c-frente::after, .c-hoja-giro.c-izq .c-dorso::after { background: linear-gradient(90deg, rgba(40,15,10,.45), transparent 70%); animation: c-sombra var(--dur) ease both; }
+  .c-hoja-giro.c-izq .c-frente::after, .c-hoja-giro.c-der .c-dorso::after { background: linear-gradient(270deg, rgba(40,15,10,.45), transparent 70%); animation: c-sombra var(--dur) ease both; }
+  @keyframes c-sombra { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+  .c-hoja-giro .c-pagina { box-shadow: none; }
+
+  /* Móvil: una página que se despega por el lomo izquierdo */
+  .c-libro.c-solo .c-libro-int { width: var(--pw); }
+  .c-hoja-giro.c-solo-hoja { left: 0; width: var(--pw); transform-origin: left center; }
+  .c-hoja-giro.c-sale.c-fin { transform: rotateY(-105deg); opacity: 0; }
+  .c-hoja-giro.c-entra { transform: rotateY(-105deg); opacity: 0; }
+  .c-hoja-giro.c-entra.c-fin { transform: none; opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { .c-libro { --dur: .01s; } .c-cara::after { animation: none !important; } }
+
+  @media screen and (max-width: 899px) {
+    html, body { height: 100%; overflow: hidden; }
+    .c-sala { height: 100%; min-height: 0; padding: 6px 10px 8px; gap: 6px; overflow: hidden; }
+    .c-barra { flex: none; }
+    .c-enlaces, .c-ayuda { display: none; }
+    .c-libro { --pw: 100%; --alto: 100%; flex: 1 1 0; min-height: 0; width: 100%; }
+    .c-libro-int { width: 100%; max-width: 560px; height: 100%; }
+    .c-lado { width: 100%; height: 100%; }
+    .c-hoja-giro, .c-hoja-giro.c-solo-hoja { width: 100%; height: 100%; }
+    .c-mandos { flex: none; flex-wrap: nowrap; gap: 8px; width: 100%; max-width: 560px; }
+    .c-mandos button { flex: 1 1 0; min-width: 0; white-space: nowrap; }
+    .c-mandos .c-cuenta { flex: none; }
+  }
+
+  /* Impresión: una hoja A4 apaisada por cada doble página */
+  #impresion { display: none; }
+  #impresion.c-midiendo { display: block; position: absolute; left: -99999px; top: 0; width: 297mm; }
+  #impresion.c-midiendo .c-hoja { width: 297mm; height: 210mm; display: flex; justify-content: center; overflow: hidden; }
+  #impresion.c-midiendo .c-pagina { width: 148.5mm; height: 210mm; }
+  #impresion.c-midiendo .c-interior { position: static; height: 100%; overflow: hidden; }
+  .c-interior > .c-pag { transform-origin: 0 0; }
+  @page { size: A4 landscape; margin: 0; }
+  @media print {
+    html, body { height: auto !important; overflow: visible !important; }
+    body { background: #fff; }
+    .c-sala { display: none !important; }
+    #impresion, #impresion * { visibility: visible; }   /* estilos.css oculta todo al imprimir salvo la carta */
+    #impresion { display: block; }
+    .c-hoja { width: 297mm; height: 210mm; display: flex; justify-content: center; page-break-after: always; break-after: page; overflow: hidden; background: #fff; }
+    .c-hoja:last-child { page-break-after: auto; break-after: auto; }
+    .c-hoja .c-pagina { width: 148.5mm; height: 210mm; box-shadow: none; border-radius: 0; overflow: hidden; }
+    .c-hoja.c-una { justify-content: flex-start; }
+    .c-hoja.c-una.c-primera { justify-content: flex-end; }
+    .c-hoja .c-interior { position: static; overflow: hidden; height: 100%; }
+    .c-hoja .c-pag { --t: 3.1cqw; min-height: 210mm; }
+    .c-pag, .c-pag * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    a { text-decoration: none; }
+  }
+  @media screen {
+  /* Vista de las hojas en pantalla (#hojas): las mismas reglas que al imprimir, para revisarlas sin imprimir */
+  html.c-modo-hojas body { background: #777; margin: 0; overflow: auto; height: auto; }
+  html.c-modo-hojas .c-sala { display: none !important; }
+  html.c-modo-hojas #impresion { display: block; }
+  html.c-modo-hojas .c-hoja { width: 297mm; height: 210mm; display: flex; justify-content: center; overflow: hidden; background: #fff; margin: 0 auto 12px; }
+  html.c-modo-hojas .c-hoja .c-pagina { width: 148.5mm; height: 210mm; box-shadow: none; border-radius: 0; overflow: hidden; }
+  html.c-modo-hojas .c-hoja.c-una { justify-content: flex-start; }
+  html.c-modo-hojas .c-hoja.c-una.c-primera { justify-content: flex-end; }
+  html.c-modo-hojas .c-hoja .c-interior { position: static; overflow: hidden; height: 100%; }
+  html.c-modo-hojas .c-hoja .c-pag { --t: 3.1cqw; min-height: 210mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="c-sala">
+  <div class="c-barra">
+    <a class="c-boton-inicio" id="irInicio" href="inicio.html">&#8962; Inicio</a>
+    <span class="c-titulo">Neurodivergencias · Catálogo de Reyes</span>
+    <span class="c-cuenta" id="cuenta"></span>
+  </div>
+  <div id="libro" class="c-libro"></div>
+  <div class="c-mandos">
+    <button type="button" id="ant" aria-label="Página anterior">&larr; Anterior</button>
+    <button type="button" id="indice" class="c-mando-indice" aria-label="Ir al índice">&#9776; Índice</button>
+    <button type="button" id="imprimir" class="c-mando-imprimir" hidden>Imprimir</button>
+    <a id="imprimirPdf" class="c-mando-imprimir" target="_blank" rel="noopener" hidden>Imprimir</a>
+    <button type="button" id="sig" aria-label="Página siguiente">Siguiente &rarr;</button>
+  </div>
+</div>
+
+<div id="impresion" aria-hidden="true"></div>
+
+<script src="juegos.js"></script>
+<script>
+  var canalParam = new URLSearchParams(location.search).get('c') || '';
+  var SKOOL = 'https://www.skool.com/logopedia-7339';
+  var GRUPO_LOGO = 'assets/grupo-neurodivergencias.png';
+  var COLMENIA_LOGO = 'assets/colmenia-logo.webp';
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function folio(n, texto) {
+    return '<div class="c-folio"><span>' + esc(texto || 'Neurodivergencias · Reyes') + '</span><span>' + (n ? n : '') + '</span></div>';
+  }
+
+  // Resumen de votos en una línea por tipo, apto para una página impresa.
+  function votosResumen(j) {
+    var v = VOTOS[j.n];
+    if (!v || !v.votantes) return '<p class="vacio">Aún nadie ha votado. Los profesionales del grupo lo van sumando.</p>';
+    function linea(tipo, titulo) {
+      var cl = v[tipo] || {}, ks = Object.keys(cl).sort(function (a, b) { return cl[b] - cl[a]; }).slice(0, 5);
+      if (!ks.length) return '';
+      return '<p><strong>' + titulo + ':</strong> ' + ks.map(function (k) {
+        var n = cl[k];
+        return esc(etiquetaDe(listaDe(tipo), k)) + ' (' + (n >= UMBRAL_VALIDADO ? '<b>' + n + ' · validada</b>' : n) + ')';
+      }).join(', ') + '.</p>';
+    }
+    return '<p>' + v.votantes + (v.votantes === 1 ? ' profesional ha votado' : ' profesionales han votado') + '. Con ' + UMBRAL_VALIDADO + ' votos, la etiqueta queda validada.</p>' +
+      linea('perfil', 'Diagnósticos') + linea('habilidad', 'Habilidades');
+  }
+
+  // ---- Páginas sueltas ----------------------------------------------------
+  function paginaPortada() {
+    return '<div class="c-pag c-portada">' +
+      '<span class="c-sello" style="align-self:center">Catálogo de juguetes</span>' +
+      '<div class="c-cabeza-grupo"><img src="' + GRUPO_LOGO + '" alt="Logo del grupo Neurodivergencias">' +
+        '<div><strong>Neurodivergencias</strong><span>Grupo para compartir recursos, investigaciones, ayuda y opiniones</span></div></div>' +
+      '<h1>Carta a los Reyes</h1>' +
+      '<p class="c-sub">Juguetes para hablar, pensar y jugar en familia, con la opinión de profesionales y familias del grupo.</p>' +
+      '<p class="c-reyes">Reyes 2027</p>' +
+      '<div class="c-escena-portada"><img src="assets/escena-portada.jpg" alt="Ilustración de niños, niñas y un adulto jugando juntos a juegos de mesa y de cartas"></div>' +
+      '<div class="c-folio" style="justify-content:center"><img src="' + COLMENIA_LOGO + '" alt="ColmenIA"></div></div>';
+  }
+  function paginaBienvenida(n) {
+    return '<div class="c-pag"><div class="c-texto">' +
+      '<h2>Bienvenida</h2>' +
+      '<p>Aquí está lo que ha pasado por las manos de las familias y los profesionales del grupo: cada juguete, con su rango de precio, lo que trabaja y lo que votan los profesionales.</p>' +
+      '<p>Las etiquetas de diagnóstico «Sugerido» las propone el equipo según lo que pide el juego y todavía no están validadas. Cuando tres profesionales votan una etiqueta, queda validada.</p>' +
+      '<p class="c-aviso">Los precios son rangos orientativos vistos en Amazon.es el ' + PRECIO_FECHA + '. Cambian con las ofertas: compruébalos en la tienda. Edad y jugadores también son orientativos. Nada de esto sustituye la valoración de un especialista.</p>' +
+      '<a class="c-boton c-boton-fam" href="familias.html">Hacer mi carta a los Reyes</a>' +
+      '<a class="c-boton c-boton-prof" href="index.html">Soy profesional: votar y comentar</a>' +
+      '</div>' + folio(n) + '</div>';
+  }
+  function paginaIndice(n, entradas, temas, vistaTodosN) {
+    function enlace(e, clase, extra) {
+      return '<a class="' + clase + '" href="#pagina-' + e.vista + '" data-vista="' + e.vista + '"' + (extra || '') + '><span class="c-nom">' + esc(e.nombre) + '</span><span class="c-pg">' + e.pg + '</span></a>';
+    }
+    return '<div class="c-pag"><div class="c-texto"><h2>En este número</h2>' +
+      '<h3 class="c-sub-indice">Por temáticas</h3><div class="c-botones-tema">' +
+        temas.map(function (e) { return enlace(e, 'c-btn-tema', ' style="--tema:' + e.color + '"'); }).join('') + '</div>' +
+      enlace({ nombre: 'Todos juntos: el catálogo completo', vista: vistaTodosN, pg: 4 }, 'c-boton-todos') +
+      '<h3 class="c-sub-indice">Juguete a juguete</h3><div class="c-botones-juego">' +
+        entradas.map(function (e) { return enlace(e, 'c-btn-juego'); }).join('') + '</div></div>' + folio(n) + '</div>';
+  }
+  function paginaFinal() {
+    return '<div class="c-pag c-final"><div class="c-texto">' +
+      '<h2>¿Seguimos aprendiendo juntos?</h2>' +
+      '<p>Si quieres seguir aprendiendo y compartiendo con más profesionales, entra en la comunidad de logopedia e IA.</p>' +
+      '<a class="c-boton-skool" href="' + SKOOL + '">Entrar a la comunidad</a>' +
+      '<a class="c-boton c-boton-fam" href="familias.html">Hacer mi carta a los Reyes</a>' +
+      '<p class="c-pie-aviso" style="margin-top:5cqw">¿Falta un juguete? Cuéntanoslo en el grupo y lo estudiamos.</p>' +
+      '</div><div class="c-folio"><img src="' + COLMENIA_LOGO + '" alt="ColmenIA"></div></div>';
+  }
+
+  // ---- Páginas de cada juguete ---------------------------------------------
+  // Ideas generales para jugar en casa: salen de la habilidad y del tipo de juego, no de una pauta clínica.
+  var IDEAS_HAB = {
+    lenguaje: 'Antes de empezar, nombrad juntos las palabras o las cartas. Al acabar, pídele que cuente cómo ha ganado.',
+    atencion: 'Elegid un sitio sin pantallas ni ruido y haced una ronda de prueba más corta de lo normal.',
+    razonamiento: 'Deja que piense un rato antes de ayudar y pregúntale después qué ha probado y qué cambiaría.',
+    espacial: 'Empezad por los retos más fáciles y subid poco a poco. Girar las piezas con las manos ayuda a verlo.',
+    motricidad: 'Jugad sin prisa: primero se prueba el pulso y después se compite. Celebrad cada pieza que se queda en su sitio.',
+    creatividad: 'Cada uno propone una construcción o un montaje y se lo cuenta a los demás antes de empezar.',
+    memoria: 'Repasad juntos lo que ha pasado en la ronda anterior antes de pasar a la siguiente.',
+    turnos: 'Decid en voz alta de quién es el turno y esperad con una señal acordada. Ganar y perder se comenta sin comparar.',
+    calculo: 'Contad en voz alta y dejad a mano papel y lápiz. Sin prisas ni cronómetro.'
+  };
+  var IDEAS_TIPO = {
+    cartas: 'Leed las reglas juntos y haced una ronda de prueba sin puntuar.',
+    mesa: 'Dejad el tablero a la vista y repasad los pasos de un turno antes de la primera partida.',
+    palabras: 'Si una palabra se atasca, se puede pasar o pedir una pista: lo importante es seguir jugando.',
+    pensar: 'Las partidas cortas funcionan mejor: parad cuando aún haya ganas de una más.',
+    construir: 'Dejad que explore las piezas un rato antes de seguir las instrucciones.'
+  };
+  var IDEAS_GENERALES = [
+    'Una partida corta de 10 a 15 minutos es mejor que una larga. Parad cuando aún haya ganas de más.',
+    'Si un día no apetece, se guarda y se prueba otro. Jugar no es una tarea.',
+    'Que elija él o ella a qué jugar de vez en cuando también suma.'
+  ];
+  function ideasDe(j, i) {
+    var l = [], hab = (j.habilidades || [])[0], tipo = (j.cats || [])[0];
+    if (hab && IDEAS_HAB[hab]) l.push(IDEAS_HAB[hab]);
+    if (tipo && IDEAS_TIPO[tipo]) l.push(IDEAS_TIPO[tipo]);
+    if (l.length < 3) l.push(IDEAS_GENERALES[i % IDEAS_GENERALES.length]);
+    return l.slice(0, 3);
+  }
+  // Juegos parecidos: comparten tipo o habilidad.
+  function parecidosDe(j, i) {
+    return JUEGOS.map(function (o, k) {
+      if (k === i) return null;
+      var p = 0;
+      (o.cats || []).forEach(function (c) { if ((j.cats || []).indexOf(c) !== -1) p += 1; });
+      (o.habilidades || []).forEach(function (h) { if ((j.habilidades || []).indexOf(h) !== -1) p += 2; });
+      return { k: k, p: p };
+    }).filter(Boolean).sort(function (a, b) { return b.p - a.p || a.k - b.k; }).slice(0, 2).map(function (x) { return x.k; });
+  }
+  // Secciones por temáticas: una escena con su historia y los juguetes que van con ella.
+  var TEMAS = [
+    { k: 'palabras', corto: 'Palabras', titulo: 'Para hablar y jugar con palabras', etiqueta: 'Lenguaje', color: '#1f9d93', img: 'assets/escena-palabras.jpg',
+      alt: 'Ilustración de dos niños y un adulto riéndose con cartas de palabras sobre la mesa',
+      historia: 'Es domingo y llueve. Sobre la mesa hay una caja de cartas con palabras. Uno saca una carta, otro piensa en un animal, y de pronto toda la casa está inventando palabras, riéndose de las más raras y preguntando «¿eso existe?».',
+      juegos: ['Palabrea', 'Guess in 10'] },
+    { k: 'pensar', corto: 'Pensar', titulo: 'Para pensar, mirar y resolver', etiqueta: 'Razonamiento', color: '#1d4d5e', img: 'assets/escena-pensar.jpg',
+      alt: 'Ilustración de niños resolviendo un puzle de piezas de colores y un tablero de madera',
+      historia: 'Un tablero, un puñado de piezas de colores y un reto. Nadie tiene prisa: se prueba una pieza, se gira, se rectifica. Cuando por fin encaja, se oye ese «¡ya está!» que dan ganas de repetir.',
+      juegos: ['Batalla de genios', 'Ubongo', 'Laberinto', 'La cuenta'] },
+    { k: 'construir', corto: 'Construir', titulo: 'Para construir y crear', etiqueta: 'Creatividad', color: '#4a9d3f', img: 'assets/escena-construir.jpg',
+      alt: 'Ilustración de niños construyendo un fuerte con varillas y bolas de colores',
+      historia: 'Varillas, bolas, piezas de madera. Empieza siendo una torre y acaba siendo un castillo con túnel y todo. Y cuando se termina, siempre hay alguien que dice: «¿y si lo hacemos más alto?».',
+      juegos: ['Kit de fuertes Tiny Land', 'Kit de 7 experimentos de madera', 'Junk Art Revolution'] },
+    { k: 'cartas', corto: 'Reír en familia', titulo: 'Para reír juntos en familia', etiqueta: 'Cartas', color: '#e4672c', img: 'assets/escena-cartas.jpg',
+      alt: 'Ilustración de una familia jugando a un juego de cartas sobre una alfombra, con un gato mirando',
+      historia: 'Abuela, padres, hermanos, y un gato que se cuela en la partida. Unas cartas, unas cuantas risas y la regla de la casa: aquí se juega para pasarlo bien, gane quien gane.',
+      juegos: ['Exploding Kittens', 'Polilla tramposa', 'Pera Limonera'] }
+  ];
+  function indiceJuego(nombre) { for (var k = 0; k < JUEGOS.length; k++) if (JUEGOS[k].n === nombre) return k; return -1; }
+
+  // Vistas del libro: cada una con su número. Ancho: portada 0, bienvenida+índice 1, todos juntos 2, temáticas 3-6, fichas 7.. Móvil: una por página.
+  function vistaDe(k, esAncha) { return esAncha ? 7 + k : 13 + 2 * k; }
+  function vistaTema(t, esAncha) { return esAncha ? 3 + t : 5 + 2 * t; }
+
+  function tile(k, esAncha, largo) {
+    var j = JUEGOS[k], v = vistaDe(k, esAncha);
+    var dentro = j.foto ? '<img src="' + j.foto + '" alt="' + esc(j.n) + '">' : ilustracion(j.motivo, j.color);
+    var resumen = largo && j.desc ? '<span class="c-tile-resumen">' + esc(j.desc.split('. ')[0].replace(/\.$/, '')) + '.</span>' : '';
+    return '<a class="c-tile" href="#pagina-' + v + '" data-vista="' + v + '">' +
+      '<span class="c-tile-foto" style="background:' + (j.foto ? '#fff' : j.color) + '">' + dentro + (j.edad ? '<i class="c-tile-edad">' + j.edad + '+</i>' : '') + '</span>' +
+      '<b>' + esc(j.n) + '</b>' + resumen +
+      '<span class="c-tile-meta"><em>' + esc(j.precio || 'Precio por confirmar') + '</em>' + (largo ? '<u>Ver ficha →</u>' : '') + '</span></a>';
+  }
+  function paginaTodos(n, desde, hasta, parte, esAncha) {
+    var l = []; for (var k = desde; k < hasta; k++) l.push(tile(k, esAncha, false));
+    return '<div class="c-pag"><div class="c-texto c-texto-corto"><div class="c-kicker">Todos juntos · ' + parte + ' de 2</div><h2>El catálogo completo</h2></div>' +
+      '<div class="c-tiles">' + l.join('') + '</div>' + folio(n) + '</div>';
+  }
+  function paginaEscena(n, t) {
+    var tm = TEMAS[t];
+    return '<div class="c-pag c-pag-escena" style="--tema:' + tm.color + '"><div class="c-escena"><img src="' + tm.img + '" alt="' + esc(tm.alt) + '"></div>' +
+      '<div class="c-historia"><div class="c-kicker c-kicker-tema">' + esc(tm.etiqueta) + '</div><h2>' + esc(tm.titulo) + '</h2>' +
+      '<p>' + esc(tm.historia) + '</p><p class="c-pie-escena">Escena imaginada para esta sección.</p></div>' + folio(n) + '</div>';
+  }
+  function paginaTemaJuegos(n, t, esAncha) {
+    var tm = TEMAS[t], l = tm.juegos.map(indiceJuego).filter(function (k) { return k !== -1; }).map(function (k) { return tile(k, esAncha, true); });
+    return '<div class="c-pag c-pag-tema" style="--tema:' + tm.color + '"><div class="c-texto c-texto-corto"><div class="c-kicker c-kicker-tema">' + esc(tm.etiqueta) + '</div><h2>En esta sección</h2></div>' +
+      '<div class="c-tiles c-tiles-largos">' + l.join('') + '</div>' + folio(n) + '</div>';
+  }
+
+  function fotoDe(j, n, i) {
+    var dentro = j.foto ? '<img src="' + j.foto + '" alt="' + esc(j.n) + '">' : ilustracion(j.motivo, j.color);
+    var edad = j.edad ? '<div class="c-edad">' + j.edad + '+<small>años</small></div>' : '';
+    var precio = j.precio
+      ? '<div class="c-sello-precio"><small>Desde</small>' + esc(j.precio.split('–')[0]).replace(/\s*€$/, '') + ' €<small style="margin-top:.6cqw">hasta ' + esc((j.precio.split('–')[1] || '').trim()) + '</small></div>'
+      : '<div class="c-sello-precio c-sin">Precio por confirmar</div>';
+    var hab = (j.habilidades || [])[0];
+    var ficha = '<div class="c-ficha">' +
+      '<div><small>Edad</small><b>' + (j.edad ? 'Desde ' + j.edad + ' años' : 'Por confirmar') + '</b></div>' +
+      '<div><small>' + (/jugador/i.test(j.jug || '') ? 'Jugadores' : 'Contiene') + '</small><b>' + esc((j.jug || 'Por confirmar').replace(/\s*jugadores?$/i, '')) + '</b></div>' +
+      '<div><small>Tipo</small><b>' + esc(j.etiqueta) + '</b></div>' +
+      '<div><small>Trabaja</small><b>' + esc(hab ? etiquetaDe(HABILIDADES, hab) : 'Pasarlo bien') + '</b></div></div>';
+    var ideas = '<div class="c-ideas"><h3>Ideas para jugar en casa</h3><ul>' +
+      ideasDe(j, i || 0).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>';
+    return '<div class="c-pag c-pag-foto"><div class="c-foto" style="background:' + (j.foto ? '#fff' : j.color) + '">' + dentro +
+      '<span class="c-cinta">' + esc(j.etiqueta) + '</span>' + edad + precio + '</div>' +
+      ficha + ideas + (n === false ? '' : folio(n)) + '</div>';
+  }
+  function datosDe(j, n, i, esAncha) {
+    var opiniones = j.opiniones.length
+      ? j.opiniones.slice(0, 2).map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('')
+      : '<p class="vacio">Los profesionales del grupo están preparando sus comentarios.</p>';
+    var tienda = j.url
+      ? '<a class="c-comprar" href="' + j.url + '" rel="noopener">Ver en Amazon</a>'
+      : '<span class="c-comprar c-sin">Aún no tenemos enlace</span>';
+    var parecidos = parecidosDe(j, i).map(function (k) {
+      var o = JUEGOS[k], v = vistaDe(k, esAncha);
+      return '<a class="c-btn-parecido" href="#pagina-' + v + '" data-vista="' + v + '"><span>' + esc(o.n) + '</span><em>' + esc(o.precio || 'precio por confirmar') + '</em></a>';
+    }).join('');
+    return '<div class="c-pag c-pag-datos"><div class="c-datos">' +
+      '<div class="c-kicker">' + esc(j.etiqueta) + '</div><h2>' + esc(j.n) + '</h2>' +
+      '<div class="c-hechos">' + precioHtml(j) +
+        (j.jug ? '<span>' + esc(j.jug) + '</span>' : '') + (j.edad ? '<span>desde ' + j.edad + ' años</span>' : '') + '</div>' +
+      '<div class="c-hechos">' + pastillas(j) + '</div>' +
+      '<div class="c-seccion c-s-juego"><h3>El juego</h3>' +
+        (j.area ? '<p><strong>Trabaja:</strong> ' + esc(j.area) + '.</p>' : '<p>Para pasarlo bien en familia.</p>') +
+        (j.desc ? '<p>' + esc(j.desc) + '</p>' : '<p class="vacio">Ficha en preparación.</p>') + porqueHtml(j) + '</div>' +
+      ((!j.opiniones.length && !(VOTOS[j.n] && VOTOS[j.n].votantes))
+        ? '<div class="c-seccion c-s-opinan"><h3>Opiniones y votos</h3><p class="vacio">Aún no hay comentarios ni votos. Los profesionales y las familias del grupo lo van sumando.</p></div>'
+        : '<div class="c-seccion c-s-opinan"><h3>Opinan profesionales y familias</h3>' + opiniones + '</div>' +
+          '<div class="c-seccion c-s-votos"><h3>Lo que votan los profesionales</h3><div class="c-votos">' + votosResumen(j) + '</div></div>') +
+      tienda +
+      '<div class="c-parecidos"><h3>También te puede gustar</h3><div class="c-botones-parecidos">' + parecidos + '</div></div>' +
+      '</div>' + folio(n) + '</div>';
+  }
+
+  // ---- Montaje de las vistas ------------------------------------------------
+  // Cada vista es una lista de páginas: 1 (portada, final) o 2 (doble página) en pantalla ancha; siempre 1 en el móvil.
+  function ancha() { return !!(window.matchMedia && window.matchMedia('(min-width: 900px)').matches); }
+
+  function construirVistas(esAncha) {
+    var vistas = [], N = JUEGOS.length, mitad = Math.ceil(N / 2);
+    // Páginas del libro: portada 1, bienvenida 2, índice 3, todos juntos 4-5, temáticas 6-13, juguetes desde la 14, contraportada.
+    var entradas = JUEGOS.map(function (j, i) { return { nombre: j.n, precio: j.precio || 'por confirmar', pg: 14 + 2 * i, vista: vistaDe(i, esAncha) }; });
+    var temas = TEMAS.map(function (tm, i) { return { nombre: tm.corto, color: tm.color, pg: 6 + 2 * i, vista: vistaTema(i, esAncha) }; });
+    vistas.push([paginaPortada()]);
+    if (esAncha) {
+      vistas.push([paginaBienvenida(2), paginaIndice(3, entradas, temas, esAncha ? 2 : 3)]);
+      vistas.push([paginaTodos(4, 0, mitad, 1, true), paginaTodos(5, mitad, N, 2, true)]);
+      TEMAS.forEach(function (tm, t) { vistas.push([paginaEscena(6 + 2 * t, t), paginaTemaJuegos(7 + 2 * t, t, true)]); });
+      JUEGOS.forEach(function (j, i) { vistas.push([fotoDe(j, 14 + 2 * i, i), datosDe(j, 15 + 2 * i, i, true)]); });
+    } else {
+      vistas.push([paginaBienvenida(2)]);
+      vistas.push([paginaIndice(3, entradas, temas, esAncha ? 2 : 3)]);
+      vistas.push([paginaTodos(4, 0, mitad, 1, false)]); vistas.push([paginaTodos(5, mitad, N, 2, false)]);
+      TEMAS.forEach(function (tm, t) { vistas.push([paginaEscena(6 + 2 * t, t)]); vistas.push([paginaTemaJuegos(7 + 2 * t, t, false)]); });
+      JUEGOS.forEach(function (j, i) { vistas.push([fotoDe(j, 14 + 2 * i, i)]); vistas.push([datosDe(j, 15 + 2 * i, i, false)]); });
+    }
+    vistas.push([paginaFinal()]);
+    return vistas;
+  }
+
+  // ---- Libro: vistas y pasar hoja -------------------------------------------
+  // Ancho: cada vista es {izq, der} (la portada solo tiene der, la contraportada solo izq). Móvil: {solo}.
+  var libro = document.getElementById('libro');
+  var paginas = [], actual = 0, esAncha = ancha(), girando = false, temporizador = null;
+
+  function aVistas(listas, ancho) {
+    return listas.map(function (v, i) {
+      if (!ancho) return { solo: v[0] };
+      if (v.length === 2) return { izq: v[0], der: v[1] };
+      return i === 0 ? { izq: null, der: v[0] } : { izq: v[0], der: null };
+    });
+  }
+  function pagina(h) { return '<div class="c-pagina"><div class="c-interior">' + h + '</div></div>'; }
+  function lado(h, zona) {
+    return '<div class="c-lado' + (h ? '' : ' c-vacio') + '">' + (h ? pagina(h) : '') +
+      (zona && h ? '<span class="c-borde c-borde-' + zona + '" data-ir="' + (zona === 'sig' ? 1 : -1) + '" aria-hidden="true"></span>' : '') + '</div>';
+  }
+  function cara(h, clase) { return '<div class="c-cara ' + clase + '">' + (h ? pagina(h) : '') + '</div>'; }
+  function sinAnimacion() {
+    if (window.CATALOGO_SIN_ANIMACION) return true;
+    return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }
+
+  function clasesLibro() {
+    var c = 'c-libro ' + (esAncha ? 'c-doble' : 'c-solo');
+    if (esAncha && actual === 0) c += ' c-cerrado-der';
+    if (esAncha && actual === paginas.length - 1) c += ' c-cerrado-izq';
+    return c;
+  }
+  function marcador() {
+    document.getElementById('ant').disabled = actual === 0;
+    document.getElementById('sig').disabled = actual === paginas.length - 1;
+    document.getElementById('cuenta').textContent = (actual + 1) + ' / ' + paginas.length;
+    try { if (history.replaceState) history.replaceState(null, '', '#pagina-' + actual); } catch (e) {}
+  }
+  // Si el contenido de una página no cabe, se reduce todo a la vez (hasta un 74 %) para no tener que desplazarse.
+  function ajustar(raiz) {
+    [].forEach.call(raiz.querySelectorAll('.c-interior'), function (int) {
+      var pag = int.firstElementChild;
+      if (!pag || !int.clientHeight) return;
+      var opcionales = [].slice.call(pag.querySelectorAll('.c-parecidos, .c-ideas'));
+      opcionales.forEach(function (o) { o.style.display = ''; });
+      var H = int.clientHeight, k = 1;
+      function reducir() {
+        pag.style.width = ''; pag.style.minHeight = ''; pag.style.transform = ''; k = 1;
+        for (var n = 0; n < 4; n++) {
+          var visible = pag.scrollHeight * k;
+          if (visible <= H + 1 && n === 0) break;
+          var nk = Math.max(0.74, k * H / visible);
+          if (Math.abs(nk - k) < 0.004) break;
+          k = nk;
+          pag.style.width = (100 / k) + '%'; pag.style.minHeight = (100 / k) + '%'; pag.style.transform = 'scale(' + k + ')';
+        }
+      }
+      reducir();
+      // Si aun así no cabe (pantalla muy baja), se quitan primero los bloques opcionales: parecidos, luego ideas.
+      while (pag.scrollHeight * k > H + 2 && opcionales.length) { opcionales.pop().style.display = 'none'; reducir(); }
+      int.style.overflowY = (pag.scrollHeight * k > H + 2) ? 'auto' : 'hidden';
+    });
+  }
+  var pendienteAjuste = null;
+  function ajustarLuego() { clearTimeout(pendienteAjuste); pendienteAjuste = setTimeout(function () { ajustar(libro); }, 60); }
+
+  // Vista fija, sin movimiento.
+  function pintar() {
+    var v = paginas[actual];
+    libro.className = clasesLibro();
+    libro.innerHTML = '<div class="c-libro-int">' + (esAncha ? lado(v.izq, 'ant') + lado(v.der, 'sig') : lado(v.solo)) + '</div>';
+    marcador();
+    ajustar(libro);
+  }
+
+  // Pasa la hoja hacia una vista vecina con animación; si no hay animación, cambia sin más.
+  function ir(n) {
+    n = Math.max(0, Math.min(paginas.length - 1, n));
+    if (n === actual || girando) return;
+    var adelante = n > actual, vieja = paginas[actual], nueva = paginas[n];
+    if (sinAnimacion() || Math.abs(n - actual) > 1) { actual = n; pintar(); return; }
+    girando = true;
+    var nuevoActual = n, interior, hoja = document.createElement('div');
+    if (esAncha) {
+      var izq = adelante ? vieja.izq : nueva.izq, der = adelante ? nueva.der : vieja.der;
+      interior = libro.querySelector('.c-libro-int');
+      interior.innerHTML = lado(izq) + lado(der);
+      hoja.className = 'c-hoja-giro ' + (adelante ? 'c-der' : 'c-izq');
+      hoja.innerHTML = cara(adelante ? vieja.der : vieja.izq, 'c-frente') + cara(adelante ? nueva.izq : nueva.der, 'c-dorso');
+    } else {
+      interior = libro.querySelector('.c-libro-int');
+      interior.innerHTML = lado(adelante ? nueva.solo : vieja.solo);
+      hoja.className = 'c-hoja-giro c-solo-hoja ' + (adelante ? 'c-sale' : 'c-entra');
+      hoja.innerHTML = cara(adelante ? vieja.solo : nueva.solo, 'c-frente');
+    }
+    interior.appendChild(hoja);
+    ajustar(libro);
+    // El libro se centra o se abre mientras gira
+    actual = nuevoActual;
+    libro.className = clasesLibro();
+    marcador();
+    void hoja.offsetWidth;               // fija el punto de partida antes de animar
+    (window.requestAnimationFrame || function (f) { setTimeout(f, 30); })(function () { hoja.classList.add('c-fin'); });
+    var fin = function () { if (!girando) return; girando = false; clearTimeout(temporizador); pintar(); };
+    hoja.addEventListener('transitionend', function (e) { if (e.target === hoja && e.propertyName === 'transform') fin(); });
+    temporizador = setTimeout(fin, 1100);
+  }
+
+  function reconstruir() {
+    esAncha = ancha();
+    paginas = aVistas(construirVistas(esAncha), esAncha);
+    actual = Math.min(actual, paginas.length - 1);
+    girando = false; clearTimeout(temporizador);
+    pintar();
+  }
+
+  // Impresión: siempre en formato de doble página (A4 apaisado).
+  function montarImpresion() {
+    var v = construirVistas(true), cont = document.getElementById('impresion');
+    cont.innerHTML = v.map(function (hoja, i) {
+      return '<div class="c-hoja' + (hoja.length === 1 ? ' c-una' + (i === 0 ? ' c-primera' : '') : '') + '">' +
+        hoja.map(pagina).join('') + '</div>';
+    }).join('');
+    cont.classList.add('c-midiendo'); ajustar(cont); cont.classList.remove('c-midiendo');
+  }
+  var impresionLista = false;
+  window.addEventListener('beforeprint', function () { if (!impresionLista) montarImpresion(); });
+  window.addEventListener('afterprint', function () { impresionLista = false; });
+  if (location.hash === '#hojas') { document.documentElement.classList.add('c-modo-hojas'); montarImpresion(); }
+
+  document.getElementById('ant').addEventListener('click', function () { ir(actual - 1); });
+  document.getElementById('sig').addEventListener('click', function () { ir(actual + 1); });
+  document.getElementById('indice').addEventListener('click', function () { ir(esAncha ? 1 : 2); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') { ir(actual + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { ir(actual - 1); }
+  });
+  var arrastre = false;
+  libro.addEventListener('click', function (e) {
+    if (arrastre) { arrastre = false; e.preventDefault(); return; }
+    var a = e.target.closest && e.target.closest('a[data-vista]');
+    if (a) { e.preventDefault(); ir(Number(a.getAttribute('data-vista'))); return; }
+    var b = e.target.closest && e.target.closest('.c-borde');
+    if (b) ir(actual + Number(b.getAttribute('data-ir')));
+  });
+  // Arrastrar o deslizar para pasar la hoja (ratón y dedo)
+  var x0 = null, y0 = null;
+  libro.addEventListener('pointerdown', function (e) { x0 = e.clientX; y0 = e.clientY; arrastre = false; });
+  libro.addEventListener('pointerup', function (e) {
+    if (x0 === null) return;
+    var dx = e.clientX - x0, dy = e.clientY - y0; x0 = null;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) { arrastre = true; ir(actual + (dx < 0 ? 1 : -1)); }
+  });
+  libro.addEventListener('pointercancel', function () { x0 = null; });
+  window.addEventListener('hashchange', function () {
+    var m = /^#pagina-(\d+)$/.exec(location.hash);
+    if (m && Number(m[1]) !== actual && Number(m[1]) < paginas.length) { actual = Number(m[1]); pintar(); }
+  });
+  if (window.matchMedia) {
+    var mq = window.matchMedia('(min-width: 900px)');
+    var cambio = function () { if (ancha() !== esAncha) { actual = 0; reconstruir(); } };
+    if (mq.addEventListener) mq.addEventListener('change', cambio); else if (mq.addListener) mq.addListener(cambio);
+  }
+
+  // Imprimir: fuera de otra página, imprime las hojas. Dentro de la vista previa de Claude el navegador lo bloquea:
+  // allí el botón abre el PDF del catálogo en otra pestaña (PDF_URL se rellena al publicar la vista previa).
+  var PDF_URL = '';
+  (function () {
+    var incrustada = false; try { incrustada = window.self !== window.top; } catch (e) { incrustada = true; }
+    var b = document.getElementById('imprimir');
+    if (incrustada && PDF_URL) {
+      var enlace = document.getElementById('imprimirPdf'); enlace.href = PDF_URL; enlace.hidden = false;
+    }
+    if (!incrustada) {
+      b.hidden = false;
+      b.addEventListener('click', function (e) { e.preventDefault();
+        var boton = b; boton.disabled = true; boton.textContent = 'Preparando…';
+        setTimeout(function () {   // primero se preparan las hojas y después se abre la impresión
+          try { montarImpresion(); impresionLista = true; } catch (err) { impresionLista = false; }
+          boton.disabled = false; boton.textContent = 'Imprimir';
+          window.print();
+        }, 80);
+      });
+    }
+  })();
+
+  paginas = aVistas(construirVistas(esAncha), esAncha);
+  var m0 = /^#pagina-(\d+)$/.exec(location.hash);
+  actual = m0 ? Math.min(Number(m0[1]), paginas.length - 1) : 0;
+  pintar();
+  window.addEventListener('resize', ajustarLuego);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustarLuego);
+  window.addEventListener('load', ajustarLuego);
+  // Los votos de la hoja llegan después: se repinta con ellos (sin mover la hoja).
+  cargarVotos(function () { if (girando) { setTimeout(function () { paginas = aVistas(construirVistas(esAncha), esAncha); pintar(); }, 1200); return; } paginas = aVistas(construirVistas(esAncha), esAncha); pintar(); });
+</script>
+</body>
+</html>

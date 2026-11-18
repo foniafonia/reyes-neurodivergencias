@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Tu carta a los Reyes: juguetes para jugar en familia</title>
+<meta name="description" content="Guía de juguetes para la carta de los Reyes, con las opiniones de profesionales y familias del grupo Neurodivergencias. Busca por diagnóstico o por habilidad y haz tu carta.">
+<!-- BORRADOR LOCAL. No publicado.
+     Página de FAMILIAS: es lo que verán las familias cuando los profesionales terminen sus fichas.
+     La de profesionales es index.html. Comparten estilos.css, juegos.js y filtros.js. -->
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body class="con-barra">
+
+<header class="portada">
+  <div class="wrap">
+    <div class="fila-inicio"><a class="boton-inicio" href="inicio.html">&#8962; Volver al inicio</a></div>
+    <span class="sello">Carta a los Reyes · Guía para familias</span>
+    <div class="grupo">
+      <div class="logo-grupo">
+        <img src="assets/grupo-neurodivergencias.png" alt="Logo del grupo Neurodivergencias">
+        <svg class="e1" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.9 7.1L22 9l-5.5 4.8L18.2 21 12 17.2 5.8 21l1.7-7.2L2 9l7.1-.9z"/></svg>
+        <svg class="e2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.9 7.1L22 9l-5.5 4.8L18.2 21 12 17.2 5.8 21l1.7-7.2L2 9l7.1-.9z"/></svg>
+        <svg class="e3" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.9 7.1L22 9l-5.5 4.8L18.2 21 12 17.2 5.8 21l1.7-7.2L2 9l7.1-.9z"/></svg>
+      </div>
+      <div class="grupo-nombre">
+        <strong>Neurodivergencias</strong>
+        <span>Grupo para compartir recursos, investigaciones, ayuda y opiniones</span>
+      </div>
+    </div>
+    <h1>Elige y haz tu carta a los Reyes</h1>
+    <p class="sub">Juguetes para jugar en familia, con lo que cuentan los profesionales y las familias del grupo.</p>
+    <span class="cuenta" id="cuentaAtras" hidden></span>
+    <div><a class="enlace-pagina" href="catalogo.html">Hojear el catálogo en revista</a></div>
+  </div>
+  <svg class="onda" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24 C 180 52, 360 0, 540 24 S 900 52, 1080 24 S 1320 4, 1440 24 V48 H0Z" fill="#fff8ec"/></svg>
+</header>
+
+<main>
+<div class="wrap">
+  <ol class="pasos">
+    <li>Busca por diagnóstico o por habilidad en el panel.</li>
+    <li>Elige los juguetes y mira lo que cuentan los profesionales.</li>
+    <li>Haz tu carta y compártela o imprímela.</li>
+  </ol>
+</div>
+
+<div class="layout">
+  <div class="principal">
+    <section class="intro">
+      <h2>Juguetes para la carta</h2>
+      <p>Edad y jugadores son orientativos: compruébalos en la caja. Los precios son rangos orientativos vistos en Amazon.es el 18 de noviembre de 2026 y cambian con las ofertas. Los profesionales del grupo votan con qué diagnósticos y habilidades funciona cada juego; las etiquetas «validadas» tienen el voto de al menos 3 profesionales.</p>
+    </section>
+
+    <ul class="grid" id="grid"></ul>
+    <p class="sin-resultados" id="sinResultados" hidden></p>
+    <noscript><p>Activa JavaScript para ver la lista de juguetes.</p></noscript>
+  </div>
+  <aside class="lateral" id="lateral" aria-label="Buscar y filtrar juguetes"></aside>
+</div>
+
+<div class="wrap">
+  <section class="comunidad">
+    <p>¿Trabajas con niños y niñas y quieres contar tu experiencia con alguno de estos juegos? Tu comentario ayuda a otras familias.</p>
+    <a class="btn-grande" href="index.html#cuenta">Soy profesional: cuento mi experiencia</a>
+  </section>
+
+  <section class="comunidad">
+    <p>Si quieres seguir aprendiendo y compartiendo con más profesionales, entra en la comunidad de logopedia e IA.</p>
+    <a class="btn-grande" href="https://www.skool.com/logopedia-7339" style="background:var(--naranja)">Entrar a la comunidad</a>
+  </section>
+</div>
+</main>
+
+<footer>
+  <img src="assets/colmenia-logo.webp" alt="ColmenIA">
+  <p>ColmenIA · Lo pensamos y lo mejoramos entre todos.</p>
+</footer>
+
+<!-- Barra fija con el número de juguetes elegidos -->
+<div class="barra-carta" id="barra" hidden>
+  <div class="wrap">
+    <strong id="cuentaCarta">Mi carta: 0 juguetes</strong>
+    <button class="btn" id="abrirCarta" type="button">Ver mi carta</button>
+  </div>
+</div>
+
+<!-- Panel de la carta -->
+<div class="panel-fondo" id="fondo" role="dialog" aria-modal="true" aria-labelledby="tituloCarta">
+  <div class="panel">
+    <h2 id="tituloCarta">Mi carta a los Reyes</h2>
+    <label for="nombreCarta" style="display:block;font-weight:800;margin-top:12px">Tu nombre <span class="opt" style="font-weight:400;color:var(--suave)">(opcional, no se envía a ningún sitio)</span></label>
+    <input type="text" id="nombreCarta" autocomplete="off" style="width:100%;font:inherit;border:2px solid var(--tinta);border-radius:12px;padding:10px 12px;background:#fff">
+    <ul id="listaCarta"></ul>
+    <div class="acciones">
+      <button class="btn verde" id="copiar" type="button">Copiar mi lista</button>
+      <button class="btn" id="wa" type="button">Enviar por WhatsApp</button>
+      <button class="btn claro" id="imprimir" type="button">Imprimir mi carta</button>
+      <button class="btn claro" id="cerrar" type="button">Seguir eligiendo</button>
+    </div>
+    <div class="msg-carta" id="msgCarta" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+<div id="cartaPrint" aria-hidden="true"></div>
+
+<script src="juegos.js"></script>
+<script src="filtros.js"></script>
+<script>
+  // ---- Fichas (versión familias) -----------------------------------------
+  var CLAVE = 'guia-reyes-carta';
+  var elegidos = [];
+  try { elegidos = JSON.parse(localStorage.getItem(CLAVE) || '[]'); } catch (e) { elegidos = []; }
+  function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(elegidos)); } catch (e) {} }
+
+  function tarjeta(j, i) {
+    var li = document.createElement('li');
+    li.className = 'juego';
+    li.setAttribute('data-i', i);
+    var edad = j.edad ? '<div class="edad">' + j.edad + '+<small>años</small></div>' : '<div class="edad">?<small>edad</small></div>';
+    var dentro = j.foto ? '<img class="foto" src="' + j.foto + '" alt="' + j.n + '">' : ilustracion(j.motivo, j.color);
+    var tienda = j.url
+      ? '<a class="comprar" href="' + j.url + '" rel="noopener">Ver en Amazon</a>'
+      : '<span class="comprar sin">Aún no tenemos enlace</span>';
+    var datos = '<p class="datos">' +
+      (j.jug ? '<span>' + j.jug + '</span>' : '') +
+      (j.edad ? '<span>desde ' + j.edad + ' años</span>' : '') + precioHtml(j) + '</p>' +
+      '<p class="datos">' + pastillas(j) + '</p>';
+    var sirve = (j.area ? '<p><strong>Trabaja:</strong> ' + j.area + '.</p>' : '<p>Para pasarlo bien en familia.</p>') +
+      (j.desc ? '<p>' + j.desc + '</p>' : '<p class="pend">Ficha en preparación.</p>') + porqueHtml(j);
+    var prof = j.opiniones.length
+      ? j.opiniones.map(function (t) { return '<p>' + t + '</p>'; }).join('')
+      : '<p class="vacio">Los profesionales del grupo están preparando sus comentarios.</p>';
+    var puesto = elegidos.indexOf(j.n) !== -1;
+    li.innerHTML =
+      '<div class="caja" style="background:' + (j.foto ? '#fff' : j.color) + '">' + dentro +
+        '<span class="cinta">' + j.etiqueta + '</span>' + edad + '</div>' + tienda +
+      '<div class="cuerpo"><h3>' + j.n + '</h3>' + datos +
+        '<div class="bloque b-juego"><h4>Para qué sirve</h4>' + sirve + '</div>' +
+        '<div class="bloque b-prof"><h4>Lo que dicen los profesionales</h4>' + prof + '</div>' +
+        '<div class="bloque b-votos"><h4>Lo que votan los profesionales</h4>' + votosHtml(j) + '</div>' +
+        '<button type="button" class="quiero" aria-pressed="' + puesto + '" data-n="' + j.n + '">' +
+          (puesto ? 'En mi carta' : 'Añadir a mi carta') + '</button></div>';
+    return li;
+  }
+  var grid = document.getElementById('grid');
+  function pintarGrid() { grid.innerHTML = ''; JUEGOS.forEach(function (j, i) { grid.appendChild(tarjeta(j, i)); }); }
+  pintarGrid();
+  Filtros.montar(document.getElementById('lateral'));
+  // Votos de los profesionales (solo recuentos): al llegar, se repintan las fichas y se recalculan los filtros.
+  cargarVotos(function () { pintarGrid(); Filtros.refrescar(); });
+
+  // ---- Mi carta ----------------------------------------------------------
+  var barra = document.getElementById('barra');
+  var fondo = document.getElementById('fondo');
+  var lista = document.getElementById('listaCarta');
+  var msg = document.getElementById('msgCarta');
+
+  function pintarBarra() {
+    var n = elegidos.length;
+    barra.hidden = n === 0;
+    document.getElementById('cuentaCarta').textContent = 'Mi carta: ' + n + (n === 1 ? ' juguete' : ' juguetes');
+  }
+  function pintarLista() {
+    lista.innerHTML = '';
+    if (!elegidos.length) { lista.innerHTML = '<li>Aún no has elegido ningún juguete.</li>'; return; }
+    elegidos.forEach(function (n) {
+      var li = document.createElement('li');
+      var s = document.createElement('span'); s.textContent = n;
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = 'Quitar'; b.setAttribute('data-quitar', n);
+      li.appendChild(s); li.appendChild(b); lista.appendChild(li);
+    });
+  }
+  function marcarBotones() {
+    document.querySelectorAll('.quiero').forEach(function (b) {
+      var puesto = elegidos.indexOf(b.getAttribute('data-n')) !== -1;
+      b.setAttribute('aria-pressed', puesto);
+      b.textContent = puesto ? 'En mi carta' : 'Añadir a mi carta';
+    });
+  }
+  function cambiar(n) {
+    var i = elegidos.indexOf(n);
+    if (i === -1) elegidos.push(n); else elegidos.splice(i, 1);
+    guardar(); marcarBotones(); pintarBarra(); pintarLista();
+  }
+
+  grid.addEventListener('click', function (e) {
+    var b = e.target.closest('.quiero');
+    if (b) cambiar(b.getAttribute('data-n'));
+  });
+  lista.addEventListener('click', function (e) {
+    var q = e.target.getAttribute('data-quitar');
+    if (q) cambiar(q);
+  });
+  document.getElementById('abrirCarta').addEventListener('click', function () { pintarLista(); msg.textContent = ''; fondo.classList.add('abierto'); });
+  document.getElementById('cerrar').addEventListener('click', function () { fondo.classList.remove('abierto'); });
+  fondo.addEventListener('click', function (e) { if (e.target === fondo) fondo.classList.remove('abierto'); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') fondo.classList.remove('abierto'); });
+
+  function textoCarta() {
+    var nombre = document.getElementById('nombreCarta').value.trim();
+    var l = ['Queridos Reyes Magos:', ''];
+    if (nombre) l.push('Me llamo ' + nombre + '.', '');
+    l.push('Este año me gustaría que me trajerais:');
+    elegidos.forEach(function (n) { l.push('- ' + n); });
+    l.push('', 'Muchas gracias.');
+    return l.join('\n');
+  }
+  function enlaceGuia() {
+    return location.protocol.indexOf('http') === 0 ? location.origin + location.pathname + '?c=wa' : '';
+  }
+
+  document.getElementById('copiar').addEventListener('click', function () {
+    var t = textoCarta();
+    function listo() { msg.textContent = 'Copiado. Ya puedes pegarlo donde quieras.'; }
+    function plan_b() {
+      var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); listo(); } catch (e) { msg.textContent = 'No se pudo copiar. Selecciona el texto a mano.'; }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(listo).catch(plan_b); else plan_b();
+  });
+  document.getElementById('wa').addEventListener('click', function () {
+    var g = enlaceGuia();
+    var t = textoCarta() + (g ? '\n\nGuía de juguetes: ' + g : '');
+    var url = 'https://wa.me/?text=' + encodeURIComponent(t);
+    var ventana = null; try { ventana = window.open(url, '_blank', 'noopener'); } catch (e) {}
+    if (!ventana) {   // vista previa dentro de otra página: un enlace de verdad sí se abre
+      var a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener';
+      document.body.appendChild(a); try { a.click(); } catch (e) {} document.body.removeChild(a);
+    }
+  });
+  document.getElementById('imprimir').addEventListener('click', function () {
+    var incrustada = false; try { incrustada = window.self !== window.top; } catch (e) { incrustada = true; }
+    if (incrustada) {   // dentro de la vista previa de Claude el navegador bloquea imprimir
+      msg.textContent = 'Imprimir no funciona dentro de esta vista previa. Copia tu lista o envíala por WhatsApp. En la página publicada, este botón imprime la carta.';
+      return;
+    }
+    document.getElementById('cartaPrint').textContent = textoCarta();
+    window.print();
+  });
+
+  marcarBotones(); pintarBarra();
+
+  // Cuenta atrás a los Reyes
+  (function () {
+    var hoy = new Date();
+    var hoy0 = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+    var anio = hoy.getMonth() === 0 ? hoy.getFullYear() : hoy.getFullYear() + 1;
+    var dias = Math.round((new Date(anio, 0, 6) - hoy0) / 86400000);
+    var el = document.getElementById('cuentaAtras');
+    if (dias > 0 && dias < 120) { el.textContent = 'Faltan ' + dias + ' días para los Reyes'; el.hidden = false; }
+  })();
+</script>
+</body>
+</html>
