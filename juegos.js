@@ -83,7 +83,16 @@ var JUEGOS = [
   { n: 'Junk Art Revolution', cats: ['mesa'], etiqueta: 'Mesa', area: 'Destreza manual y equilibrio', jug: '2–6 jugadores', edad: 8, color: '#b3541e', motivo: 'torre',
     desc: 'Apilar y equilibrar piezas para construir estructuras en distintas ciudades: pulso, equilibrio y algo de suerte. 30 minutos por partida.', habilidades: ['motricidad'], perfiles: [], sugeridos: ['dispraxia'],
     porque: 'Pide pulso y equilibrio al apilar piezas: motricidad fina y coordinación.',
-    foto: 'assets/junk-art-revolution.jpg', url: 'https://www.amazon.es/dp/B0FN8TP7ZK', precio: '40–46 €', opiniones: [] }
+    foto: 'assets/junk-art-revolution.jpg', url: 'https://www.amazon.es/dp/B0FN8TP7ZK', precio: '40–46 €', opiniones: [] },
+  { n: 'Hedbanz', cats: ['palabras', 'cartas'], etiqueta: 'Preguntas', area: 'Adivinar con preguntas y categorizar', jug: '2–6 jugadores', edad: 7, color: '#2f7fd1', motivo: 'preguntas',
+    desc: 'Cada jugador lleva una carta en la frente sin verla y hace preguntas de sí o no para adivinar qué es. Edición de Spin Master.',
+    habilidades: ['lenguaje', 'atencion', 'memoria', 'turnos'], perfiles: [],
+    foto: 'assets/hedbanz.jpg', url: 'https://www.amazon.es/dp/B09M4G25ZR', precio: '18–22 €',
+    opiniones: ['Noelia, psicóloga del grupo, lo propone: se trabaja el acceso léxico, la memoria y la categorización. Lo ve para TDAH, dislexia, trastorno del lenguaje y tartamudez, a partir de 7 años.'] },
+  { n: 'Jenga', cats: ['mesa'], etiqueta: 'Mesa', area: 'Pulso, turnos y gestión de la frustración', jug: '', edad: 3, color: '#b3541e', motivo: 'torre',
+    desc: 'Torre de bloques de madera: se retira un bloque por turno y se coloca arriba sin que se caiga.',
+    habilidades: ['atencion', 'razonamiento', 'turnos'], perfiles: [],
+    foto: '', url: '', opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 3 años: sirve para trabajar la gestión de la frustración, la atención, la planificación y los turnos.'] }
 ];
 
 // ---- Ilustraciones (cuando aún no hay foto) ---------------------------
