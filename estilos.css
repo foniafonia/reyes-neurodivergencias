@@ -211,12 +211,38 @@ footer img { width: 44px; height: 44px; display: block; margin: 0 auto 8px; }
 .acciones { display: grid; gap: 10px; margin-top: 16px; }
 .msg-carta { margin-top: 10px; font-weight: 700; min-height: 1.4em; }
 #cartaPrint { display: none; }
+@font-face { font-family: 'Letra Niño'; src: url(assets/schoolbell.woff2) format('woff2'); font-display: swap; }
+@page { size: A4 portrait; margin: 9mm; }
 @media print {
-  body * { visibility: hidden; }
-  #cartaPrint, #cartaPrint * { visibility: visible; }
-  #cartaPrint { display: block; position: absolute; left: 0; top: 0; width: 100%; padding: 28px; font: 22px/1.7 Georgia, serif; white-space: pre-wrap; color: #000; }
+  html, body { background: #fff !important; }
+  body.imprimiendo-carta > *:not(#cartaPrint) { display: none !important; }
+  body.imprimiendo-carta #cartaPrint { display: block; }
 }
-
+/* La carta a los Reyes Magos (solo se ve al imprimir) */
+#cartaPrint .carta-hoja {
+  box-sizing: border-box; min-height: 258mm; padding: 7mm 13mm 16mm; position: relative; overflow: hidden;
+  border: 1.6mm solid #7d1f33; border-radius: 7mm; outline: .6mm solid #e9b43c; outline-offset: -3.4mm;
+  background: #fffaf0; color: #26327a; font-family: 'Letra Niño', 'Comic Sans MS', 'Chalkboard SE', cursive;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+#cartaPrint .carta-cabeza { text-align: center; }
+#cartaPrint .carta-coronas { display: flex; justify-content: center; align-items: flex-end; gap: 6mm; height: 17mm; }
+#cartaPrint .carta-coronas svg { height: 15mm; width: auto; }
+#cartaPrint .carta-coronas svg:nth-child(2) { height: 19mm; }
+#cartaPrint h1 { font: inherit; font-size: 13.5mm; line-height: 1.1; color: #b3263f; margin: 2mm 0 1mm; }
+#cartaPrint .carta-sub { font-size: 5.2mm; color: #6b6f8f; margin: 0 0 4mm; }
+#cartaPrint .carta-frase { font-size: 7.2mm; line-height: 11mm; margin: 0; }
+#cartaPrint .carta-linea { display: flex; align-items: baseline; gap: 3mm; min-height: 11mm; border-bottom: .5mm solid #9db8dd; font-size: 7.2mm; line-height: 10.4mm; padding-left: 2mm; }
+#cartaPrint .carta-linea .est { color: #e0a41c; font-size: 6mm; flex: none; }
+#cartaPrint .carta-linea .txt { display: inline-block; transform: rotate(-.5deg); transform-origin: left bottom; }
+#cartaPrint .carta-linea:nth-child(even) .txt { transform: rotate(.4deg); }
+#cartaPrint .carta-nombre { display: flex; align-items: baseline; gap: 3mm; font-size: 7.2mm; line-height: 11mm; }
+#cartaPrint .carta-nombre .linea-nombre { flex: 1; border-bottom: .5mm solid #9db8dd; min-height: 10mm; padding-left: 2mm; }
+#cartaPrint .carta-lista { margin: 1mm 0 3mm; }
+#cartaPrint .carta-dibujo { margin: 2mm 0 3mm; border: .8mm dashed #e9b43c; border-radius: 5mm; height: 26mm; padding: 2.5mm 4mm; font-size: 5.4mm; color: #8a8fb0; }
+#cartaPrint .carta-cierre { margin-top: 3mm; }
+#cartaPrint .carta-pie { position: absolute; left: 13mm; right: 13mm; bottom: 6mm; display: flex; align-items: center; justify-content: center; gap: 3mm; font: 600 3.4mm/1.2 system-ui, -apple-system, 'Segoe UI', sans-serif; color: #8a7a6a; }
+#cartaPrint .carta-pie img { height: 8mm; width: 8mm; }
 /* ---- Distribución con panel lateral derecho ---- */
 .layout { max-width: 1360px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 30px; align-items: start; }
 .principal { min-width: 0; }

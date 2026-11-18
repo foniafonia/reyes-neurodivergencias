@@ -237,9 +237,47 @@
       msg.textContent = 'Imprimir no funciona dentro de esta vista previa. Copia tu lista o envíala por WhatsApp. En la página publicada, este botón imprime la carta.';
       return;
     }
-    document.getElementById('cartaPrint').textContent = textoCarta();
-    window.print();
+    prepararCartaImpresa().then(function () { document.body.classList.add('imprimiendo-carta'); window.print(); });
   });
+  window.addEventListener('afterprint', function () { document.body.classList.remove('imprimiendo-carta'); });
+
+  // Carta de papel: «Queridos Reyes Magos», con renglones y letra de niño.
+  function escHtml(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function corona(c1, c2) {
+    return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 20.5 L4 7 L9 13 L12 4 L15 13 L20 7 L21.5 20.5 Z" fill="' + c1 + '" stroke="#26327a" stroke-width="1.2" stroke-linejoin="round"/>' +
+      '<circle cx="4" cy="6.2" r="1.6" fill="' + c2 + '" stroke="#26327a" stroke-width=".8"/><circle cx="12" cy="3.4" r="1.7" fill="' + c2 + '" stroke="#26327a" stroke-width=".8"/><circle cx="20" cy="6.2" r="1.6" fill="' + c2 + '" stroke="#26327a" stroke-width=".8"/>' +
+      '<rect x="3" y="17" width="18" height="2.2" fill="' + c2 + '"/></svg>';
+  }
+  function htmlCarta() {
+    var nombre = document.getElementById('nombreCarta').value.trim();
+    var lineas = Math.max(elegidos.length + 1, 7), l = '';
+    for (var i = 0; i < lineas; i++) {
+      var n = elegidos[i];
+      l += '<div class="carta-linea">' + (n ? '<span class="est">★</span><span class="txt">' + escHtml(n) + '</span>' : '') + '</div>';
+    }
+    return '<div class="carta-hoja">' +
+      '<div class="carta-cabeza"><div class="carta-coronas">' + corona('#f2c14e', '#b3263f') + corona('#e9a23b', '#2b8a6e') + corona('#f2c14e', '#26327a') + '</div>' +
+      '<h1>Carta a los Reyes Magos</h1></div>' +
+      '<p class="carta-frase">Queridos Reyes Magos:</p>' +
+      '<div class="carta-nombre"><span>Me llamo</span><span class="linea-nombre">' + escHtml(nombre) + '</span></div>' +
+      '<p class="carta-frase">Este año me gustaría que me trajerais:</p>' +
+      '<div class="carta-lista">' + l + '</div>' +
+      (elegidos.length <= 6 ? '<div class="carta-dibujo">Aquí puedes dibujar lo que más ilusión te hace</div>' : '') +
+      '<p class="carta-frase carta-cierre">Muchas gracias, Reyes Magos. ¡Os quiero mucho!</p>' +
+      '<div class="carta-nombre"><span>Firma:</span><span class="linea-nombre">' + escHtml(nombre) + '</span></div>' +
+      '<div class="carta-pie"><img src="assets/colmenia-logo.webp" alt=""><span>Carta hecha con la guía de juguetes del grupo Neurodivergencias · ColmenIA</span></div>' +
+      '</div>';
+  }
+  // Se espera a la letra y a las imágenes (máx. 6 s) para que la carta no salga a medias.
+  function prepararCartaImpresa() {
+    var cont = document.getElementById('cartaPrint');
+    cont.innerHTML = htmlCarta();
+    var fuentes = (document.fonts && document.fonts.load) ? document.fonts.load('28px "Letra Niño"', 'Queridos Reyes Magos ñáéíóú¿?¡★').catch(function () {}) : Promise.resolve();
+    var imgs = [].slice.call(cont.querySelectorAll('img')).map(function (im) {
+      return im.complete ? Promise.resolve() : new Promise(function (ok) { im.addEventListener('load', ok); im.addEventListener('error', ok); });
+    });
+    return Promise.race([Promise.all([fuentes].concat(imgs)), new Promise(function (ok) { setTimeout(ok, 6000); })]);
+  }
 
   marcarBotones(); pintarBarra();
 
