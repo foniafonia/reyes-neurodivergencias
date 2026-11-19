@@ -92,7 +92,12 @@ var JUEGOS = [
   { n: 'Jenga', cats: ['mesa'], etiqueta: 'Mesa', area: 'Pulso, turnos y gestión de la frustración', jug: '', edad: 3, color: '#b3541e', motivo: 'torre',
     desc: 'Torre de bloques de madera: se retira un bloque por turno y se coloca arriba sin que se caiga.',
     habilidades: ['atencion', 'razonamiento', 'turnos'], perfiles: [],
-    foto: '', url: '', opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 3 años: sirve para trabajar la gestión de la frustración, la atención, la planificación y los turnos.'] }
+    foto: '', url: '', opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 3 años: sirve para trabajar la gestión de la frustración, la atención, la planificación y los turnos.'] },
+  { n: 'El 1%', cats: ['mesa', 'pensar', 'cartas'], etiqueta: 'Pensar', area: 'Lógica, observación y sentido común', jug: 'Hasta 6 jugadores', edad: 8, color: '#1f9d93', motivo: 'preguntas',
+    desc: 'Juego de preguntas inspirado en el programa de televisión: pone a prueba la lógica y la observación más que la cultura general. 216 tarjetas por dificultad y reloj de arena. Edición de Educa.',
+    habilidades: ['atencion', 'razonamiento', 'espacial', 'creatividad', 'memoria', 'turnos'], perfiles: [],
+    foto: 'assets/el-1-por-ciento.jpg', url: 'https://www.amazon.es/dp/B0FP5DHJHB', precio: '30–35 €',
+    opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 8 años para altas capacidades. Dice que es un juego muy completo, para toda la familia, y que trabaja también la velocidad de procesamiento.'] }
 ];
 
 // ---- Ilustraciones (cuando aún no hay foto) ---------------------------
