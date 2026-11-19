@@ -97,7 +97,15 @@ var JUEGOS = [
     desc: 'Juego de preguntas inspirado en el programa de televisión: pone a prueba la lógica y la observación más que la cultura general. 216 tarjetas por dificultad y reloj de arena. Edición de Educa.',
     habilidades: ['atencion', 'razonamiento', 'espacial', 'creatividad', 'memoria', 'turnos'], perfiles: [],
     foto: 'assets/el-1-por-ciento.jpg', url: 'https://www.amazon.es/dp/B0FP5DHJHB', precio: '30–35 €',
-    opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 8 años para altas capacidades. Dice que es un juego muy completo, para toda la familia, y que trabaja también la velocidad de procesamiento.'] }
+    opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 8 años para altas capacidades. Dice que es un juego muy completo, para toda la familia, y que trabaja también la velocidad de procesamiento.'] },
+  { n: "Rubik's Race", cats: ['mesa', 'pensar'], etiqueta: 'Pensar', area: 'Lógica y velocidad', jug: '2 jugadores', edad: 8, color: '#c91f3a', motivo: 'puzle',
+    desc: 'Duelo de lógica y velocidad para dos: cada jugador desliza las piezas para copiar el patrón de la carta antes que el otro. Inspirado en el cubo de Rubik.',
+    habilidades: ['razonamiento'], perfiles: [],
+    foto: 'assets/rubiks-race.jpg', url: 'https://www.amazon.es/dp/B0BJ2D2GXX', precio: '13–18 €', opiniones: ['Lo compartieron en el grupo de profesionales como juego para los Reyes.'] },
+  { n: 'Pista de bolas Lupilu', cats: ['construir'], etiqueta: 'Construir', area: 'Construcción y causa y efecto', jug: '', edad: 3, color: '#2f7fd1', motivo: 'torre',
+    desc: 'Pista de bolas de 140 piezas (tubos, embudos, molinos y catapultas) con canicas. Es de la marca Lupilu, de Lidl: se vendió a unos 12 €. No está en Amazon y puede no seguir a la venta.',
+    habilidades: ['creatividad'], perfiles: [],
+    foto: 'assets/pista-de-bolas.jpg', url: '', opiniones: ['Una profesional del grupo lo compartió y dijo: «este me lo piden todos».'] }
 ];
 
 // ---- Ilustraciones (cuando aún no hay foto) ---------------------------
