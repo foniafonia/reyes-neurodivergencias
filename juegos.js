@@ -135,7 +135,17 @@ var JUEGOS = [
     desc: 'Cuatro baldosas de 50 cm con base antideslizante, rellenas de un gel de colores que se mueve al pisarlo o tocarlo. Material de aula y de sala, no de juguetería: precio de la tienda Hermex.',
     habilidades: ['espacial', 'motricidad'], perfiles: [],
     foto: 'assets/baldosas-sensoriales.jpg', url: 'https://www.hermex.es/tienda/articulo/baldosas-sensoriales-lote-de-4', precio: 'Unos 126 €',
-    opiniones: ['Cristina, maestra del grupo, las propone para todas las edades en autismo: favorecen la estimulación visual y propioceptiva, la atención, la coordinación motriz y la conciencia corporal, y promueven la exploración sensorial.'] }
+    opiniones: ['Cristina, maestra del grupo, las propone para todas las edades en autismo: favorecen la estimulación visual y propioceptiva, la atención, la coordinación motriz y la conciencia corporal, y promueven la exploración sensorial.'] },
+  { n: 'Arena mágica de color (1 kg)', nuevo: '2026-11-19', cats: ['construir'], etiqueta: 'Sensorial', area: 'Experimentación sensorial', jug: '', edad: null, color: '#8e5bd1', motivo: 'puzle',
+    desc: 'Arena kinética que se moldea y fluye sin ensuciar, en bote de 1 kg con tapa. Sirve para hacer huellas con moldes, esconder y buscar animales o llenar y vaciar recipientes. Material de aula: precio de la tienda Hermex.',
+    habilidades: ['espacial', 'motricidad'], perfiles: [],
+    foto: 'assets/arena-magica.jpg', url: 'https://www.hermex.es/tienda/articulo/arena-dimanica-bote-1-kg', precio: 'Unos 10 €',
+    opiniones: ['Cristina, maestra del grupo, la usa con alumnado con autismo para experimentar a través de los sentidos: esconder animales y buscarlos, hacer huellas con moldes, llenar y vaciar recipientes. La propone para todas las edades.'] },
+  { n: 'Puzle táctil de texturas', nuevo: '2026-11-19', cats: ['construir'], etiqueta: 'Sensorial', area: 'Discriminación táctil y atención', jug: '', edad: null, color: '#e08a1e', motivo: 'puzle',
+    desc: 'Tablero de madera de 35 × 30 cm con 9 piezas encajables de madera y plástico, cada una con una textura distinta. Piezas grandes, fáciles de agarrar. Material de aula: precio de la tienda Hermex; ahora mismo figura sin stock.',
+    habilidades: ['atencion', 'espacial', 'motricidad', 'memoria'], perfiles: [],
+    foto: 'assets/puzle-tactil.jpg', url: 'https://www.hermex.es/tienda/articulo/puzzle-encajable-tactil-distintos-materiales-al-tacto-la-unidad', precio: 'Unos 52 €',
+    opiniones: ['Cristina, maestra del grupo, lo propone para todas las edades, según las necesidades de cada niño: trabaja la exploración y discriminación de texturas, la atención y la motricidad fina, y favorece la integración táctil. Dice que es apto para niños con ceguera o dificultades de visión.'] }
 ];
 
 
