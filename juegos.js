@@ -151,7 +151,25 @@ var JUEGOS = [
     foto: 'assets/orbito.jpg', url: 'https://www.amazon.es/dp/B0C85SMRWK', precio: '23–27 €', opiniones: [] },
   { n: 'Tiburón Beach', nuevo: '2026-11-19', cats: ['cartas'], etiqueta: 'Cartas', area: 'Decidir si seguir o plantarse', jug: '2–5 jugadores', edad: 6, color: '#1f9d93', motivo: 'cartas',
     desc: 'Juego de cartas de suerte y riesgo: en tu turno robas y decides si seguir o plantarte, porque si sale el tiburón lo pierdes todo. Gana quien reúne 3 tablas de surf. Partidas de unos 15 minutos, en caja pequeña. De Lúdilo.', habilidades: [], perfiles: [],
-    foto: 'assets/tiburon-beach.jpg', url: 'https://www.amazon.es/dp/B0GHR6YYC1', precio: '14–16 €', opiniones: [] }
+    foto: 'assets/tiburon-beach.jpg', url: 'https://www.amazon.es/dp/B0GHR6YYC1', precio: '14–16 €', opiniones: [] },
+  { n: 'Story Cubes', nuevo: '2026-11-19', cats: ['palabras'], etiqueta: 'Palabras', area: 'Contar historias y creatividad', jug: '1–12 jugadores', edad: 6, color: '#e4672c', motivo: 'letras',
+    desc: 'Nueve dados con dibujos para inventar historias: se lanzan y se cuenta un relato que incluya todos los resultados. Reglas que se explican en segundos y partidas de unos 10 minutos. Edición de Asmodee.', habilidades: ['lenguaje', 'creatividad'], perfiles: [],
+    foto: 'assets/story-cubes.jpg', url: 'https://www.amazon.es/dp/B08R7RXG4W', precio: '10–13 €', opiniones: [] },
+  { n: 'Spy Guy. El pequeño detective', nuevo: '2026-11-19', cats: ['mesa'], etiqueta: 'Mesa', area: 'Pistas y cooperación', jug: 'Desde 1 jugador', edad: 5, color: '#2f7fd1', motivo: 'puzle',
+    desc: 'Juego cooperativo de detectives: entre todos hay que encontrar pistas para atrapar al malvado Morty antes de que acabe el reloj de arena. Tablero grande con cartas de pistas. De Atomo Games.', habilidades: ['atencion', 'memoria'], perfiles: [],
+    foto: 'assets/spy-guy.jpg', url: 'https://www.amazon.es/dp/B0C7QQ9RL5', precio: '22–25 €', opiniones: [] },
+  { n: 'Little Action', nuevo: '2026-11-19', cats: ['mesa'], etiqueta: 'Mesa', area: 'Retos y reflejos', jug: '', edad: 3, color: '#1f9d93', motivo: 'puzle',
+    desc: 'Juego de retos y acción de Djeco para los más pequeños, con animales de la selva y una figura de tigre. En la caja figura para niños de 2 años y medio a 5.', habilidades: [], perfiles: [],
+    foto: 'assets/little-action.jpg', url: 'https://www.amazon.es/dp/B01M0N312H', precio: '30–35 €', opiniones: [] },
+  { n: 'Jungle Speed', nuevo: '2026-11-19', cats: ['cartas'], etiqueta: 'Cartas', area: 'Atención y rapidez', jug: '2–10 jugadores', edad: 7, color: '#c91f3a', motivo: 'cartas',
+    desc: 'Juego de cartas de velocidad y observación: hay que reconocer símbolos iguales y ser el más rápido en agarrar el tótem de madera. Partidas de unos 10 minutos. Edición de Asmodee, en español y portugués.', habilidades: ['atencion'], perfiles: [],
+    foto: 'assets/jungle-speed.jpg', url: 'https://www.amazon.es/dp/B08DRRS4VN', precio: '14–18 €', opiniones: [] },
+  { n: 'Mr. Potato', nuevo: '2026-11-19', cats: ['construir'], etiqueta: 'Construir', area: 'Creatividad y juego simbólico', jug: '', edad: null, color: '#8e5bd1', motivo: 'torre',
+    desc: 'El Señor Patata: un muñeco para montar y personalizar con ojos, nariz, boca, orejas y accesorios. Es el juguete de Potato Head, no un juego de mesa.', habilidades: ['creatividad'], perfiles: [],
+    foto: 'assets/mr-potato.jpg', url: 'https://www.amazon.es/dp/B0CP42LHNQ', precio: '9–12 €', opiniones: [] },
+  { n: 'Topologix', nuevo: '2026-11-19', cats: ['pensar', 'mesa'], etiqueta: 'Pensar', area: 'Orientación en el espacio', jug: '', edad: 4, color: '#d6457a', motivo: 'puzle',
+    desc: 'Juego educativo de Djeco, de la colección Eduludo, con tablero de cuadrícula y tarjetas ilustradas para colocar fichas según su posición. En la caja figura para niños de 4 a 6 años.', habilidades: ['espacial'], perfiles: [],
+    foto: 'assets/topologix.jpg', url: 'https://www.amazon.es/dp/B00NTO5KVS', precio: '28–33 €', opiniones: [] }
 ];
 
 
