@@ -169,7 +169,22 @@ var JUEGOS = [
     foto: 'assets/mr-potato.jpg', url: 'https://www.amazon.es/dp/B0CP42LHNQ', precio: '9–12 €', opiniones: [] },
   { n: 'Topologix', nuevo: '2026-11-19', cats: ['pensar', 'mesa'], etiqueta: 'Pensar', area: 'Orientación en el espacio', jug: '', edad: 4, color: '#d6457a', motivo: 'puzle',
     desc: 'Juego educativo de Djeco, de la colección Eduludo, con tablero de cuadrícula y tarjetas ilustradas para colocar fichas según su posición. En la caja figura para niños de 4 a 6 años.', habilidades: ['espacial'], perfiles: [],
-    foto: 'assets/topologix.jpg', url: 'https://www.amazon.es/dp/B00NTO5KVS', precio: '28–33 €', opiniones: [] }
+    foto: 'assets/topologix.jpg', url: 'https://www.amazon.es/dp/B00NTO5KVS', precio: '28–33 €', opiniones: [] },
+  { n: 'Carrera de letras', nuevo: '2026-11-19', cats: ['palabras'], etiqueta: 'Palabras', area: 'Lenguaje y vocabulario', jug: '2–8 jugadores', edad: 7, color: '#2f7fd1', motivo: 'letras',
+    desc: 'Juego de letras y palabras por equipos: se avanza por el tablero encontrando palabras antes de que se acabe el reloj de arena. Incluye 108 tarjetas y 26 fichas de letras. Edición de Ludilo, en español.',
+    habilidades: ['lenguaje'], perfiles: [],
+    foto: 'assets/carrera-letras.jpg', url: 'https://www.amazon.es/dp/B089M73RFT', precio: '18–20 €',
+    opiniones: ['Marta, logopeda del grupo, lo propone desde los 7 años para dislexia y trastorno del lenguaje: lenguaje y vocabulario. Hay que construir palabras a partir de las tarjetas y también se puede pedir formar frases.'] },
+  { n: 'Slapzi', nuevo: '2026-11-19', cats: ['cartas'], etiqueta: 'Cartas', area: 'Lenguaje y vocabulario', jug: '2–8 jugadores', edad: 6, color: '#e4672c', motivo: 'cartas',
+    desc: 'Juego de cartas de observación y velocidad: sale una pista y todos buscan entre sus cartas la imagen que encaja; gana la ronda quien la lanza primero. Partidas de unos 10 minutos. Edición de Ludilo, en español.',
+    habilidades: ['lenguaje', 'atencion'], perfiles: [],
+    foto: 'assets/slapzi.jpg', url: 'https://www.amazon.es/dp/B08KJ9HPS3', precio: '16–20 €',
+    opiniones: ['Marta, logopeda del grupo, lo propone desde los 6 años para dislexia y trastorno del lenguaje: lenguaje y vocabulario. Lo describe con cartas de imagen por las dos caras y cartas de petición que hay que leer.'] },
+  { n: 'La fiesta de las letras', nuevo: '2026-11-19', cats: ['palabras', 'mesa'], etiqueta: 'Palabras', area: 'Lecto-escritura y palabras', jug: '1–4 jugadores', edad: 5, color: '#d6457a', motivo: 'letras',
+    desc: 'Juego de tablero con 10 modos de juego para trabajar la lecto-escritura, las palabras, la creatividad y las rimas. Incluye tableros de jugador, 88 globos con letras y 96 cartas con 3 niveles de dificultad. Edición de Aula en Juego.',
+    habilidades: ['lenguaje', 'atencion'], perfiles: [],
+    foto: 'assets/fiesta-letras.jpg', url: 'https://www.amazon.es/dp/B0D92B463N', precio: '22–23 €',
+    opiniones: ['Marta, logopeda del grupo, lo propone desde los 5 años para dislexia y trastorno del lenguaje: lenguaje y vocabulario, y atención.'] }
 ];
 
 
