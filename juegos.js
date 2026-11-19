@@ -84,49 +84,64 @@ var JUEGOS = [
     desc: 'Apilar y equilibrar piezas para construir estructuras en distintas ciudades: pulso, equilibrio y algo de suerte. 30 minutos por partida.', habilidades: ['motricidad'], perfiles: [], sugeridos: ['dispraxia'],
     porque: 'Pide pulso y equilibrio al apilar piezas: motricidad fina y coordinación.',
     foto: 'assets/junk-art-revolution.jpg', url: 'https://www.amazon.es/dp/B0FN8TP7ZK', precio: '40–46 €', opiniones: [] },
-  { n: 'Hedbanz', cats: ['palabras', 'cartas'], etiqueta: 'Preguntas', area: 'Adivinar con preguntas y categorizar', jug: '2–6 jugadores', edad: 7, color: '#2f7fd1', motivo: 'preguntas',
+  { n: 'Hedbanz', nuevo: '2026-11-18', cats: ['palabras', 'cartas'], etiqueta: 'Preguntas', area: 'Adivinar con preguntas y categorizar', jug: '2–6 jugadores', edad: 7, color: '#2f7fd1', motivo: 'preguntas',
     desc: 'Cada jugador lleva una carta en la frente sin verla y hace preguntas de sí o no para adivinar qué es. Edición de Spin Master.',
     habilidades: ['lenguaje', 'atencion', 'memoria', 'turnos'], perfiles: [],
     foto: 'assets/hedbanz.jpg', url: 'https://www.amazon.es/dp/B09M4G25ZR', precio: '18–22 €',
     opiniones: ['Noelia, psicóloga del grupo, lo propone: se trabaja el acceso léxico, la memoria y la categorización. Lo ve para TDAH, dislexia, trastorno del lenguaje y tartamudez, a partir de 7 años.'] },
-  { n: 'Jenga', cats: ['mesa'], etiqueta: 'Mesa', area: 'Pulso, turnos y gestión de la frustración', jug: '', edad: 6, color: '#b3541e', motivo: 'torre',
+  { n: 'Jenga', nuevo: '2026-11-18', cats: ['mesa'], etiqueta: 'Mesa', area: 'Pulso, turnos y gestión de la frustración', jug: '', edad: 6, color: '#b3541e', motivo: 'torre',
     desc: 'Torre de bloques de madera: se retira un bloque por turno y se coloca arriba sin que se caiga. Edición clásica de Hasbro, 54 bloques.',
     habilidades: ['atencion', 'razonamiento', 'turnos'], perfiles: [],
     foto: 'assets/jenga.jpg', url: 'https://www.amazon.es/dp/B077PD5W25', precio: '14–20 €', opiniones: ['Noelia, psicóloga del grupo, lo propone para trabajar la gestión de la frustración, la atención, la planificación y los turnos. Ella lo ve ya desde los 3 años; la caja indica 6 o más.'] },
-  { n: 'El 1%', cats: ['mesa', 'pensar', 'cartas'], etiqueta: 'Pensar', area: 'Lógica, observación y sentido común', jug: 'Hasta 6 jugadores', edad: 8, color: '#1f9d93', motivo: 'preguntas',
+  { n: 'El 1%', nuevo: '2026-11-18', cats: ['mesa', 'pensar', 'cartas'], etiqueta: 'Pensar', area: 'Lógica, observación y sentido común', jug: 'Hasta 6 jugadores', edad: 8, color: '#1f9d93', motivo: 'preguntas',
     desc: 'Juego de preguntas inspirado en el programa de televisión: pone a prueba la lógica y la observación más que la cultura general. 216 tarjetas por dificultad y reloj de arena. Edición de Educa.',
     habilidades: ['atencion', 'razonamiento', 'espacial', 'creatividad', 'memoria', 'turnos'], perfiles: [],
     foto: 'assets/el-1-por-ciento.jpg', url: 'https://www.amazon.es/dp/B0FP5DHJHB', precio: '30–35 €',
     opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 8 años para altas capacidades. Dice que es un juego muy completo, para toda la familia, y que trabaja también la velocidad de procesamiento.'] },
-  { n: "Rubik's Race", cats: ['mesa', 'pensar'], etiqueta: 'Pensar', area: 'Lógica y velocidad', jug: '2 jugadores', edad: 8, color: '#c91f3a', motivo: 'puzle',
+  { n: "Rubik's Race", nuevo: '2026-11-19', cats: ['mesa', 'pensar'], etiqueta: 'Pensar', area: 'Lógica y velocidad', jug: '2 jugadores', edad: 8, color: '#c91f3a', motivo: 'puzle',
     desc: 'Duelo de lógica y velocidad para dos: cada jugador desliza las piezas para copiar el patrón de la carta antes que el otro. Inspirado en el cubo de Rubik.',
     habilidades: ['razonamiento'], perfiles: [],
     foto: 'assets/rubiks-race.jpg', url: 'https://www.amazon.es/dp/B0BJ2D2GXX', precio: '13–18 €', opiniones: ['Lo compartieron en el grupo de profesionales como juego para los Reyes.'] },
-  { n: 'Pista de bolas Lupilu', cats: ['construir'], etiqueta: 'Construir', area: 'Construcción y causa y efecto', jug: '', edad: 3, color: '#2f7fd1', motivo: 'torre',
+  { n: 'Pista de bolas Lupilu', nuevo: '2026-11-19', cats: ['construir'], etiqueta: 'Construir', area: 'Construcción y causa y efecto', jug: '', edad: 3, color: '#2f7fd1', motivo: 'torre',
     desc: 'Pista de bolas de 140 piezas (tubos, embudos, molinos y catapultas) con canicas. Es de la marca Lupilu, de Lidl: se vendió a unos 12 €. No está en Amazon y puede no seguir a la venta.',
     habilidades: ['creatividad'], perfiles: [],
     foto: 'assets/pista-de-bolas.jpg', url: '', opiniones: ['Una profesional del grupo lo compartió y dijo: «este me lo piden todos».'] },
-  { n: 'Cortex Challenge', cats: ['cartas', 'pensar'], etiqueta: 'Pensar', area: 'Razonamiento, memoria y rapidez', jug: '2–6 jugadores', edad: 8, color: '#7b4ea3', motivo: 'cartas',
+  { n: 'Cortex Challenge', nuevo: '2026-11-19', cats: ['cartas', 'pensar'], etiqueta: 'Pensar', area: 'Razonamiento, memoria y rapidez', jug: '2–6 jugadores', edad: 8, color: '#7b4ea3', motivo: 'cartas',
     desc: 'Juego de cartas con pruebas cortas de cerebro: memoria, lógica, cálculo y observación, contra reloj. Partidas de unos 15 minutos. Edición de Asmodee, con instrucciones en español.',
     habilidades: ['atencion', 'razonamiento', 'memoria'], perfiles: [],
     foto: 'assets/cortex-challenge.jpg', url: 'https://www.amazon.es/dp/B09LM6DQVY', precio: '10–15 €',
     opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 8 años para TDAH y altas capacidades: razonamiento, memoria y rapidez. Lo escribió como «Córtex Challenger».'] },
-  { n: '¡Sin etiquetas!', cats: ['cartas'], etiqueta: 'Emociones', area: 'Inclusión, empatía y convivencia', jug: '2–4 jugadores', edad: 6, color: '#2f7fd1', motivo: 'cartas',
+  { n: '¡Sin etiquetas!', nuevo: '2026-11-19', cats: ['cartas'], etiqueta: 'Emociones', area: 'Inclusión, empatía y convivencia', jug: '2–4 jugadores', edad: 6, color: '#2f7fd1', motivo: 'cartas',
     desc: 'Juego educativo para descubrir que todos somos diferentes: trabaja la inclusión, la diversidad, los valores y la empatía. Pensado también para el aula. De Atomo Games.',
     habilidades: ['lenguaje', 'atencion'], perfiles: [],
     foto: 'assets/sin-etiquetas.jpg', url: 'https://www.amazon.es/dp/B0GZW1KHZ3', precio: '15–18 €',
     opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 6 años para autismo, TDAH y dislexia: lenguaje, atención y empatía. Dice que sirve para descubrir que todos somos diferentes.'] },
-  { n: 'Empâtik', cats: ['cartas'], etiqueta: 'Emociones', area: 'Educación emocional y empatía', jug: '', edad: 4, color: '#d6457a', motivo: 'cartas',
+  { n: 'Empâtik', nuevo: '2026-11-19', cats: ['cartas'], etiqueta: 'Emociones', area: 'Educación emocional y empatía', jug: '', edad: 4, color: '#d6457a', motivo: 'cartas',
     desc: 'Cartas de emociones para entrenar la empatía y reconocer lo que sienten los demás. Para todas las edades a partir de 4 años, en español.',
     habilidades: ['atencion'], perfiles: [],
     foto: 'assets/empatik.jpg', url: 'https://www.amazon.es/dp/B0D47LJWXQ', precio: '12–16 €',
     opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 4 años como educación emocional, trabajando la empatía. Lo ve útil para todos los perfiles de la guía.'] },
-  { n: 'EmoKids', cats: ['cartas'], etiqueta: 'Emociones', area: 'Inteligencia emocional', jug: 'Desde 2 jugadores', edad: 4, color: '#e4672c', motivo: 'cartas',
+  { n: 'EmoKids', nuevo: '2026-11-19', cats: ['cartas'], etiqueta: 'Emociones', area: 'Inteligencia emocional', jug: 'Desde 2 jugadores', edad: 4, color: '#e4672c', motivo: 'cartas',
     desc: 'Cartas de doble cara para nombrar y gestionar emociones, con 8 modos de juego y partidas de 15 a 30 minutos. Para casa y para el aula.',
     habilidades: ['atencion'], perfiles: [],
     foto: 'assets/emokids.jpg', url: 'https://www.amazon.es/dp/B0G36WZ7SQ', precio: '12–16 €',
     opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 4 años para trabajar la inteligencia emocional y la empatía.'] }
 ];
+
+
+// «Recién añadido»: cada juego nuevo lleva nuevo: 'AAAA-MM-DD'. La insignia se ve NUEVO_DIAS días.
+var NUEVO_DIAS = 4;
+function esNuevo(j) {
+  if (!j.nuevo) return false;
+  var p = j.nuevo.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]), hoy = new Date();
+  var dias = Math.floor((new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate()) - d) / 86400000);
+  return dias >= 0 && dias < NUEVO_DIAS;
+}
+function insigniaNuevo(j) { return esNuevo(j) ? '<span class="nuevo">Recién añadido</span>' : ''; }
+function textoTotal() {
+  var n = JUEGOS.length, nn = JUEGOS.filter(esNuevo).length;
+  return n + ' juguetes en la guía' + (nn ? ' · ' + nn + (nn === 1 ? ' recién añadido' : ' recién añadidos') : '');
+}
 
 // ---- Ilustraciones (cuando aún no hay foto) ---------------------------
 function ilustracion(motivo, c) {

@@ -276,3 +276,5 @@ body { background: #8e1230; }
 .c-barra .c-boton-inicio { display: inline-block; text-decoration: none; background: #fff; color: #8e1230; font-weight: 900; font-size: 1rem; padding: 9px 20px; border: 2px solid #1f2b33; border-radius: 999px; box-shadow: 0 3px 0 #1f2b33; }
 .c-barra .c-boton-inicio:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
 @media screen and (max-width: 899px) { .c-barra { gap: 6px 8px; flex-wrap: nowrap; } .c-barra .c-boton-inicio { font-size: .85rem; padding: 7px 12px; flex: none; } .c-barra .c-titulo { font-size: .6rem; padding: 4px 8px; } .c-barra .c-cuenta { flex: none; padding: 4px 10px; font-size: .85rem; } }
+
+.nuevo.c-nuevo { position: absolute; left: 3cqw; bottom: 3cqw; z-index: 2; background: #c91f3a; color: #fff; font-weight: 900; font-size: 2.5cqw; letter-spacing: .06em; text-transform: uppercase; padding: 1.1cqw 3cqw; border-radius: 999px; border: .5cqw solid #1f2b33; }

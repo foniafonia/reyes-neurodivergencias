@@ -50,6 +50,7 @@
   <div class="principal">
     <section class="intro">
       <h2>Juguetes para la carta</h2>
+      <p class="total-juegos" id="totalJuegos"></p>
       <p>Edad y jugadores son orientativos: compruébalos en la caja. Los precios son rangos orientativos vistos en Amazon.es el 18 de noviembre de 2026 y cambian con las ofertas. Los profesionales del grupo votan con qué diagnósticos y habilidades funciona cada juego; las etiquetas «validadas» tienen el voto de al menos 3 profesionales.</p>
     </section>
 
@@ -107,6 +108,7 @@
 
 <script src="medir.js"></script>
 <script src="juegos.js"></script>
+<script>document.getElementById('totalJuegos').textContent = textoTotal();</script>
 <script src="filtros.js"></script>
 <script>
   // ---- Fichas (versión familias) -----------------------------------------
@@ -136,7 +138,7 @@
     var puesto = elegidos.indexOf(j.n) !== -1;
     li.innerHTML =
       '<div class="caja" style="background:' + (j.foto ? '#fff' : j.color) + '">' + dentro +
-        '<span class="cinta">' + j.etiqueta + '</span>' + edad + '</div>' + tienda +
+        '<span class="cinta">' + j.etiqueta + '</span>' + insigniaNuevo(j) + edad + '</div>' + tienda +
       '<div class="cuerpo"><h3>' + j.n + '</h3>' + datos +
         '<div class="bloque b-juego"><h4>Para qué sirve</h4>' + sirve + '</div>' +
         '<div class="bloque b-prof"><h4>Lo que dicen los profesionales</h4>' + prof + '</div>' +

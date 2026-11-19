@@ -361,3 +361,10 @@ body.con-ventana { overflow: hidden; }
 }
 .cerrar-ventana { position: sticky; top: 0; float: right; z-index: 2; margin: -8px -8px 8px 8px; font: inherit; font-weight: 900; font-size: 16px; background: #fff; color: var(--rojo-os); border: 3px solid var(--tinta); border-radius: 999px; padding: 8px 16px; box-shadow: 0 4px 0 var(--tinta); cursor: pointer; }
 @media print { .fondo-ventana, .cerrar-ventana, .botones-ventana { display: none !important; } }
+
+.nuevo {
+  position: absolute; left: 10px; bottom: 10px; z-index: 2; background: var(--rojo); color: #fff;
+  font-weight: 900; font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+  padding: 6px 12px; border-radius: 999px; border: 2px solid var(--tinta); box-shadow: 0 2px 0 var(--tinta);
+}
+.total-juegos { display: inline-block; margin: 4px 0 10px; padding: 6px 14px; border: 2px solid var(--tinta); border-radius: 999px; background: var(--oro); color: var(--tinta); font-weight: 800; }

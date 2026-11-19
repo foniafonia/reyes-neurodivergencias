@@ -53,6 +53,7 @@
 
 <main>
   <h2>¿Por dónde quieres empezar?</h2>
+  <p class="total-juegos" id="totalJuegos"></p>
   <nav class="hub" aria-label="Elige tu página">
     <a class="hub-boton hub-fam" id="irFamilias" href="familias.html"><strong>Soy familia</strong><span>Elige juguetes y haz tu carta a los Reyes</span></a>
     <a class="hub-boton hub-prof" id="irProfesionales" href="index.html"><strong>Soy profesional</strong><span>Vota, cuenta tu experiencia y propón juegos</span></a>
@@ -88,5 +89,7 @@
     if (dias > 0 && dias < 120) { el.textContent = 'Faltan ' + dias + ' días para los Reyes'; el.hidden = false; }
   })();
 </script>
+<script src="juegos.js"></script>
+<script>document.getElementById('totalJuegos').textContent = textoTotal();</script>
 </body>
 </html>

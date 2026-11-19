@@ -41,6 +41,7 @@
   <div class="principal">
     <section class="intro">
       <h2>Fichas de la guía</h2>
+      <p class="total-juegos" id="totalJuegos"></p>
       <p>Cada juego tiene lo que dice la caja, lo que opinan los profesionales y sus <strong>votos</strong>: en cada ficha puedes votar con qué diagnósticos y habilidades funciona. Con 3 votos, la etiqueta queda validada y las familias la ven como tal.</p>
       <div class="botones-ventana">
         <a class="boton-ventana bv-nuevo" href="#juego-nuevo" data-ventana="juego-nuevo"><strong>¿Falta un juego?</strong><span>Propón uno nuevo</span></a>
@@ -165,6 +166,7 @@
 
 <script src="medir.js"></script>
 <script src="juegos.js"></script>
+<script>document.getElementById('totalJuegos').textContent = textoTotal();</script>
 <script src="filtros.js"></script>
 <script>
   var canalParam = new URLSearchParams(location.search).get('c') || '';
@@ -226,7 +228,7 @@
       : '<p class="vacio">Aún no hay opiniones. ¿Lo has probado?</p>';
     li.innerHTML =
       '<div class="caja" style="background:' + (j.foto ? '#fff' : j.color) + '">' + dentro +
-        '<span class="cinta">' + j.etiqueta + '</span>' + edad + '</div>' + tienda +
+        '<span class="cinta">' + j.etiqueta + '</span>' + insigniaNuevo(j) + edad + '</div>' + tienda +
       '<div class="cuerpo"><h3>' + j.n + '</h3>' + datos +
         '<div class="bloque b-juego"><h4>El juego</h4>' + juego + '</div>' +
         '<div class="bloque b-prof"><h4>Opinan profesionales y familias</h4>' + prof +

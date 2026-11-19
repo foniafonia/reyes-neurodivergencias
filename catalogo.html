@@ -310,7 +310,7 @@
     var ideas = '<div class="c-ideas"><h3>Ideas para jugar en casa</h3><ul>' +
       ideasDe(j, i || 0).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>';
     return '<div class="c-pag c-pag-foto"><div class="c-foto" style="background:' + (j.foto ? '#fff' : j.color) + '">' + dentro +
-      '<span class="c-cinta">' + esc(j.etiqueta) + '</span>' + edad + precio + '</div>' +
+      '<span class="c-cinta">' + esc(j.etiqueta) + '</span>' + insigniaNuevo(j).replace('class="nuevo"','class="nuevo c-nuevo"') + edad + precio + '</div>' +
       ficha + ideas + (n === false ? '' : folio(n)) + '</div>';
   }
   function datosDe(j, n, i, esAncha) {
