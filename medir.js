@@ -1,9 +1,9 @@
 /* Contador anónimo de visitas (abacus). No guarda nombres ni datos personales: solo números.
-   - Cuenta aperturas, aparatos distintos, página, canal (?c=wa, tg, fb, ig, sk, ln, th) y acciones.
+   - Cuenta aperturas, aparatos distintos, página, canal (?c=wa, tg, fb, ig, sk, ln, th, og) y acciones.
    - Entrar una vez con ?yo=1 hace que ese aparato no cuente (útil para José). ?yo=0 lo vuelve a activar. */
 (function () {
   var NS = 'https://abacus.jasoncameron.dev/hit/foniafonia-reyes/';
-  var CANALES = ['wa', 'tg', 'fb', 'ig', 'sk', 'ln', 'th'];
+  var CANALES = ['wa', 'tg', 'fb', 'ig', 'sk', 'ln', 'th', 'og'];
   var QS = new URLSearchParams(location.search);
   function lee(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function graba(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
