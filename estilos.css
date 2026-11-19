@@ -368,3 +368,10 @@ body.con-ventana { overflow: hidden; }
   padding: 6px 12px; border-radius: 999px; border: 2px solid var(--tinta); box-shadow: 0 2px 0 var(--tinta);
 }
 .total-juegos { display: inline-block; margin: 4px 0 10px; padding: 6px 14px; border: 2px solid var(--tinta); border-radius: 999px; background: var(--oro); color: var(--tinta); font-weight: 800; }
+
+.filtro-nuevos { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 10px 8px; font: inherit; font-weight: 800; cursor: pointer;
+  padding: 6px 14px; border: 2px solid var(--tinta); border-radius: 999px; background: #fff; color: var(--tinta); box-shadow: 0 2px 0 var(--tinta); }
+.filtro-nuevos .n { background: var(--rojo); color: #fff; border-radius: 999px; padding: 0 8px; font-size: 13px; }
+.filtro-nuevos[aria-pressed="true"] { background: var(--rojo); color: #fff; }
+.filtro-nuevos[aria-pressed="true"] .n { background: #fff; color: var(--rojo); }
+.filtro-nuevos[hidden] { display: none; }

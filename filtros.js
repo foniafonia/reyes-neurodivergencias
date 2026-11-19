@@ -15,7 +15,7 @@ var Filtros = (function () {
     { k: 'area', n: 'Trabajan una habilidad' },
     { k: 'diversion', n: 'Para pasarlo bien' }
   ];
-  var estado = { q: '', perf: [], hab: [], edad: [], tipo: [], grupo: [] };
+  var estado = { q: '', perf: [], hab: [], edad: [], tipo: [], grupo: [], nuevo: false };
   var verSugeridos = true;   // incluir etiquetas «Sugerido» (aún sin validar por profesionales)
   var lateral = null;
 
@@ -37,7 +37,8 @@ var Filtros = (function () {
     var palabras = norm(estado.q).split(/\s+/).filter(Boolean);
     var texto = textoDe(j);
     function alguno(sel, f) { return !sel.length || sel.some(f); }
-    return palabras.every(function (p) { return texto.indexOf(p) !== -1; }) &&
+    return (!estado.nuevo || esNuevo(j)) &&
+      palabras.every(function (p) { return texto.indexOf(p) !== -1; }) &&
       alguno(estado.perf, function (k) { return tiene(perfilesDe(j, verSugeridos), k); }) &&
       alguno(estado.hab, function (k) { return tiene(habilidadesDe(j, verSugeridos), k); }) &&
       alguno(estado.edad, function (k) { return !!j.edad && tramo(k).ok(j.edad); }) &&
@@ -91,7 +92,7 @@ var Filtros = (function () {
         ? 'Todavía no hay juegos marcados para ese diagnóstico. Los profesionales del grupo los van sumando; mientras, prueba a buscar por habilidad.'
         : 'No hay juegos con esos filtros. Prueba a quitar alguno.';
     }
-    var hay = estado.q || estado.perf.length || estado.hab.length || estado.edad.length || estado.tipo.length || estado.grupo.length;
+    var hay = estado.nuevo || estado.q || estado.perf.length || estado.hab.length || estado.edad.length || estado.tipo.length || estado.grupo.length;
     var limpiar = lateral && lateral.querySelector('.limpiar');
     if (limpiar) limpiar.hidden = !hay;
     var boton = lateral && lateral.querySelector('.lateral-boton');
@@ -99,10 +100,26 @@ var Filtros = (function () {
   }
 
   function limpiar() {
-    estado = { q: '', perf: [], hab: [], edad: [], tipo: [], grupo: [] };
+    estado = { q: '', perf: [], hab: [], edad: [], tipo: [], grupo: [], nuevo: false };
     var q = lateral.querySelector('#buscar'); if (q) q.value = '';
     lateral.querySelectorAll('.op').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    pintarNuevos();
     aplicar();
+  }
+
+  // Botón de arriba «Recién añadidos» (#soloNuevos): enseña solo los juegos con la insignia.
+  function pintarNuevos() {
+    var b = document.getElementById('soloNuevos');
+    if (b) b.setAttribute('aria-pressed', estado.nuevo ? 'true' : 'false');
+  }
+  function montarNuevos() {
+    var b = document.getElementById('soloNuevos');
+    if (!b) return;
+    var n = JUEGOS.filter(esNuevo).length;
+    if (!n) { b.hidden = true; return; }
+    b.querySelector('.n').textContent = n;
+    b.hidden = false;
+    b.addEventListener('click', function () { estado.nuevo = !estado.nuevo; pintarNuevos(); aplicar(); });
   }
 
   function montar(el) {
@@ -143,6 +160,7 @@ var Filtros = (function () {
     });
     el.querySelector('#buscar').addEventListener('input', function (e) { estado.q = e.target.value; aplicar(); });
     el.querySelector('#verSug').addEventListener('change', function (e) { verSugeridos = e.target.checked; refrescarContadores(); aplicar(); });
+    montarNuevos();
     refrescarContadores();
     aplicar();
   }
