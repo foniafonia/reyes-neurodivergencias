@@ -105,7 +105,27 @@ var JUEGOS = [
   { n: 'Pista de bolas Lupilu', cats: ['construir'], etiqueta: 'Construir', area: 'Construcción y causa y efecto', jug: '', edad: 3, color: '#2f7fd1', motivo: 'torre',
     desc: 'Pista de bolas de 140 piezas (tubos, embudos, molinos y catapultas) con canicas. Es de la marca Lupilu, de Lidl: se vendió a unos 12 €. No está en Amazon y puede no seguir a la venta.',
     habilidades: ['creatividad'], perfiles: [],
-    foto: 'assets/pista-de-bolas.jpg', url: '', opiniones: ['Una profesional del grupo lo compartió y dijo: «este me lo piden todos».'] }
+    foto: 'assets/pista-de-bolas.jpg', url: '', opiniones: ['Una profesional del grupo lo compartió y dijo: «este me lo piden todos».'] },
+  { n: 'Cortex Challenge', cats: ['cartas', 'pensar'], etiqueta: 'Pensar', area: 'Razonamiento, memoria y rapidez', jug: '2–6 jugadores', edad: 8, color: '#7b4ea3', motivo: 'cartas',
+    desc: 'Juego de cartas con pruebas cortas de cerebro: memoria, lógica, cálculo y observación, contra reloj. Partidas de unos 15 minutos. Edición de Asmodee, con instrucciones en español.',
+    habilidades: ['atencion', 'razonamiento', 'memoria'], perfiles: [],
+    foto: 'assets/cortex-challenge.jpg', url: 'https://www.amazon.es/dp/B09LM6DQVY', precio: '10–15 €',
+    opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 8 años para TDAH y altas capacidades: razonamiento, memoria y rapidez. Lo escribió como «Córtex Challenger».'] },
+  { n: '¡Sin etiquetas!', cats: ['cartas'], etiqueta: 'Emociones', area: 'Inclusión, empatía y convivencia', jug: '2–4 jugadores', edad: 6, color: '#2f7fd1', motivo: 'cartas',
+    desc: 'Juego educativo para descubrir que todos somos diferentes: trabaja la inclusión, la diversidad, los valores y la empatía. Pensado también para el aula. De Atomo Games.',
+    habilidades: ['lenguaje', 'atencion'], perfiles: [],
+    foto: 'assets/sin-etiquetas.jpg', url: 'https://www.amazon.es/dp/B0GZW1KHZ3', precio: '15–18 €',
+    opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 6 años para autismo, TDAH y dislexia: lenguaje, atención y empatía. Dice que sirve para descubrir que todos somos diferentes.'] },
+  { n: 'Empâtik', cats: ['cartas'], etiqueta: 'Emociones', area: 'Educación emocional y empatía', jug: '', edad: 4, color: '#d6457a', motivo: 'cartas',
+    desc: 'Cartas de emociones para entrenar la empatía y reconocer lo que sienten los demás. Para todas las edades a partir de 4 años, en español.',
+    habilidades: ['atencion'], perfiles: [],
+    foto: 'assets/empatik.jpg', url: 'https://www.amazon.es/dp/B0D47LJWXQ', precio: '12–16 €',
+    opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 4 años como educación emocional, trabajando la empatía. Lo ve útil para todos los perfiles de la guía.'] },
+  { n: 'EmoKids', cats: ['cartas'], etiqueta: 'Emociones', area: 'Inteligencia emocional', jug: 'Desde 2 jugadores', edad: 4, color: '#e4672c', motivo: 'cartas',
+    desc: 'Cartas de doble cara para nombrar y gestionar emociones, con 8 modos de juego y partidas de 15 a 30 minutos. Para casa y para el aula.',
+    habilidades: ['atencion'], perfiles: [],
+    foto: 'assets/emokids.jpg', url: 'https://www.amazon.es/dp/B0G36WZ7SQ', precio: '12–16 €',
+    opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 4 años para trabajar la inteligencia emocional y la empatía.'] }
 ];
 
 // ---- Ilustraciones (cuando aún no hay foto) ---------------------------
