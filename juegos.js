@@ -125,7 +125,17 @@ var JUEGOS = [
     desc: 'Cartas de doble cara para nombrar y gestionar emociones, con 8 modos de juego y partidas de 15 a 30 minutos. Para casa y para el aula.',
     habilidades: ['atencion'], perfiles: [],
     foto: 'assets/emokids.jpg', url: 'https://www.amazon.es/dp/B0G36WZ7SQ', precio: '12–16 €',
-    opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 4 años para trabajar la inteligencia emocional y la empatía.'] }
+    opiniones: ['Noelia, psicóloga del grupo, lo propone desde los 4 años para trabajar la inteligencia emocional y la empatía.'] },
+  { n: 'Color Line', nuevo: '2026-11-19', cats: ['mesa'], etiqueta: 'Mesa', area: 'Atención y rapidez', jug: '2–4 jugadores', edad: 5, color: '#c91f3a', motivo: 'puzle',
+    desc: 'Juego de atención y rapidez: cada jugador completa las líneas de su tarjeta con las bolas de colores que salen al azar del sacabolas, y toca el timbre solo si necesita la que ha salido. Edición de Cayro.',
+    habilidades: ['atencion', 'turnos'], perfiles: [],
+    foto: 'assets/color-line.jpg', url: 'https://www.amazon.es/dp/B07D5RK1BD', precio: '25–30 €',
+    opiniones: ['Una psicóloga del grupo lo propone desde los 5 años para autismo y TDAH: atención, turnos, control inhibitorio y velocidad de procesamiento.'] },
+  { n: 'Baldosas sensoriales (lote de 4)', nuevo: '2026-11-19', cats: ['construir'], etiqueta: 'Sensorial', area: 'Estimulación multisensorial y movimiento', jug: '', edad: null, color: '#1f9d93', motivo: 'puzle',
+    desc: 'Cuatro baldosas de 50 cm con base antideslizante, rellenas de un gel de colores que se mueve al pisarlo o tocarlo. Material de aula y de sala, no de juguetería: precio de la tienda Hermex.',
+    habilidades: ['espacial', 'motricidad'], perfiles: [],
+    foto: 'assets/baldosas-sensoriales.jpg', url: 'https://www.hermex.es/tienda/articulo/baldosas-sensoriales-lote-de-4', precio: 'Unos 126 €',
+    opiniones: ['Cristina, maestra del grupo, las propone para todas las edades en autismo: favorecen la estimulación visual y propioceptiva, la atención, la coordinación motriz y la conciencia corporal, y promueven la exploración sensorial.'] }
 ];
 
 
