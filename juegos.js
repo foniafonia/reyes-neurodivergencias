@@ -145,7 +145,13 @@ var JUEGOS = [
     desc: 'Tablero de madera de 35 × 30 cm con 9 piezas encajables de madera y plástico, cada una con una textura distinta. Piezas grandes, fáciles de agarrar. Material de aula: precio de la tienda Hermex; ahora mismo figura sin stock.',
     habilidades: ['atencion', 'espacial', 'motricidad', 'memoria'], perfiles: [],
     foto: 'assets/puzle-tactil.jpg', url: 'https://www.hermex.es/tienda/articulo/puzzle-encajable-tactil-distintos-materiales-al-tacto-la-unidad', precio: 'Unos 52 €',
-    opiniones: ['Cristina, maestra del grupo, lo propone para todas las edades, según las necesidades de cada niño: trabaja la exploración y discriminación de texturas, la atención y la motricidad fina, y favorece la integración táctil. Dice que es apto para niños con ceguera o dificultades de visión.'] }
+    opiniones: ['Cristina, maestra del grupo, lo propone para todas las edades, según las necesidades de cada niño: trabaja la exploración y discriminación de texturas, la atención y la motricidad fina, y favorece la integración táctil. Dice que es apto para niños con ceguera o dificultades de visión.'] },
+  { n: 'Orbito', nuevo: '2026-11-19', cats: ['mesa', 'pensar'], etiqueta: 'Pensar', area: 'Estrategia y planificación', jug: '2 jugadores', edad: 7, color: '#2f7fd1', motivo: 'puzle',
+    desc: 'Juego de estrategia para dos: se colocan canicas de un color en un tablero de 4 × 4 y, al pulsar el botón, todas se desplazan un puesto. Gana quien consigue primero cuatro en raya. Edición de FlexiQ.', habilidades: ['razonamiento'], perfiles: [],
+    foto: 'assets/orbito.jpg', url: 'https://www.amazon.es/dp/B0C85SMRWK', precio: '23–27 €', opiniones: [] },
+  { n: 'Tiburón Beach', nuevo: '2026-11-19', cats: ['cartas'], etiqueta: 'Cartas', area: 'Decidir si seguir o plantarse', jug: '2–5 jugadores', edad: 6, color: '#1f9d93', motivo: 'cartas',
+    desc: 'Juego de cartas de suerte y riesgo: en tu turno robas y decides si seguir o plantarte, porque si sale el tiburón lo pierdes todo. Gana quien reúne 3 tablas de surf. Partidas de unos 15 minutos, en caja pequeña. De Lúdilo.', habilidades: [], perfiles: [],
+    foto: 'assets/tiburon-beach.jpg', url: 'https://www.amazon.es/dp/B0GHR6YYC1', precio: '14–16 €', opiniones: [] }
 ];
 
 
