@@ -199,7 +199,32 @@ var JUEGOS = [
     desc: 'Juego de pesca de madera con 15 piezas magnéticas de distintos animales y una caña con imán, y caja para guardarlo. Edición de Victse, de las muchas que hay; se eligió una pensada para 2 años.',
     habilidades: ['lenguaje', 'atencion', 'motricidad', 'turnos'], perfiles: [],
     foto: 'assets/pesca-magnetico.jpg', url: 'https://www.amazon.es/dp/B0C7B6T6YR', precio: '9–10 €',
-    opiniones: ['Patricia, logopeda del grupo, lo propone desde los 2 años: se trabajan los turnos, nombrar los animales y colores, la atención y la precisión de la motricidad fina, el seguimiento de órdenes y los tiempos de espera.'] }
+    opiniones: ['Patricia, logopeda del grupo, lo propone desde los 2 años: se trabajan los turnos, nombrar los animales y colores, la atención y la precisión de la motricidad fina, el seguimiento de órdenes y los tiempos de espera.'] },
+  { n: 'Dixit', nuevo: '2026-11-20', cats: ['palabras', 'cartas'], etiqueta: 'Palabras', area: 'Narración, lenguaje y creatividad', jug: '3–8 jugadores', edad: 8, color: '#7b4ea3', motivo: 'cartas',
+    desc: 'Juego de imaginación: quien narra elige una carta de sus 84 ilustraciones oníricas y dice una frase o tema; los demás eligen la carta que mejor lo evoque y se intenta adivinar cuál era. Partidas de unos 30 minutos. Edición de Asmodee, en español.',
+    habilidades: ['lenguaje', 'creatividad', 'turnos'], perfiles: [],
+    foto: 'assets/dixit.jpg', url: 'https://www.amazon.es/dp/B092R6L3T3', precio: '24–25 €',
+    opiniones: [] },
+  { n: 'Dobble', nuevo: '2026-11-20', cats: ['cartas'], etiqueta: 'Cartas', area: 'Observación y rapidez', jug: '2–8 jugadores', edad: 6, color: '#2f7fd1', motivo: 'cartas',
+    desc: 'Juego de observación y velocidad: 55 cartas con más de 50 símbolos, y entre cada dos cartas hay uno, y solo uno, idéntico. Partidas de unos 15 minutos. Edición clásica de Asmodee, en caja de hojalata.',
+    habilidades: ['atencion', 'lenguaje'], perfiles: [],
+    foto: 'assets/dobble.jpg', url: 'https://www.amazon.es/dp/B008EK6XEK', precio: '12–13 €',
+    opiniones: [] },
+  { n: 'Rhino Hero', nuevo: '2026-11-20', cats: ['mesa', 'construir'], etiqueta: 'Construir', area: 'Pulso, equilibrio y concentración', jug: '', edad: 5, color: '#e4672c', motivo: 'torre',
+    desc: 'Juego de habilidad: se construye por turnos un rascacielos de cartas en 3D y se sube la figura de madera de Rhino Hero sin que se caiga. Reglas sencillas. Edición original de Haba.',
+    habilidades: ['motricidad', 'espacial', 'atencion', 'turnos'], perfiles: [],
+    foto: 'assets/rhino-hero.jpg', url: 'https://www.amazon.es/dp/B0GWRJRPVW', precio: '14–16 €',
+    opiniones: [] },
+  { n: 'Qwirkle', nuevo: '2026-11-20', cats: ['mesa', 'pensar'], etiqueta: 'Pensar', area: 'Razonamiento y visión espacial', jug: '2–4 jugadores', edad: 6, color: '#1f9d93', motivo: 'puzle',
+    desc: 'Juego de fichas de formas y colores: se conectan en líneas del mismo color o de la misma forma, sin repetir, y se planifica cada jugada para puntuar. Partidas de unos 30 minutos. Edición de Ludilo, en español.',
+    habilidades: ['razonamiento', 'espacial'], perfiles: [],
+    foto: 'assets/qwirkle.jpg', url: 'https://www.amazon.es/dp/B00WG343EI', precio: '28–32 €',
+    opiniones: [] },
+  { n: 'Rummikub', nuevo: '2026-11-20', cats: ['mesa', 'pensar'], etiqueta: 'Números', area: 'Números, series y planificación', jug: '2–4 jugadores', edad: 6, color: '#c91f3a', motivo: 'numeros',
+    desc: 'Juego de fichas numeradas del 1 al 13 en 4 colores: se forman grupos del mismo número o escaleras del mismo color. Incluye 106 fichas y 4 soportes. Edición Original de Goliath, versión multilingüe.',
+    habilidades: ['calculo', 'razonamiento'], perfiles: [],
+    foto: 'assets/rummikub.jpg', url: 'https://www.amazon.es/dp/B09NYGV1V4', precio: '35 €',
+    opiniones: [] }
 ];
 
 
