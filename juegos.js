@@ -184,7 +184,22 @@ var JUEGOS = [
     desc: 'Juego de tablero con 10 modos de juego para trabajar la lecto-escritura, las palabras, la creatividad y las rimas. Incluye tableros de jugador, 88 globos con letras y 96 cartas con 3 niveles de dificultad. Edición de Aula en Juego.',
     habilidades: ['lenguaje', 'atencion'], perfiles: [],
     foto: 'assets/fiesta-letras.jpg', url: 'https://www.amazon.es/dp/B0D92B463N', precio: '22–23 €',
-    opiniones: ['Marta, logopeda del grupo, lo propone desde los 5 años para dislexia y trastorno del lenguaje: lenguaje y vocabulario, y atención.'] }
+    opiniones: ['Marta, logopeda del grupo, lo propone desde los 5 años para dislexia y trastorno del lenguaje: lenguaje y vocabulario, y atención.'] },
+  { n: 'Lince', nuevo: '2026-11-20', cats: ['mesa'], etiqueta: 'Mesa', area: 'Observación, atención y vocabulario', jug: '2–6 jugadores', edad: 4, color: '#2f7fd1', motivo: 'puzle',
+    desc: 'Juego de observación y agudeza visual: un tablero plegable con 70 imágenes y fichas con los mismos dibujos; hay que encontrar la imagen en el tablero antes que los demás. Edición de Educa Borrás, versión de 70 imágenes.',
+    habilidades: ['atencion', 'espacial', 'memoria', 'turnos', 'lenguaje'], perfiles: [],
+    foto: 'assets/lince.jpg', url: 'https://www.amazon.es/dp/B0716KVMX8', precio: '12–15 €',
+    opiniones: ['Patricia, logopeda del grupo, lo usa desde los 3 años en atención temprana: lenguaje y vocabulario, atención, visión espacial, memoria y turnos. Elige esta versión de 70 imágenes porque con más se dispersan. Se trabajan categorías, colores, tiempos de espera y asociar imágenes iguales.'] },
+  { n: 'Hucha cerdito', nuevo: '2026-11-20', cats: ['construir'], etiqueta: 'Sensorial', area: 'Comunicación temprana y números', jug: '', edad: 1, color: '#d6457a', motivo: 'numeros',
+    desc: 'Hucha de cerdito con 10 monedas de colores, con números en una cara y verduras en la otra, sonidos y frases en español e inglés. Edición de Winfun; el fabricante la indica desde 6 meses.',
+    habilidades: ['lenguaje', 'atencion', 'motricidad', 'turnos', 'calculo'], perfiles: [],
+    foto: 'assets/hucha-cerdito.jpg', url: 'https://www.amazon.es/dp/B0FVY6PLH3', precio: '23–25 €',
+    opiniones: ['Patricia, logopeda del grupo, la recomienda desde 1 año: crea una rutina en la que el niño pide la tapa y cada moneda con gesto, sonido o palabra. Se trabajan colores, vocabulario, números, tiempos de espera y discriminación auditiva.'] },
+  { n: 'Juego de pesca magnético', nuevo: '2026-11-20', cats: ['construir'], etiqueta: 'Sensorial', area: 'Motricidad fina y vocabulario', jug: '', edad: 2, color: '#1f9d93', motivo: 'puzle',
+    desc: 'Juego de pesca de madera con 15 piezas magnéticas de distintos animales y una caña con imán, y caja para guardarlo. Edición de Victse, de las muchas que hay; se eligió una pensada para 2 años.',
+    habilidades: ['lenguaje', 'atencion', 'motricidad', 'turnos'], perfiles: [],
+    foto: 'assets/pesca-magnetico.jpg', url: 'https://www.amazon.es/dp/B0C7B6T6YR', precio: '9–10 €',
+    opiniones: ['Patricia, logopeda del grupo, lo propone desde los 2 años: se trabajan los turnos, nombrar los animales y colores, la atención y la precisión de la motricidad fina, el seguimiento de órdenes y los tiempos de espera.'] }
 ];
 
 
