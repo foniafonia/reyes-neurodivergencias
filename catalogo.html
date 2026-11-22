@@ -181,14 +181,13 @@
       '<a class="c-boton c-boton-prof" href="index.html">Soy profesional: votar y comentar</a>' +
       '</div>' + folio(n) + '</div>';
   }
-  function paginaIndice(n, entradas, temas, vistaTodosN) {
+  function paginaIndice(n, entradas, temas) {
     function enlace(e, clase, extra) {
       return '<a class="' + clase + '" href="#pagina-' + e.vista + '" data-vista="' + e.vista + '"' + (extra || '') + '><span class="c-nom">' + esc(e.nombre) + '</span><span class="c-pg">' + e.pg + '</span></a>';
     }
     return '<div class="c-pag"><div class="c-texto"><h2>En este número</h2>' +
-      '<h3 class="c-sub-indice">Por temáticas</h3><div class="c-botones-tema">' +
+      '<h3 class="c-sub-indice">Por áreas</h3><div class="c-botones-tema">' +
         temas.map(function (e) { return enlace(e, 'c-btn-tema', ' style="--tema:' + e.color + '"'); }).join('') + '</div>' +
-      enlace({ nombre: 'Todos juntos: el catálogo completo', vista: vistaTodosN, pg: 4 }, 'c-boton-todos') +
       '<h3 class="c-sub-indice">Juguete a juguete</h3><div class="c-botones-juego">' +
         entradas.map(function (e) { return enlace(e, 'c-btn-juego'); }).join('') + '</div></div>' + folio(n) + '</div>';
   }
@@ -244,30 +243,42 @@
       return { k: k, p: p };
     }).filter(Boolean).sort(function (a, b) { return b.p - a.p || a.k - b.k; }).slice(0, 2).map(function (x) { return x.k; });
   }
-  // Secciones por temáticas: una escena con su historia y los juguetes que van con ella.
-  var TEMAS = [
-    { k: 'palabras', corto: 'Palabras', titulo: 'Para hablar y jugar con palabras', etiqueta: 'Lenguaje', color: '#1f9d93', img: 'assets/escena-palabras.jpg',
-      alt: 'Ilustración de dos niños y un adulto riéndose con cartas de palabras sobre la mesa',
-      historia: 'Es domingo y llueve. Sobre la mesa hay una caja de cartas con palabras. Uno saca una carta, otro piensa en un animal, y de pronto toda la casa está inventando palabras, riéndose de las más raras y preguntando «¿eso existe?».',
-      juegos: ['Palabrea', 'Guess in 10'] },
-    { k: 'pensar', corto: 'Pensar', titulo: 'Para pensar, mirar y resolver', etiqueta: 'Razonamiento', color: '#1d4d5e', img: 'assets/escena-pensar.jpg',
-      alt: 'Ilustración de niños resolviendo un puzle de piezas de colores y un tablero de madera',
-      historia: 'Un tablero, un puñado de piezas de colores y un reto. Nadie tiene prisa: se prueba una pieza, se gira, se rectifica. Cuando por fin encaja, se oye ese «¡ya está!» que dan ganas de repetir.',
-      juegos: ['Batalla de genios', 'Ubongo', 'Laberinto', 'La cuenta'] },
-    { k: 'construir', corto: 'Construir', titulo: 'Para construir y crear', etiqueta: 'Creatividad', color: '#4a9d3f', img: 'assets/escena-construir.jpg',
-      alt: 'Ilustración de niños construyendo un fuerte con varillas y bolas de colores',
-      historia: 'Varillas, bolas, piezas de madera. Empieza siendo una torre y acaba siendo un castillo con túnel y todo. Y cuando se termina, siempre hay alguien que dice: «¿y si lo hacemos más alto?».',
-      juegos: ['Kit de fuertes Tiny Land', 'Kit de 7 experimentos de madera', 'Junk Art Revolution'] },
-    { k: 'cartas', corto: 'Reír en familia', titulo: 'Para reír juntos en familia', etiqueta: 'Cartas', color: '#e4672c', img: 'assets/escena-cartas.jpg',
-      alt: 'Ilustración de una familia jugando a un juego de cartas sobre una alfombra, con un gato mirando',
-      historia: 'Abuela, padres, hermanos, y un gato que se cuela en la partida. Unas cartas, unas cuantas risas y la regla de la casa: aquí se juega para pasarlo bien, gane quien gane.',
-      juegos: ['Exploding Kittens', 'Polilla tramposa', 'Pera Limonera'] }
+  // Áreas del catálogo: cada juguete va en la que corresponde a su etiqueta; hasta 10 juguetes por página.
+  var AREAS = [
+    { k: 'palabras', corto: 'Palabras y preguntas', titulo: 'Para hablar y jugar con palabras', color: '#1f9d93', etiquetas: ['Palabras', 'Preguntas'] },
+    { k: 'cartas', corto: 'Cartas para reír en familia', titulo: 'Para reír juntos en familia', color: '#e4672c', etiquetas: ['Cartas'] },
+    { k: 'pensar', corto: 'Pensar y números', titulo: 'Para pensar, contar y resolver', color: '#1d4d5e', etiquetas: ['Pensar', 'Números'] },
+    { k: 'mesa', corto: 'Mesa y construir', titulo: 'Para construir y mover las manos', color: '#4a9d3f', etiquetas: ['Mesa', 'Construir'] },
+    { k: 'emociones', corto: 'Emociones y sensorial', titulo: 'Para sentir, tocar y explorar', color: '#c2478a', etiquetas: ['Emociones', 'Sensorial'] }
   ];
+  var POR_PAGINA = 10;
+  // Reparte los juguetes en páginas por área y calcula el número de página y de vista de cada cosa.
+  // Ancho: portada 0, bienvenida+índice 1, áreas (2 páginas por vista), fichas (1 vista cada una). Móvil: 1 página por vista.
+  function plan(esAncha) {
+    var grupos = AREAS.map(function () { return []; }), paginas = [], hueco = AREAS.length - 2;
+    JUEGOS.forEach(function (j, k) {
+      var a = hueco;
+      AREAS.forEach(function (ar, t) { if (ar.etiquetas.indexOf(j.etiqueta) !== -1) a = t; });
+      grupos[a].push(k);
+    });
+    grupos.forEach(function (g, t) {
+      if (!g.length) return;
+      var np = Math.ceil(g.length / POR_PAGINA), por = Math.ceil(g.length / np);
+      for (var p = 0; p < np; p++) paginas.push({ t: t, parte: p + 1, de: np, ks: g.slice(p * por, (p + 1) * por) });
+    });
+    var relleno = paginas.length % 2 === 1, total = paginas.length + (relleno ? 1 : 0);
+    var primeraFicha = 4 + total;
+    return {
+      paginas: paginas, relleno: relleno, total: total,
+      vistaPag: function (q) { return esAncha ? 2 + Math.floor(q / 2) : 3 + q; },
+      vistaFicha: function (k) { return esAncha ? 2 + total / 2 + k : 3 + paginas.length + 2 * k; },
+      pgFicha: function (k) { return primeraFicha + 2 * k; }
+    };
+  }
+  function primeraPaginaDe(P, t) { for (var q = 0; q < P.paginas.length; q++) if (P.paginas[q].t === t) return q; return -1; }
   function indiceJuego(nombre) { for (var k = 0; k < JUEGOS.length; k++) if (JUEGOS[k].n === nombre) return k; return -1; }
 
-  // Vistas del libro: cada una con su número. Ancho: portada 0, bienvenida+índice 1, todos juntos 2, temáticas 3-6, fichas 7.. Móvil: una por página.
-  function vistaDe(k, esAncha) { return esAncha ? 7 + k : 13 + 2 * k; }
-  function vistaTema(t, esAncha) { return esAncha ? 3 + t : 5 + 2 * t; }
+  function vistaDe(k, esAncha) { return plan(esAncha).vistaFicha(k); }
 
   function tile(k, esAncha, largo) {
     var j = JUEGOS[k], v = vistaDe(k, esAncha);
@@ -278,21 +289,16 @@
       '<b>' + esc(j.n) + '</b>' + resumen +
       '<span class="c-tile-meta"><em>' + esc(j.precio || 'Precio por confirmar') + '</em>' + (largo ? '<u>Ver ficha →</u>' : '') + '</span></a>';
   }
-  function paginaTodos(n, desde, hasta, parte, esAncha) {
-    var l = []; for (var k = desde; k < hasta; k++) l.push(tile(k, esAncha, false));
-    return '<div class="c-pag"><div class="c-texto c-texto-corto"><div class="c-kicker">Todos juntos · ' + parte + ' de 2</div><h2>El catálogo completo</h2></div>' +
-      '<div class="c-tiles">' + l.join('') + '</div>' + folio(n) + '</div>';
+  function paginaArea(n, pg, esAncha) {
+    var ar = AREAS[pg.t], l = pg.ks.map(function (k) { return tile(k, esAncha, false); });
+    return '<div class="c-pag c-pag-tema" style="--tema:' + ar.color + '"><div class="c-texto c-texto-corto"><div class="c-kicker c-kicker-tema">' +
+      esc(ar.corto) + (pg.de > 1 ? ' · ' + pg.parte + ' de ' + pg.de : '') + '</div><h2>' + esc(ar.titulo) + '</h2></div>' +
+      '<div class="c-tiles c-tiles-area">' + l.join('') + '</div>' + folio(n) + '</div>';
   }
-  function paginaEscena(n, t) {
-    var tm = TEMAS[t];
-    return '<div class="c-pag c-pag-escena" style="--tema:' + tm.color + '"><div class="c-escena"><img src="' + tm.img + '" alt="' + esc(tm.alt) + '"></div>' +
-      '<div class="c-historia"><div class="c-kicker c-kicker-tema">' + esc(tm.etiqueta) + '</div><h2>' + esc(tm.titulo) + '</h2>' +
-      '<p>' + esc(tm.historia) + '</p><p class="c-pie-escena">Escena imaginada para esta sección.</p></div>' + folio(n) + '</div>';
-  }
-  function paginaTemaJuegos(n, t, esAncha) {
-    var tm = TEMAS[t], l = tm.juegos.map(indiceJuego).filter(function (k) { return k !== -1; }).map(function (k) { return tile(k, esAncha, true); });
-    return '<div class="c-pag c-pag-tema" style="--tema:' + tm.color + '"><div class="c-texto c-texto-corto"><div class="c-kicker c-kicker-tema">' + esc(tm.etiqueta) + '</div><h2>En esta sección</h2></div>' +
-      '<div class="c-tiles c-tiles-largos">' + l.join('') + '</div>' + folio(n) + '</div>';
+  function paginaRelleno(n) {
+    return '<div class="c-pag"><div class="c-texto"><div class="c-kicker">Neurodivergencias · Reyes</div><h2>¿Echas algo en falta?</h2>' +
+      '<p>El catálogo crece con lo que nos cuentan los profesionales y las familias del grupo. Si quieres un juguete que no está, cuéntanoslo y lo estudiamos.</p>' +
+      '<a class="c-boton c-boton-fam" href="familias.html">Hacer mi carta a los Reyes</a></div>' + folio(n) + '</div>';
   }
 
   function fotoDe(j, n, i) {
@@ -346,22 +352,23 @@
   function ancha() { return !!(window.matchMedia && window.matchMedia('(min-width: 900px)').matches); }
 
   function construirVistas(esAncha) {
-    var vistas = [], N = JUEGOS.length, mitad = Math.ceil(N / 2);
-    // Páginas del libro: portada 1, bienvenida 2, índice 3, todos juntos 4-5, temáticas 6-13, juguetes desde la 14, contraportada.
-    var entradas = JUEGOS.map(function (j, i) { return { nombre: j.n, precio: j.precio || 'por confirmar', pg: 14 + 2 * i, vista: vistaDe(i, esAncha) }; });
-    var temas = TEMAS.map(function (tm, i) { return { nombre: tm.corto, color: tm.color, pg: 6 + 2 * i, vista: vistaTema(i, esAncha) }; });
+    var vistas = [], P = plan(esAncha);
+    // Páginas del libro: portada 1, bienvenida 2, índice 3, áreas desde la 4, después los juguetes (2 páginas cada uno), contraportada.
+    var entradas = JUEGOS.map(function (j, i) { return { nombre: j.n, precio: j.precio || 'por confirmar', pg: P.pgFicha(i), vista: P.vistaFicha(i) }; });
+    var temas = [];
+    AREAS.forEach(function (ar, t) { var q = primeraPaginaDe(P, t); if (q !== -1) temas.push({ nombre: ar.corto, color: ar.color, pg: 4 + q, vista: P.vistaPag(q) }); });
+    var pgsArea = P.paginas.map(function (pg, q) { return paginaArea(4 + q, pg, esAncha); });
     vistas.push([paginaPortada()]);
     if (esAncha) {
-      vistas.push([paginaBienvenida(2), paginaIndice(3, entradas, temas, esAncha ? 2 : 3)]);
-      vistas.push([paginaTodos(4, 0, mitad, 1, true), paginaTodos(5, mitad, N, 2, true)]);
-      TEMAS.forEach(function (tm, t) { vistas.push([paginaEscena(6 + 2 * t, t), paginaTemaJuegos(7 + 2 * t, t, true)]); });
-      JUEGOS.forEach(function (j, i) { vistas.push([fotoDe(j, 14 + 2 * i, i), datosDe(j, 15 + 2 * i, i, true)]); });
+      vistas.push([paginaBienvenida(2), paginaIndice(3, entradas, temas)]);
+      if (P.relleno) pgsArea.push(paginaRelleno(4 + P.paginas.length));
+      for (var q = 0; q < pgsArea.length; q += 2) vistas.push([pgsArea[q], pgsArea[q + 1]]);
+      JUEGOS.forEach(function (j, i) { vistas.push([fotoDe(j, P.pgFicha(i), i), datosDe(j, P.pgFicha(i) + 1, i, true)]); });
     } else {
       vistas.push([paginaBienvenida(2)]);
-      vistas.push([paginaIndice(3, entradas, temas, esAncha ? 2 : 3)]);
-      vistas.push([paginaTodos(4, 0, mitad, 1, false)]); vistas.push([paginaTodos(5, mitad, N, 2, false)]);
-      TEMAS.forEach(function (tm, t) { vistas.push([paginaEscena(6 + 2 * t, t)]); vistas.push([paginaTemaJuegos(7 + 2 * t, t, false)]); });
-      JUEGOS.forEach(function (j, i) { vistas.push([fotoDe(j, 14 + 2 * i, i)]); vistas.push([datosDe(j, 15 + 2 * i, i, false)]); });
+      vistas.push([paginaIndice(3, entradas, temas)]);
+      pgsArea.forEach(function (p) { vistas.push([p]); });
+      JUEGOS.forEach(function (j, i) { vistas.push([fotoDe(j, P.pgFicha(i), i)]); vistas.push([datosDe(j, P.pgFicha(i) + 1, i, false)]); });
     }
     vistas.push([paginaFinal()]);
     return vistas;

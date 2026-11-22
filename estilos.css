@@ -375,3 +375,24 @@ body.con-ventana { overflow: hidden; }
 .filtro-nuevos[aria-pressed="true"] { background: var(--rojo); color: #fff; }
 .filtro-nuevos[aria-pressed="true"] .n { background: #fff; color: var(--rojo); }
 .filtro-nuevos[hidden] { display: none; }
+
+/* ---- Familias: tarjetas compactas y ficha en pop-up ---- */
+.grid:has(.compacta) { grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 14px; }
+.juego.compacta { box-shadow: 0 4px 0 var(--tinta); border-radius: 18px; }
+.compacta .abrir { font: inherit; color: inherit; text-align: left; background: none; border: 0; padding: 0; cursor: pointer; display: flex; flex-direction: column; flex: 1; }
+.compacta .caja { aspect-ratio: 1 / 0.9; width: 100%; }
+.compacta .cinta { font-size: 10px; padding: 3px 10px 3px 12px; top: 8px; }
+.compacta .nombre { display: block; font-size: 16px; font-weight: 900; line-height: 1.2; padding: 10px 12px 0; }
+.compacta .mini { display: block; font-size: 13px; font-weight: 700; color: var(--suave); padding: 2px 12px 8px; }
+.acciones-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 0 10px 12px; }
+.acciones-mini button { font: inherit; font-weight: 900; font-size: 13px; cursor: pointer; border: 2px solid var(--tinta); border-radius: 10px; padding: 8px 4px; background: var(--crema); color: var(--tinta); }
+.acciones-mini .quiero { width: auto; margin-top: 0; box-shadow: none; border-width: 2px; padding: 8px 4px; font-size: 13px; background: #fff; color: var(--rojo-os); }
+.acciones-mini .quiero[aria-pressed="true"] { background: var(--oro); color: var(--tinta); transform: none; box-shadow: none; }
+.ficha-fondo { align-items: center; padding: 12px; z-index: 40; }
+.ficha-panel { position: relative; width: min(560px, 100%); max-height: 92vh; display: flex; }
+.ficha-juego { width: 100%; max-height: 92vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.ficha-juego .caja { aspect-ratio: 1 / 0.7; flex: none; }
+.ficha-juego h2 { font-size: 26px; font-weight: 900; }
+.cerrar-ficha { position: absolute; top: 8px; right: 8px; z-index: 2; width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--tinta); background: #fff; font-size: 28px; line-height: 1; font-weight: 900; cursor: pointer; box-shadow: 0 3px 0 var(--tinta); }
+.con-ficha { overflow: hidden; }
+@media (max-width: 420px) { .grid:has(.compacta) { grid-template-columns: repeat(2, 1fr); gap: 10px; } .compacta .nombre { font-size: 15px; } }

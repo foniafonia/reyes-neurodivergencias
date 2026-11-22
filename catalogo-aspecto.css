@@ -278,3 +278,12 @@ body { background: #8e1230; }
 @media screen and (max-width: 899px) { .c-barra { gap: 6px 8px; flex-wrap: nowrap; } .c-barra .c-boton-inicio { font-size: .85rem; padding: 7px 12px; flex: none; } .c-barra .c-titulo { font-size: .6rem; padding: 4px 8px; } .c-barra .c-cuenta { flex: none; padding: 4px 10px; font-size: .85rem; } }
 
 .nuevo.c-nuevo { position: absolute; left: 3cqw; bottom: 3cqw; z-index: 2; background: #c91f3a; color: #fff; font-weight: 900; font-size: 2.5cqw; letter-spacing: .06em; text-transform: uppercase; padding: 1.1cqw 3cqw; border-radius: 999px; border: .5cqw solid #1f2b33; }
+
+/* Áreas: 10 juguetes por página, en tres columnas y con foto baja para que quepan sin desplazarse */
+.c-tiles-area { grid-template-columns: repeat(3, 1fr); gap: 2cqw; margin-left: 5cqw; margin-right: 5cqw; }
+.c-tiles-area .c-tile { gap: .5cqw; padding-bottom: 1.2cqw; border-radius: 2.4cqw; }
+.c-tiles-area .c-tile-foto { aspect-ratio: 8 / 5; }
+.c-tiles-area .c-tile b { font-size: 2.3cqw; padding: 0 1.6cqw; }
+.c-tiles-area .c-tile-meta { font-size: 2cqw; padding: 0 1.6cqw; }
+.c-tiles-area .c-tile-meta em { font-size: 2.1cqw; }
+.c-tiles-area .c-tile-edad { font-size: 2cqw; padding: .2cqw 1.2cqw; }

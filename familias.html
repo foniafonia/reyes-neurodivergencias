@@ -105,6 +105,14 @@
   </div>
 </div>
 
+<!-- Ficha de un juguete (pop-up) -->
+<div class="panel-fondo ficha-fondo" id="fichaFondo" role="dialog" aria-modal="true" aria-labelledby="tituloFicha">
+  <div class="ficha-panel">
+    <button type="button" class="cerrar-ficha" id="cerrarFicha" aria-label="Cerrar">&times;</button>
+    <div class="juego ficha-juego" id="fichaCont"></div>
+  </div>
+</div>
+
 <div id="cartaPrint" aria-hidden="true"></div>
 
 <script src="medir.js"></script>
@@ -118,12 +126,26 @@
   try { elegidos = JSON.parse(localStorage.getItem(CLAVE) || '[]'); } catch (e) { elegidos = []; }
   function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(elegidos)); } catch (e) {} }
 
+  function fotoHtml(j) { return j.foto ? '<img class="foto" src="' + j.foto + '" alt="' + j.n + '" loading="lazy">' : ilustracion(j.motivo, j.color); }
   function tarjeta(j, i) {
     var li = document.createElement('li');
-    li.className = 'juego';
+    li.className = 'juego compacta';
     li.setAttribute('data-i', i);
-    var edad = j.edad ? '<div class="edad">' + j.edad + '+<small>años</small></div>' : '<div class="edad">?<small>edad</small></div>';
-    var dentro = j.foto ? '<img class="foto" src="' + j.foto + '" alt="' + j.n + '">' : ilustracion(j.motivo, j.color);
+    var puesto = elegidos.indexOf(j.n) !== -1;
+    li.innerHTML =
+      '<button type="button" class="abrir" data-ver="' + i + '" aria-label="Ver más de ' + j.n + '">' +
+        '<div class="caja" style="background:' + (j.foto ? '#fff' : j.color) + '">' + fotoHtml(j) +
+          '<span class="cinta">' + j.etiqueta + '</span>' + insigniaNuevo(j) + '</div>' +
+        '<span class="nombre">' + j.n + '</span>' +
+        '<span class="mini">' + (j.edad ? 'Desde ' + j.edad + ' años' : 'Edad por confirmar') + '</span>' +
+      '</button>' +
+      '<div class="acciones-mini">' +
+        '<button type="button" class="ver" data-ver="' + i + '">Ver más</button>' +
+        '<button type="button" class="quiero" aria-pressed="' + puesto + '" data-n="' + j.n + '">' +
+          (puesto ? 'En mi carta' : 'Añadir') + '</button></div>';
+    return li;
+  }
+  function fichaHtml(j) {
     var tienda = j.url
       ? '<a class="comprar" href="' + j.url + '" rel="noopener">Ver en Amazon</a>'
       : '<span class="comprar sin">Aún no tenemos enlace</span>';
@@ -137,16 +159,14 @@
       ? j.opiniones.map(function (t) { return '<p>' + t + '</p>'; }).join('')
       : '<p class="vacio">Los profesionales del grupo están preparando sus comentarios.</p>';
     var puesto = elegidos.indexOf(j.n) !== -1;
-    li.innerHTML =
-      '<div class="caja" style="background:' + (j.foto ? '#fff' : j.color) + '">' + dentro +
-        '<span class="cinta">' + j.etiqueta + '</span>' + insigniaNuevo(j) + edad + '</div>' + tienda +
-      '<div class="cuerpo"><h3>' + j.n + '</h3>' + datos +
+    return '<div class="caja" style="background:' + (j.foto ? '#fff' : j.color) + '">' + fotoHtml(j) +
+        '<span class="cinta">' + j.etiqueta + '</span>' + insigniaNuevo(j) + '</div>' + tienda +
+      '<div class="cuerpo"><h2 id="tituloFicha">' + j.n + '</h2>' + datos +
         '<div class="bloque b-juego"><h4>Para qué sirve</h4>' + sirve + '</div>' +
         '<div class="bloque b-prof"><h4>Lo que dicen los profesionales</h4>' + prof + '</div>' +
         '<div class="bloque b-votos"><h4>Lo que votan los profesionales</h4>' + votosHtml(j) + '</div>' +
         '<button type="button" class="quiero" aria-pressed="' + puesto + '" data-n="' + j.n + '">' +
           (puesto ? 'En mi carta' : 'Añadir a mi carta') + '</button></div>';
-    return li;
   }
   var grid = document.getElementById('grid');
   function pintarGrid() { grid.innerHTML = ''; JUEGOS.forEach(function (j, i) { grid.appendChild(tarjeta(j, i)); }); }
@@ -180,7 +200,8 @@
     document.querySelectorAll('.quiero').forEach(function (b) {
       var puesto = elegidos.indexOf(b.getAttribute('data-n')) !== -1;
       b.setAttribute('aria-pressed', puesto);
-      b.textContent = puesto ? 'En mi carta' : 'Añadir a mi carta';
+      var corto = b.closest('.compacta');
+      b.textContent = puesto ? 'En mi carta' : (corto ? 'Añadir' : 'Añadir a mi carta');
     });
   }
   function cambiar(n) {
@@ -189,7 +210,30 @@
     guardar(); marcarBotones(); pintarBarra(); pintarLista();
   }
 
+  var fichaFondo = document.getElementById('fichaFondo');
+  var fichaCont = document.getElementById('fichaCont');
+  var ultimoAbierto = null;
+  function abrirFicha(i, origen) {
+    ultimoAbierto = origen || null;
+    fichaCont.innerHTML = fichaHtml(JUEGOS[i]);
+    fichaFondo.classList.add('abierto');
+    document.body.classList.add('con-ficha');
+    fichaCont.scrollTop = 0;
+    document.getElementById('cerrarFicha').focus();
+  }
+  function cerrarFicha() {
+    fichaFondo.classList.remove('abierto');
+    document.body.classList.remove('con-ficha');
+    if (ultimoAbierto && document.body.contains(ultimoAbierto)) ultimoAbierto.focus();
+  }
   grid.addEventListener('click', function (e) {
+    var b = e.target.closest('.quiero');
+    if (b) { cambiar(b.getAttribute('data-n')); return; }
+    var v = e.target.closest('[data-ver]');
+    if (v) abrirFicha(+v.getAttribute('data-ver'), v);
+  });
+  fichaFondo.addEventListener('click', function (e) {
+    if (e.target === fichaFondo || e.target.closest('#cerrarFicha')) { cerrarFicha(); return; }
     var b = e.target.closest('.quiero');
     if (b) cambiar(b.getAttribute('data-n'));
   });
@@ -200,7 +244,7 @@
   document.getElementById('abrirCarta').addEventListener('click', function () { pintarLista(); msg.textContent = ''; fondo.classList.add('abierto'); });
   document.getElementById('cerrar').addEventListener('click', function () { fondo.classList.remove('abierto'); });
   fondo.addEventListener('click', function (e) { if (e.target === fondo) fondo.classList.remove('abierto'); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') fondo.classList.remove('abierto'); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { fondo.classList.remove('abierto'); cerrarFicha(); } });
 
   function textoCarta() {
     var nombre = document.getElementById('nombreCarta').value.trim();
