@@ -313,7 +313,17 @@ var JUEGOS = [
     habilidades: ['memoria','atencion','turnos'], perfiles: [], sugeridos: ['tdah','dislexia'],
     porque: 'Repetir secuencias cada vez más largas entrena la memoria de trabajo, útil en dislexia y TDAH.',
     foto: 'assets/simon.jpg', url: 'https://www.amazon.es/dp/B07YNKKGRJ', precio: '18 €',
-    opiniones: [] }
+    opiniones: [] },
+  { n: 'Don Listillo', nuevo: '2026-11-24', cats: ['palabras'], etiqueta: 'Palabras', area: 'Vocabulario por categorías y atención', jug: '', edad: 6, color: '#7b4ea3', motivo: 'preguntas',
+    desc: 'Juego de palabras por turnos: hay que decir palabras de la categoría que toca antes de que acabe el tiempo, y a veces repetir lo que han dicho los jugadores anteriores. Las instrucciones las da el propio juego en voz alta. Edición de IMC Toys, con cabeza electrónica que lleva turnos y tiempo.',
+    habilidades: ['lenguaje', 'atencion', 'turnos'], perfiles: ['tea', 'tdah', 'tdl'],
+    foto: '', url: '', precio: '',
+    opiniones: ['Beatriz, logopeda del grupo, lo propone desde los 6 años para autismo, TDAH y trastorno del lenguaje: lenguaje y vocabulario, atención y turnos. Al darse las instrucciones en voz alta, hay que estar atentos.'] },
+  { n: 'Jirafas y Chacales 3', nuevo: '2026-11-24', cats: ['mesa'], etiqueta: 'Mesa', area: 'Comunicación empática', jug: '1–5 jugadores', edad: 12, color: '#d6457a', motivo: 'preguntas',
+    desc: 'Juego colaborativo de comunicación empática: 56 cartas que se juegan por las dos caras, cada carta es una frase que hay que decir al jugarla. Partidas de unos 15 minutos y fácil de aprender. Tienda oficial de Ciudad de la Sombra.',
+    habilidades: ['lenguaje', 'atencion', 'turnos'], perfiles: ['tdah', 'altas'],
+    foto: '', url: 'https://ciudaddelasombra.net/producto/jyc3/', precio: '30 €',
+    opiniones: ['Un miembro del grupo lo propone desde los 12 años para TDAH y altas capacidades: comunicación empática, lenguaje, atención y turnos. Al principio la conversación es incómoda y el objetivo es que acabe siendo empática.'] }
 ];
 
 
